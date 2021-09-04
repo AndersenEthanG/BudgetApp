@@ -7,13 +7,13 @@
 
 import UIKit
 
-class ExpenseDetailViewController: UIViewController {
+class PurchaseDetailViewController: UIViewController {
 
     // MARK: - Outlets
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var expenseNameLabel: UITextField!
-    @IBOutlet weak var expenseAmountLabel: UITextField!
-    @IBOutlet weak var expenseDatePicker: UIDatePicker!
+    @IBOutlet weak var purchaseNameLabel: UITextField!
+    @IBOutlet weak var purchaseAmountLabel: UITextField!
+    @IBOutlet weak var purchaseDatePicker: UIDatePicker!
     
     
     // MARK: - Properties

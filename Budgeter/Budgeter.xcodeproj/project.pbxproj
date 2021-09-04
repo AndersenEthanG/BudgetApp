@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AA1009A326E2CD9900D6F23B /* PortfolioTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1009A226E2CD9900D6F23B /* PortfolioTableViewController.swift */; };
+		AA61739726E411F200F6737F /* CoreData+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA61739626E411F200F6737F /* CoreData+Convenience.swift */; };
+		AA61739926E411FC00F6737F /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA61739826E411FC00F6737F /* CoreDataStack.swift */; };
 		AAB5385926E2989600081A28 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5385826E2989600081A28 /* AppDelegate.swift */; };
 		AAB5385B26E2989600081A28 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5385A26E2989600081A28 /* SceneDelegate.swift */; };
 		AAB5386026E2989600081A28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB5385E26E2989600081A28 /* Main.storyboard */; };
@@ -18,7 +20,7 @@
 		AAB5387826E29E9700081A28 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5387726E29E9700081A28 /* GlobalFunctions.swift */; };
 		AAB5387A26E2A8A100081A28 /* BudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5387926E2A8A100081A28 /* BudgetViewController.swift */; };
 		AAB5388226E2ACDE00081A28 /* BudgetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388126E2ACDE00081A28 /* BudgetTableViewCell.swift */; };
-		AAB5388426E2AE1C00081A28 /* ExpenseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388326E2AE1C00081A28 /* ExpenseDetailViewController.swift */; };
+		AAB5388426E2AE1C00081A28 /* PurchaseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388326E2AE1C00081A28 /* PurchaseDetailViewController.swift */; };
 		AAB5388726E2BE6000081A28 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388626E2BE6000081A28 /* BalanceViewController.swift */; };
 		AAB5388C26E2C56800081A28 /* IncomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388B26E2C56800081A28 /* IncomeTableViewController.swift */; };
 		AAB5388E26E2C57B00081A28 /* SavingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388D26E2C57B00081A28 /* SavingsTableViewController.swift */; };
@@ -30,6 +32,8 @@
 
 /* Begin PBXFileReference section */
 		AA1009A226E2CD9900D6F23B /* PortfolioTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioTableViewController.swift; sourceTree = "<group>"; };
+		AA61739626E411F200F6737F /* CoreData+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreData+Convenience.swift"; sourceTree = "<group>"; };
+		AA61739826E411FC00F6737F /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		AAB5385526E2989600081A28 /* Budgeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Budgeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB5385826E2989600081A28 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAB5385A26E2989600081A28 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,7 +46,7 @@
 		AAB5387726E29E9700081A28 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		AAB5387926E2A8A100081A28 /* BudgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetViewController.swift; sourceTree = "<group>"; };
 		AAB5388126E2ACDE00081A28 /* BudgetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetTableViewCell.swift; sourceTree = "<group>"; };
-		AAB5388326E2AE1C00081A28 /* ExpenseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailViewController.swift; sourceTree = "<group>"; };
+		AAB5388326E2AE1C00081A28 /* PurchaseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseDetailViewController.swift; sourceTree = "<group>"; };
 		AAB5388626E2BE6000081A28 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
 		AAB5388B26E2C56800081A28 /* IncomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeTableViewController.swift; sourceTree = "<group>"; };
 		AAB5388D26E2C57B00081A28 /* SavingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsTableViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +128,8 @@
 			isa = PBXGroup;
 			children = (
 				AAB5386126E2989700081A28 /* Budgeter.xcdatamodeld */,
+				AA61739826E411FC00F6737F /* CoreDataStack.swift */,
+				AA61739626E411F200F6737F /* CoreData+Convenience.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -159,7 +165,7 @@
 			children = (
 				AAB5387926E2A8A100081A28 /* BudgetViewController.swift */,
 				AAB5388126E2ACDE00081A28 /* BudgetTableViewCell.swift */,
-				AAB5388326E2AE1C00081A28 /* ExpenseDetailViewController.swift */,
+				AAB5388326E2AE1C00081A28 /* PurchaseDetailViewController.swift */,
 			);
 			path = Budget;
 			sourceTree = "<group>";
@@ -275,12 +281,14 @@
 				AAB5389226E2C5AF00081A28 /* IncomeDetailViewController.swift in Sources */,
 				AAB5388726E2BE6000081A28 /* BalanceViewController.swift in Sources */,
 				AAB5389626E2C5BC00081A28 /* ExpensesDetailViewController.swift in Sources */,
+				AA61739926E411FC00F6737F /* CoreDataStack.swift in Sources */,
 				AAB5387526E29E0C00081A28 /* LoginViewController.swift in Sources */,
 				AAB5387A26E2A8A100081A28 /* BudgetViewController.swift in Sources */,
-				AAB5388426E2AE1C00081A28 /* ExpenseDetailViewController.swift in Sources */,
+				AAB5388426E2AE1C00081A28 /* PurchaseDetailViewController.swift in Sources */,
 				AAB5388E26E2C57B00081A28 /* SavingsTableViewController.swift in Sources */,
 				AAB5385926E2989600081A28 /* AppDelegate.swift in Sources */,
 				AAB5389426E2C5B600081A28 /* SavingsDetailViewController.swift in Sources */,
+				AA61739726E411F200F6737F /* CoreData+Convenience.swift in Sources */,
 				AAB5387826E29E9700081A28 /* GlobalFunctions.swift in Sources */,
 				AA1009A326E2CD9900D6F23B /* PortfolioTableViewController.swift in Sources */,
 				AAB5385B26E2989600081A28 /* SceneDelegate.swift in Sources */,
