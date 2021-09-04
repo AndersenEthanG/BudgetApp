@@ -10,6 +10,7 @@ import CoreData
 extension Asset {
     @discardableResult convenience init(
         creationDate: Date = Date(),
+        liquid: Bool,
         name: String,
         updatedDate: Date,
         value: Double,
@@ -17,6 +18,7 @@ extension Asset {
     ) {
         self.init(context: context)
         self.creationDate = creationDate
+        self.liquid = liquid
         self.name = name
         self.updatedDate = updatedDate
         self.value = value

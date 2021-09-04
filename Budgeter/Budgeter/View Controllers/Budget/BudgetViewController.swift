@@ -17,8 +17,14 @@ class BudgetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        updateView()
     } // End of View did load
 
+    
+    // MARK: - Functions
+    func updateView() {
+        
+    } // End of Update View
     
     // MARK: - Actions
     @IBAction func remainderTimeSlider(_ sender: Any) {

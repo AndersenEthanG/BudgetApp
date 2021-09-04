@@ -26,8 +26,9 @@ class AssetController {
         CoreDataStack.saveContext()
     } // End of Create asset
     
-    func fetchAssets() {
+    func fetchAssets(🐶: @escaping ([Asset]) -> Void) {
         assets = (try? CoreDataStack.context.fetch(fetchRequest)) ?? []
+        🐶(assets)
     } // End of Fetch asset
     
     func updateAsset() {

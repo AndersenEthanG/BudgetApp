@@ -15,6 +15,13 @@ class BalanceViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateView()
     } // End of View did load
 
+    
+    // MARK: - Functions
+    func updateView() {
+        self.navigationItem.setHidesBackButton(true, animated: true)
+    } // End of Update View
+    
 } // End of Class

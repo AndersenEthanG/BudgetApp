@@ -12,12 +12,14 @@ class ExpensesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        updateView()
+    } // End of View did load
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
+    
+    // MARK: - Functions
+    func updateView() {
+        self.navigationItem.setHidesBackButton(true, animated: true)
+    } // End of Update View
 
     // MARK: - Table view data source
 

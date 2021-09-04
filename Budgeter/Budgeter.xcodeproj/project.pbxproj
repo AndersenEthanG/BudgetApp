@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA1009A326E2CD9900D6F23B /* PortfolioTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1009A226E2CD9900D6F23B /* PortfolioTableViewController.swift */; };
+		AA1009A326E2CD9900D6F23B /* AssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1009A226E2CD9900D6F23B /* AssetsViewController.swift */; };
 		AA61739726E411F200F6737F /* CoreData+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA61739626E411F200F6737F /* CoreData+Convenience.swift */; };
 		AA61739926E411FC00F6737F /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA61739826E411FC00F6737F /* CoreDataStack.swift */; };
 		AA61739B26E4165300F6737F /* AssetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA61739A26E4165300F6737F /* AssetController.swift */; };
@@ -39,7 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AA1009A226E2CD9900D6F23B /* PortfolioTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioTableViewController.swift; sourceTree = "<group>"; };
+		AA1009A226E2CD9900D6F23B /* AssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsViewController.swift; sourceTree = "<group>"; };
 		AA61739626E411F200F6737F /* CoreData+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreData+Convenience.swift"; sourceTree = "<group>"; };
 		AA61739826E411FC00F6737F /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		AA61739A26E4165300F6737F /* AssetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetController.swift; sourceTree = "<group>"; };
@@ -86,7 +86,7 @@
 		AA1009A126E2CD8C00D6F23B /* Portfolio */ = {
 			isa = PBXGroup;
 			children = (
-				AA1009A226E2CD9900D6F23B /* PortfolioTableViewController.swift */,
+				AA1009A226E2CD9900D6F23B /* AssetsViewController.swift */,
 				AA6173A826E41C3E00F6737F /* DebtTableViewController.swift */,
 			);
 			path = Portfolio;
@@ -318,7 +318,7 @@
 				AA6173A726E41A9E00F6737F /* Budget.swift in Sources */,
 				AA61739726E411F200F6737F /* CoreData+Convenience.swift in Sources */,
 				AAB5387826E29E9700081A28 /* GlobalFunctions.swift in Sources */,
-				AA1009A326E2CD9900D6F23B /* PortfolioTableViewController.swift in Sources */,
+				AA1009A326E2CD9900D6F23B /* AssetsViewController.swift in Sources */,
 				AA6173A126E4168200F6737F /* IncomeController.swift in Sources */,
 				AA6173A326E4168900F6737F /* PurchaseController.swift in Sources */,
 				AAB5385B26E2989600081A28 /* SceneDelegate.swift in Sources */,
