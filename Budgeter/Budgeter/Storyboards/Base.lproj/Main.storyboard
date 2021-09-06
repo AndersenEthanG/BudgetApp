@@ -41,7 +41,7 @@
             </objects>
             <point key="canvasLocation" x="963" y="400"/>
         </scene>
-        <!--Item 2-->
+        <!--Balance-->
         <scene sceneID="xjq-1i-CXZ">
             <objects>
                 <viewController id="dfA-wK-MgY" customClass="BalanceViewController" customModule="Budgeter" customModuleProvider="target" sceneMemberID="viewController">
@@ -126,7 +126,7 @@
                         <viewLayoutGuide key="safeArea" id="LMO-tL-UzM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="bDf-f7-ake"/>
+                    <tabBarItem key="tabBarItem" title="Balance" id="bDf-f7-ake"/>
                     <nil key="simulatedTopBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Gs-Eb-sD9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -491,7 +491,7 @@
                         <viewLayoutGuide key="safeArea" id="Bml-d3-bta"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="V2L-Jo-gQi"/>
+                    <tabBarItem key="tabBarItem" title="Budget" id="V2L-Jo-gQi"/>
                     <connections>
                         <outlet property="budgetTable" destination="G9P-eD-3PP" id="LHm-td-0W8"/>
                         <outlet property="remainderAmountLabel" destination="9W4-NW-54q" id="ud0-QQ-94r"/>
@@ -824,11 +824,11 @@
             </objects>
             <point key="canvasLocation" x="2671.9626168224299" y="2004.7516198704104"/>
         </scene>
-        <!--Item-->
+        <!--Assets-->
         <scene sceneID="esP-sO-pCU">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mSK-HX-XeA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="2hi-PT-LCH"/>
+                    <tabBarItem key="tabBarItem" title="Assets" id="2hi-PT-LCH"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Z5w-Kj-2cF">
                         <rect key="frame" x="0.0" y="44" width="428" height="44"/>
@@ -843,11 +843,11 @@
             </objects>
             <point key="canvasLocation" x="1614.9532710280373" y="1279.697624190065"/>
         </scene>
-        <!--Item-->
+        <!--Debts-->
         <scene sceneID="mEU-oW-CnD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gVA-h2-fvP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="h7g-5Y-7Ae"/>
+                    <tabBarItem key="tabBarItem" title="Debts" id="h7g-5Y-7Ae"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ahP-Cy-JgJ">
                         <rect key="frame" x="0.0" y="44" width="428" height="44"/>

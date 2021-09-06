@@ -74,7 +74,7 @@ class AssetsViewController: UIViewController {
             total += asset.value
         }
         if total > 0 {
-            totalAssetsLabel.text = ("$" + String(total))
+            totalAssetsLabel.text = (total.formatDoubleToMoney())
         } else {
             totalAssetsLabel.text = "$0"
         }
@@ -118,7 +118,6 @@ class AssetsViewController: UIViewController {
             
             self.fetchAssets()
         }
-        alert.addAction(saveLiquidAction)
         
         let saveNonLiquidAction = UIAlertAction(title: "Not Liquid", style: .default) { _ in
             let liquid = false
@@ -131,12 +130,14 @@ class AssetsViewController: UIViewController {
             
             self.fetchAssets()
         }
+        
+        alert.addAction(saveLiquidAction)
         alert.addAction(saveNonLiquidAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         alert.addAction(cancelAction)
         
-        present(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     } // End of New Asset Button
     
     
@@ -169,11 +170,71 @@ extension AssetsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "assetCell", for: indexPath)
         let asset = dataAssets[indexPath.row]
         
+        let moneyString: String = asset.value.formatDoubleToMoney()
+        
         cell.textLabel?.text = asset.name
-        cell.detailTextLabel?.text = ("$" + String(asset.value))
+        cell.detailTextLabel?.text = (moneyString)
         
         return cell
     } // End of Cell configure
+    
+    // Did select row
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var assetToEdit: Asset = dataAssets[indexPath.row]
+        
+        let alert = UIAlertController(title: assetToEdit.name, message: String(assetToEdit.value), preferredStyle: .alert)
+        
+        alert.addTextField { textField in
+            textField.placeholder = "New Name?"
+            textField.autocapitalizationType = .sentences
+            textField.autocorrectionType = .default
+        }
+        alert.addTextField { textField in
+            textField.placeholder = "New Value?"
+            textField.keyboardType = .numberPad
+        }
+        
+        let saveLiquidAction = UIAlertAction(title: "Liquid", style: .default) { _ in
+            let liquid = true
+            // Save Code
+            let name: String = alert.textFields![0].text ?? assetToEdit.name!
+            let value: Double = Double(alert.textFields![1].text!) ?? assetToEdit.value
+            
+            // Edit asset
+            assetToEdit = Asset(liquid: liquid, name: name, updatedDate: Date(), value: value)
+            AssetController.sharedInstance.updateAsset()
+            
+            // Delete old one
+            let assetToDelete: Asset = self.dataAssets[indexPath.row]
+            AssetController.sharedInstance.deleteAsset(assetToDeleteUUID: assetToDelete.uuid!)
+            
+            self.fetchAssets()
+        }
+        alert.addAction(saveLiquidAction)
+        
+        let saveNonLiquidAction = UIAlertAction(title: "Not Liquid", style: .default) { _ in
+            let liquid = false
+            // Save Code
+            let name: String = alert.textFields![0].text ?? assetToEdit.name!
+            let value: Double = Double(alert.textFields![1].text!) ?? assetToEdit.value
+            
+            // Edit asset
+            assetToEdit = Asset(liquid: liquid, name: name, updatedDate: Date(), value: value)
+            AssetController.sharedInstance.updateAsset()
+            
+            // Delete old one
+            let assetToDelete: Asset = self.dataAssets[indexPath.row]
+            AssetController.sharedInstance.deleteAsset(assetToDeleteUUID: assetToDelete.uuid!)
+            
+            self.fetchAssets()
+        }
+        alert.addAction(saveNonLiquidAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    } // End of did select row
     
     // Delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
