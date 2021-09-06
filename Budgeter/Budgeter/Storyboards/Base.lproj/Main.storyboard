@@ -328,7 +328,7 @@
             </objects>
             <point key="canvasLocation" x="5595" y="-284"/>
         </scene>
-        <!--Assets View Controller-->
+        <!--Assets-->
         <scene sceneID="Zjv-00-B4E">
             <objects>
                 <viewController id="AtZ-Cp-H48" customClass="AssetsViewController" customModule="Budgeter" customModuleProvider="target" sceneMemberID="viewController">
@@ -390,7 +390,7 @@
                         <viewLayoutGuide key="safeArea" id="VX6-qM-UW4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="CkU-DQ-ler">
+                    <navigationItem key="navigationItem" title="Assets" id="CkU-DQ-ler">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="7c7-0m-rmg">
                             <connections>
                                 <action selector="newAssetBtn:" destination="AtZ-Cp-H48" id="bbV-bI-orQ"/>

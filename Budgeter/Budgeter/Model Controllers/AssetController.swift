@@ -35,12 +35,16 @@ class AssetController {
         CoreDataStack.saveContext()
     } // End of Update asset
     
-    func deleteAsset(assetToDelete: Asset) {
-        if let index = assets.firstIndex(of: assetToDelete) {
-            assets.remove(at: index)
+    func deleteAsset(assetToDeleteUUID: String) {
+        if let assetToDelete = assets.first(where: {$0.uuid == assetToDeleteUUID }) {
+            
+            if let index = assets.firstIndex(of: assetToDelete) {
+                assets.remove(at: index)
+            }
+            
+            CoreDataStack.context.delete(assetToDelete)
+            CoreDataStack.saveContext()
         }
-        CoreDataStack.context.delete(assetToDelete)
-        CoreDataStack.saveContext()
     } // End of Delete asset
     
 } // End of Class

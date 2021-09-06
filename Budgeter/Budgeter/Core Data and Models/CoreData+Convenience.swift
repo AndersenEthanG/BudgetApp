@@ -14,6 +14,7 @@ extension Asset {
         name: String,
         updatedDate: Date,
         value: Double,
+        uuid: String = UUID().uuidString,
         context: NSManagedObjectContext = CoreDataStack.context
     ) {
         self.init(context: context)
@@ -21,7 +22,12 @@ extension Asset {
         self.liquid = liquid
         self.name = name
         self.updatedDate = updatedDate
+        self.uuid = uuid
         self.value = value
+    }
+    
+    static func == (lhs: Asset, rhs: Asset) -> Bool {
+        return lhs.uuid == rhs.uuid
     }
 } // End of Asset
 
