@@ -13,6 +13,7 @@ class AssetsViewController: UIViewController {
     @IBOutlet weak var totalAssetsLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var assetFilterSwitch: UISegmentedControl!
+    @IBOutlet weak var sortByBtn: UIButton!
     
     
     // MARK: - Properties
@@ -20,6 +21,7 @@ class AssetsViewController: UIViewController {
     var allAssets: [Asset] = []
     var liquidAssets: [Asset] = []
     var nonLiquidAssets: [Asset] = []
+    var sortedBy: SortBy = .byValueDescending
     
     
     // MARK: - Lifecycle
@@ -64,7 +66,10 @@ class AssetsViewController: UIViewController {
         default:
             print("Is line \(#line) working?")
         }
+        
         updateTotalAssetsLabel()
+        sortData(sortBy: sortedBy)
+        
         tableView.reloadData()
     } // End of Update View
     
@@ -92,6 +97,24 @@ class AssetsViewController: UIViewController {
         }
     } // End of Function
     
+    func sortData(sortBy: SortBy) {
+        switch sortBy {
+        case .byValueAscending:
+            dataAssets.sort {
+                $0.value < $1.value
+            }
+            self.sortByBtn.setTitle("Sort By: Ascending", for: .normal)
+        case .byValueDescending:
+            dataAssets.sort {
+                $0.value > $1.value
+            }
+            self.sortByBtn.setTitle("Sort By: Descending", for: .normal)
+        case .alphabetically:
+            //TODO(ethan) Figure out how to sort strings
+            print("Is line \(#line) working?")
+        } // End of Switch
+    } // End of Sort data
+
     
     // MARK: - Actions
     @IBAction func newAssetBtn(_ sender: Any) {
@@ -123,7 +146,7 @@ class AssetsViewController: UIViewController {
             let liquid = false
             // Save Code
             guard let name: String = alert.textFields![0].text,
-                  let value: Double = Double(alert.textFields![1].text!) else { return }
+                  let value: Double = (alert.textFields![1].text)?.formatToDouble() else { return }
             
             let newAsset = Asset(liquid: liquid, name: name, updatedDate: Date(), value: value)
             AssetController.sharedInstance.createAsset(newAsset: newAsset)
@@ -156,6 +179,28 @@ class AssetsViewController: UIViewController {
         updateView()
     } // End of Did segment change
     
+    
+    @IBAction func sortByBtn(_ sender: Any) {
+        let alert = UIAlertController(title: "Sort By", message: "How would you like to see your Assets?", preferredStyle: .actionSheet)
+        
+        let ascendingAction = UIAlertAction(title: "Ascending", style: .default) { _ in
+            self.sortedBy = .byValueAscending
+            self.updateView()
+        }
+        alert.addAction(ascendingAction)
+        
+        let descendingAction = UIAlertAction(title: "Descending", style: .default) { _ in
+            self.sortedBy = .byValueDescending
+            self.updateView()
+        }
+        alert.addAction(descendingAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
 } // End of Class
 
 
@@ -185,20 +230,20 @@ extension AssetsViewController: UITableViewDelegate, UITableViewDataSource {
         let alert = UIAlertController(title: assetToEdit.name, message: String(assetToEdit.value), preferredStyle: .alert)
         
         alert.addTextField { textField in
-            textField.placeholder = "New Name?"
+            textField.text = assetToEdit.name
             textField.autocapitalizationType = .sentences
             textField.autocorrectionType = .default
         }
         alert.addTextField { textField in
-            textField.placeholder = "New Value?"
+            textField.text = assetToEdit.value.formatDoubleToMoney()
             textField.keyboardType = .numberPad
         }
         
-        let saveLiquidAction = UIAlertAction(title: "Liquid", style: .default) { _ in
-            let liquid = true
+        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+            let liquid = assetToEdit.liquid
             // Save Code
             let name: String = alert.textFields![0].text ?? assetToEdit.name!
-            let value: Double = Double(alert.textFields![1].text!) ?? assetToEdit.value
+            let value: Double = (alert.textFields![1].text!).formatToDouble()
             
             // Edit asset
             assetToEdit = Asset(liquid: liquid, name: name, updatedDate: Date(), value: value)
@@ -210,25 +255,7 @@ extension AssetsViewController: UITableViewDelegate, UITableViewDataSource {
             
             self.fetchAssets()
         }
-        alert.addAction(saveLiquidAction)
-        
-        let saveNonLiquidAction = UIAlertAction(title: "Not Liquid", style: .default) { _ in
-            let liquid = false
-            // Save Code
-            let name: String = alert.textFields![0].text ?? assetToEdit.name!
-            let value: Double = Double(alert.textFields![1].text!) ?? assetToEdit.value
-            
-            // Edit asset
-            assetToEdit = Asset(liquid: liquid, name: name, updatedDate: Date(), value: value)
-            AssetController.sharedInstance.updateAsset()
-            
-            // Delete old one
-            let assetToDelete: Asset = self.dataAssets[indexPath.row]
-            AssetController.sharedInstance.deleteAsset(assetToDeleteUUID: assetToDelete.uuid!)
-            
-            self.fetchAssets()
-        }
-        alert.addAction(saveNonLiquidAction)
+        alert.addAction(saveAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         alert.addAction(cancelAction)

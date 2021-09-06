@@ -337,7 +337,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sm4-Cw-vTb">
-                                <rect key="frame" x="0.0" y="230" width="433" height="654"/>
+                                <rect key="frame" x="0.0" y="253" width="433" height="631"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -386,6 +386,14 @@
                                     <action selector="didChangeSegment:" destination="AtZ-Cp-H48" eventType="valueChanged" id="y6m-WD-hP6"/>
                                 </connections>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gK4-bH-yQW">
+                                <rect key="frame" x="268" y="208" width="143" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sort By"/>
+                                <connections>
+                                    <action selector="sortByBtn:" destination="AtZ-Cp-H48" eventType="touchUpInside" id="laZ-FE-5zl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="VX6-qM-UW4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -399,6 +407,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="assetFilterSwitch" destination="YLl-nj-W7f" id="Si5-lG-J4B"/>
+                        <outlet property="sortByBtn" destination="gK4-bH-yQW" id="SWS-zA-PmW"/>
                         <outlet property="tableView" destination="sm4-Cw-vTb" id="HTy-v1-yj1"/>
                         <outlet property="totalAssetsLabel" destination="osp-Dt-6Ml" id="BNb-jR-7rs"/>
                     </connections>
