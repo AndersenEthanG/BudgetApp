@@ -53,3 +53,14 @@ extension String {
 enum SortBy {
     case byValueAscending, byValueDescending, alphabetically
 } // End of Sort By
+
+
+/// Used to format Dates into pretty strings
+extension Date {
+    func formatToString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        return formatter.string(from: self)
+    }
+} // End of Extension

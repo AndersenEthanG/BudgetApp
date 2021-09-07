@@ -60,6 +60,7 @@ extension Expense {
         frequency: Int,
         name: String,
         updateDate: Date,
+        uuid: String = UUID().uuidString,
         context: NSManagedObjectContext = CoreDataStack.context
     ) {
         self.init(context: context)
@@ -68,6 +69,7 @@ extension Expense {
         self.frequency = Int16(frequency)
         self.name = name
         self.updateDate = updateDate
+        self.uuid = uuid
     }
 } // End of Expense
 
@@ -80,6 +82,7 @@ extension Income {
         name: String,
         taxPercent: Decimal,
         updatedDate: Date,
+        uuid: String = UUID().uuidString,
         context: NSManagedObjectContext = CoreDataStack.context
     ) {
         self.init(context: context)
@@ -89,6 +92,7 @@ extension Income {
         self.name = name
         self.taxPercent = NSDecimalNumber(decimal: taxPercent)
         self.updatedDate = updatedDate
+        self.uuid = uuid
     }
 } // End of Income
 
@@ -98,12 +102,16 @@ extension Purchase {
         amount: Double,
         creationDate: Date = Date(),
         name: String,
+        purchaseDate: Date,
+        uuid: String = UUID().uuidString,
         context: NSManagedObjectContext = CoreDataStack.context
     ) {
         self.init(context: context)
         self.amount = amount
         self.creationDate = creationDate
+        self.purchaseDate = purchaseDate
         self.name = name
+        self.uuid = uuid
     }
 } // End of Purchase
 
@@ -114,6 +122,7 @@ extension Saving {
         frequency: Int,
         isPercent: Bool,
         name: String,
+        uuid: String = UUID().uuidString,
         context: NSManagedObjectContext = CoreDataStack.context
     ) {
         self.init(context: context)
@@ -121,5 +130,6 @@ extension Saving {
         self.frequency = Int16(frequency)
         self.isPercent = isPercent
         self.name = name
+        self.uuid = uuid
     }
 } // End of Saving

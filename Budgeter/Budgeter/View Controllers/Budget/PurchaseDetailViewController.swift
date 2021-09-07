@@ -10,24 +10,52 @@ import UIKit
 class PurchaseDetailViewController: UIViewController {
 
     // MARK: - Outlets
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var purchaseNameLabel: UITextField!
     @IBOutlet weak var purchaseAmountLabel: UITextField!
     @IBOutlet weak var purchaseDatePicker: UIDatePicker!
     
     
     // MARK: - Properties
-//    var expense: Expense?
+    var purchase: Purchase?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        updateView()
     } // End of View did load
 
     
+    // MARK: - Functions
+    func updateView() {
+        if let purchase = purchase {
+            navigationItem.title = "Edit Purchase"
+            purchaseNameLabel.text = purchase.name
+            purchaseAmountLabel.text = purchase.amount.formatDoubleToMoney()
+            purchaseDatePicker.date = purchase.creationDate!
+        } // End of If Purchase exists
+        
+        
+    } // End of Update View
+    
+    
     // MARK: - Actions
     @IBAction func saveBtn(_ sender: Any) {
+        // Get values
+        let amount = purchaseAmountLabel.text
+        let name = purchaseNameLabel.text ?? "New Purchase"
+        let purchaseDate = purchaseDatePicker.date
         
+        if let purchase = purchase {
+            // Update
+            
+        } else {
+            // Create
+            let newPurchase = Purchase(amount: amount?.formatToDouble() ?? 0, name: name, purchaseDate: purchaseDate)
+            PurchaseController.sharedInstance.createPurchase(newPurchase: newPurchase)
+        }
+        
+        navigationController?.popViewController(animated: true)
     } // End of Save Button
     
 } // End of Class

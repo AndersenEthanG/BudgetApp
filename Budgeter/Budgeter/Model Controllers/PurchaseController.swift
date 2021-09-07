@@ -26,8 +26,10 @@ class PurchaseController {
         CoreDataStack.saveContext()
     } // End of Create purchase
     
-    func fetchPurchases() {
+    func fetchPurchases(🐶: @escaping ( [Purchase] ) -> Void) {
         purchases = (try? CoreDataStack.context.fetch(fetchRequest)) ?? []
+        
+        🐶(purchases)
     } // End of Fetch purchase
     
     func updatePurchase() {
