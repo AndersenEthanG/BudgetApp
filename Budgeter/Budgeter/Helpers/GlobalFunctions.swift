@@ -34,12 +34,17 @@ extension String {
     func formatToDouble() -> Double {
         let input = String(self)
         
+        if input == "" {
+            return 0
+        } else {
+            
         var trimmedInput = input.trimmingCharacters(in: CharacterSet(charactersIn: "0123456789.").inverted)
         trimmedInput = trimmedInput.replacingOccurrences(of: "$", with: "")
         trimmedInput = trimmedInput.replacingOccurrences(of: ",", with: "")
         let doubleTrimmedInput = Double(trimmedInput)
         
         return doubleTrimmedInput!
+        }
     }
 } // End of Format to double
 

@@ -36,7 +36,7 @@ class AssetController {
     } // End of Update asset
     
     func deleteAsset(assetToDeleteUUID: String) {
-        if let assetToDelete = assets.first(where: {$0.uuid == assetToDeleteUUID }) {
+        if let assetToDelete = assets.first(where: { $0.uuid == assetToDeleteUUID }) {
             
             if let index = assets.firstIndex(of: assetToDelete) {
                 assets.remove(at: index)

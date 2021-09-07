@@ -227,7 +227,7 @@ extension AssetsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var assetToEdit: Asset = dataAssets[indexPath.row]
         
-        let alert = UIAlertController(title: assetToEdit.name, message: String(assetToEdit.value), preferredStyle: .alert)
+        let alert = UIAlertController(title: assetToEdit.name, message: String(assetToEdit.value.formatDoubleToMoney()), preferredStyle: .alert)
         
         alert.addTextField { textField in
             textField.text = assetToEdit.name

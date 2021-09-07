@@ -13,8 +13,8 @@ extension Asset {
         liquid: Bool,
         name: String,
         updatedDate: Date,
-        value: Double,
         uuid: String = UUID().uuidString,
+        value: Double,
         context: NSManagedObjectContext = CoreDataStack.context
     ) {
         self.init(context: context)
@@ -34,20 +34,20 @@ extension Asset {
 
 extension Debt {
     @discardableResult convenience init(
-        amountOwed: Double,
         amountPaid: Double,
         creationDate: Date = Date(),
         name: String,
         updateDate: Date,
+        uuid: String = UUID().uuidString,
         value: Double,
         context: NSManagedObjectContext = CoreDataStack.context
     ) {
         self.init(context: context)
-        self.amountOwed = amountOwed
         self.amountPaid = amountPaid
         self.creationDate = creationDate
         self.name = name
         self.updateDate = updateDate
+        self.uuid = uuid
         self.value = value
     }
 } // End of Debt

@@ -26,20 +26,25 @@ class DebtController {
         CoreDataStack.saveContext()
     } // End of Create debt
     
-    func fetchDebts() {
+    func fetchDebts(🐶: @escaping ([Debt]) -> Void) {
         debts = (try? CoreDataStack.context.fetch(fetchRequest)) ?? []
+        🐶(debts)
     } // End of Fetch debt
     
     func updateDebt() {
         CoreDataStack.saveContext()
     } // End of Update debt
     
-    func deleteDebt(debtToDelete: Debt) {
-        if let index = debts.firstIndex(of: debtToDelete) {
-            debts.remove(at: index)
+    func deleteDebt(debtToDeleteUUID: String) {
+        if let debtToDelete = debts.first(where: { $0.uuid == debtToDeleteUUID }) {
+            
+            if let index = debts.firstIndex(of: debtToDelete) {
+                debts.remove(at: index)
+            }
+            
+            CoreDataStack.context.delete(debtToDelete)
+            CoreDataStack.saveContext()
         }
-        CoreDataStack.context.delete(debtToDelete)
-        CoreDataStack.saveContext()
     } // End of Delete debt
     
 } // End of Class
