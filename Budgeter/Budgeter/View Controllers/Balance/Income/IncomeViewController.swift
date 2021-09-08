@@ -92,12 +92,13 @@ extension IncomeViewController: UITableViewDelegate, UITableViewDataSource {
     // Delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            let incomeToDelete = incomes[indexPath.row]
+            
+            IncomeController.sharedInstance.deleteIncome(incomeToDelete: incomeToDelete)
+            
+            fetchIncome()
         }
-    }
+    } // End of Delete
     
     
 } // End of Table View Extension
