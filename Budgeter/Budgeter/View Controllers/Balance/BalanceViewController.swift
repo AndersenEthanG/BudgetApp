@@ -21,7 +21,6 @@ class BalanceViewController: UIViewController {
     
     // MARK: - Functions
     func updateView() {
-        self.navigationItem.setHidesBackButton(true, animated: true)
     } // End of Update View
     
 } // End of Class

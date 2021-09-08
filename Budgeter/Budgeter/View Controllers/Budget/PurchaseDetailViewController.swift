@@ -32,7 +32,7 @@ class PurchaseDetailViewController: UIViewController {
             navigationItem.title = "Edit Purchase"
             purchaseNameLabel.text = purchase.name
             purchaseAmountLabel.text = purchase.amount.formatDoubleToMoney()
-            purchaseDatePicker.date = purchase.creationDate!
+            purchaseDatePicker.date = purchase.purchaseDate!
         } // End of If Purchase exists
         
         
@@ -47,8 +47,12 @@ class PurchaseDetailViewController: UIViewController {
         let purchaseDate = purchaseDatePicker.date
         
         if let purchase = purchase {
-            // Update
+            // Delete the old one from the array (I'm probably doing this wrong)
+            PurchaseController.sharedInstance.deletePurchase(purchaseToDelete: self.purchase!)
             
+            // Update
+            self.purchase = Purchase(amount: (amount?.formatToDouble())!, name: name, purchaseDate: purchaseDate)
+            PurchaseController.sharedInstance.updatePurchase()
         } else {
             // Create
             let newPurchase = Purchase(amount: amount?.formatToDouble() ?? 0, name: name, purchaseDate: purchaseDate)

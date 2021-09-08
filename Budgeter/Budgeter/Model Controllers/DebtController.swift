@@ -26,7 +26,7 @@ class DebtController {
         CoreDataStack.saveContext()
     } // End of Create debt
     
-    func fetchDebts(🐶: @escaping ([Debt]) -> Void) {
+    func fetchDebts(🐶: @escaping ( [Debt] ) -> Void) {
         debts = (try? CoreDataStack.context.fetch(fetchRequest)) ?? []
         🐶(debts)
     } // End of Fetch debt

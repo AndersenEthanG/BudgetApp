@@ -18,7 +18,6 @@ class SavingsTableViewController: UITableViewController {
     
     // MARK: - Functions
     func updateView() {
-        self.navigationItem.setHidesBackButton(true, animated: true)
     } // End of Update View
 
     // MARK: - Table view data source
