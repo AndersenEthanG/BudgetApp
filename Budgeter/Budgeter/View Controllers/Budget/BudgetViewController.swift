@@ -18,12 +18,14 @@ class BudgetViewController: UIViewController {
     // MARK: - Properties
     var purchases: [Purchase] = []
     var purchasesData: [Purchase] = []
-    var filteredBy: FilterBy = .day
+    var filteredBy: FilterBy = .sorted
     
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        purchaseFilterSwitch.selectedSegmentIndex = 2
         
         budgetTable.delegate = self
         budgetTable.dataSource = self
@@ -116,7 +118,12 @@ extension BudgetViewController: UITableViewDelegate, UITableViewDataSource {
     
     // Delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
+        if editingStyle == .delete {
+            let purchaseToDelete = purchasesData[indexPath.row]
+            PurchaseController.sharedInstance.deletePurchase(purchaseToDelete: purchaseToDelete)
+            
+            fetchPurchases()
+        }
     } // End of Delete
     
 } // End of Extension
