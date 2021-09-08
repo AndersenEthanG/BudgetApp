@@ -10,10 +10,9 @@ import UIKit
 class IncomeDetailViewController: UIViewController {
 
     // MARK: - Outlets
-    @IBOutlet weak var newIncomeLabel: UILabel!
+    @IBOutlet weak var incomeNameField: UITextField!
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var perSegmentedController: UISegmentedControl!
-    @IBOutlet weak var taxPercentField: UITextField!
     
     
     // MARK: - Properties
@@ -30,40 +29,38 @@ class IncomeDetailViewController: UIViewController {
     
     // MARK: - Functions
     func updateView() {
-        
+        if let income = income {
+            navigationItem.title = "Edit Income"
+            incomeNameField.text = income.name
+            amountField.text = income.amount.formatDoubleToMoney()
+            perSegmentedController.selectedSegmentIndex = Int(income.frequency)
+        }
     } // End of Update view
     
     
     // MARK: - Actions
     @IBAction func saveBtn(_ sender: Any) {
+        // Get values
+        let amount: Double = (amountField.text?.formatToDouble())!
+        let frequency = 0
+        let name = incomeNameField.text ?? "New Income"
+        let updatedDate = Date()
+        
         // Edit or save
         if let income = income {
+            // Delete old one
+            IncomeController.sharedInstance.deleteIncome(incomeToDelete: self.income!)
+
             // Update
-            // Get values
-            let amount: Double = 0
-            let frequency = 0
-            let name = ""
-            let taxPercent: Decimal = 0
-            let updatedDate = Date()
-            
-            // Save
-            self.income = Income(amount: amount, frequency: frequency, name: name, taxPercent: taxPercent, updatedDate: updatedDate)
+            self.income = Income(amount: amount, frequency: frequency, name: name, updatedDate: updatedDate)
             IncomeController.sharedInstance.updateIncome()
-            
         } else {
             // New
-            let amount: Double = 0
-            let frequency = 0
-            let name = ""
-            let taxPercent: Decimal = 0
-            let updatedDate = Date()
-            
-            // Save
-            let newIncome = Income(amount: amount, frequency: frequency, name: name, taxPercent: taxPercent, updatedDate: updatedDate)
+            let newIncome = Income(amount: amount, frequency: frequency, name: name, updatedDate: updatedDate)
             IncomeController.sharedInstance.createIncome(newIncome: newIncome)
         }
         
-        
+        navigationController?.popViewController(animated: true)
     } // End of Save button
     
     @IBAction func segmentDidChange(_ sender: Any) {

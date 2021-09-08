@@ -80,7 +80,6 @@ extension Income {
         creationDate: Date = Date(),
         frequency: Int,
         name: String,
-        taxPercent: Decimal,
         updatedDate: Date,
         uuid: String = UUID().uuidString,
         context: NSManagedObjectContext = CoreDataStack.context
@@ -90,7 +89,6 @@ extension Income {
         self.creationDate = creationDate
         self.frequency = Int16(frequency)
         self.name = name
-        self.taxPercent = NSDecimalNumber(decimal: taxPercent)
         self.updatedDate = updatedDate
         self.uuid = uuid
     }

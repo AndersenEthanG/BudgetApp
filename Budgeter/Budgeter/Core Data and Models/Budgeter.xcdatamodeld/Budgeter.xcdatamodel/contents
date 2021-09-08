@@ -29,7 +29,6 @@
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="taxPercent" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="updatedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="uuid" optional="YES" attributeType="String"/>
     </entity>
@@ -51,7 +50,7 @@
         <element name="Asset" positionX="18" positionY="63" width="128" height="119"/>
         <element name="Debt" positionX="36" positionY="81" width="128" height="119"/>
         <element name="Expense" positionX="0" positionY="45" width="128" height="119"/>
-        <element name="Income" positionX="-36" positionY="9" width="128" height="134"/>
+        <element name="Income" positionX="-36" positionY="9" width="128" height="119"/>
         <element name="Purchase" positionX="-63" positionY="-18" width="128" height="104"/>
         <element name="Saving" positionX="-18" positionY="27" width="128" height="104"/>
     </elements>

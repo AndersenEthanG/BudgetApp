@@ -278,7 +278,7 @@
             </objects>
             <point key="canvasLocation" x="6342" y="391"/>
         </scene>
-        <!--Income Detail View Controller-->
+        <!--New Income-->
         <scene sceneID="qPa-VW-hD5">
             <objects>
                 <viewController id="Nvf-Jz-Q26" customClass="IncomeDetailViewController" customModule="Budgeter" customModuleProvider="target" sceneMemberID="viewController">
@@ -286,19 +286,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter amount here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BkF-Xw-Brm">
-                                <rect key="frame" x="140" y="186" width="161" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New Income" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ai-hg-81Y">
-                                <rect key="frame" x="154" y="128" width="95" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Per" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYy-Lb-nQi">
                                 <rect key="frame" x="196" y="281" width="26" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -318,45 +305,43 @@
                                     <action selector="segmentDidChange:" destination="Nvf-Jz-Q26" eventType="valueChanged" id="OA1-6C-8yL"/>
                                 </connections>
                             </segmentedControl>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What % is witheld?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DuT-G3-OCF">
-                                <rect key="frame" x="186" y="424" width="183" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter amount here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BkF-Xw-Brm">
+                                <rect key="frame" x="134" y="215" width="161" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tax Percent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i0M-Dp-fOW">
-                                <rect key="frame" x="71" y="431" width="90" height="21"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name of income..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VtS-r4-KPQ">
+                                <rect key="frame" x="120" y="141" width="215" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lh4-yT-Vt3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="f8l-zg-ytt">
+                    <navigationItem key="navigationItem" title="New Income" id="f8l-zg-ytt">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="buM-AA-y2r">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Tc5-f8-hbq">
                                 <rect key="frame" x="374" y="7" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveBtn:" destination="Nvf-Jz-Q26" eventType="touchUpInside" id="JIV-jA-taX"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <action selector="saveBtn:" destination="Nvf-Jz-Q26" id="wqo-AN-BRo"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="amountField" destination="BkF-Xw-Brm" id="jTo-YC-sLK"/>
-                        <outlet property="newIncomeLabel" destination="1ai-hg-81Y" id="IHR-di-9g2"/>
+                        <outlet property="incomeNameField" destination="VtS-r4-KPQ" id="QMg-jW-Vwd"/>
                         <outlet property="perSegmentedController" destination="fdD-uk-j15" id="FWh-Ps-yeL"/>
-                        <outlet property="taxPercentField" destination="DuT-G3-OCF" id="PID-sU-1Or"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oSb-Ff-VI1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5881" y="-305"/>
+            <point key="canvasLocation" x="5880.8411214953267" y="-305.18358531317494"/>
         </scene>
         <!--Assets-->
         <scene sceneID="Zjv-00-B4E">

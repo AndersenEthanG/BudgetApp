@@ -28,6 +28,12 @@ class IncomeViewController: UIViewController {
     } // End of View did load
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchIncome()
+    } // End of View will appear
+    
     // MARK: - Functions
     func fetchIncome() {
         IncomeController.sharedInstance.fetchIncomes { fetchedIncomes in
@@ -42,7 +48,6 @@ class IncomeViewController: UIViewController {
     
     
     func updateView() {
-        
         tableView.reloadData()
     } // End of Update View
     
