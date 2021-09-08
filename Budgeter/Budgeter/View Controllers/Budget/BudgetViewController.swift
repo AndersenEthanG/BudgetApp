@@ -17,6 +17,8 @@ class BudgetViewController: UIViewController {
     
     // MARK: - Properties
     var purchases: [Purchase] = []
+    var purchasesData: [Purchase] = []
+    var filteredBy: FilterBy = .day
     
     
     // MARK: - Lifecycle
@@ -29,6 +31,11 @@ class BudgetViewController: UIViewController {
         fetchPurchases()
     } // End of View did load
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchPurchases()
+    }
     
     // MARK: - Functions
     func fetchPurchases() {
@@ -36,20 +43,44 @@ class BudgetViewController: UIViewController {
             self.purchases = []
             self.purchases = fetchedPurchases
             
+            self.filterData()
             self.updateView()
         }
     } // End of Fetch Purchases
     
     func updateView() {
+        
         budgetTable.reloadData()
     } // End of Update View
     
+    func filterData() {
+        let purchaseArray = self.purchases
+        let filterBy = filteredBy
+        
+        self.purchasesData = sortPurchasesByTimeArray(arrayToFilter: purchaseArray, filterBy: filterBy)
+        
+        updateView()
+    } // End of Filter data
+    
     
     // MARK: - Actions
-    @IBAction func purchaseFilterSwitch(_ sender: Any) {
+    @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            filteredBy = .day
+        case 1:
+            filteredBy = .week
+        case 2:
+            filteredBy = .month
+        case 3:
+            filteredBy = .sorted
+        default:
+            print("Is line \(#line) working?")
+        }
         
-    } // End of Reminder time slider
-    
+        filterData()
+    } // End of Segment did  change
+
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -57,7 +88,7 @@ class BudgetViewController: UIViewController {
             guard let destinationVC = segue.destination as? PurchaseDetailViewController,
                   let indexPath = budgetTable.indexPathForSelectedRow else { return }
             
-            let purchase = purchases[indexPath.row]
+            let purchase = purchasesData[indexPath.row]
             destinationVC.purchase = purchase
         }
     } // End of Segue
@@ -70,13 +101,13 @@ extension BudgetViewController: UITableViewDelegate, UITableViewDataSource {
     
     // Number of cells
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return purchases.count
+        return purchasesData.count
     } // End of Number of cells
     
     // Cell data
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "purchaseCell", for: indexPath) as? BudgetTableViewCell
-        let purchase = purchases[indexPath.row]
+        let purchase = purchasesData[indexPath.row]
         
         cell?.purchase = purchase
         
