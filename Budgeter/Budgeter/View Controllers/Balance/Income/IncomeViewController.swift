@@ -51,8 +51,22 @@ class IncomeViewController: UIViewController {
     
     
     func updateView() {
+        updateTotalIncomeLabel()
         tableView.reloadData()
     } // End of Update View
+    
+    
+    func updateTotalIncomeLabel() {
+        var finalPerHourAmount: Double = 0
+        
+        for income in incomes {
+            finalPerHourAmount += income.amountPerHour
+        }
+        
+        let finalAmount = convertHourlyToOtherRate(hourlyRate: finalPerHourAmount, desiredRate: currentSelectedIndex)
+        
+        totalIncomeLabel.text = finalAmount.formatDoubleToMoney()
+    } // End of Update total income label
     
     
     // MARK: - Actions
