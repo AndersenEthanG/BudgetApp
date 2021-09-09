@@ -26,8 +26,9 @@ class SavingController {
         CoreDataStack.saveContext()
     } // End of Create saving
     
-    func fetchSavings() {
+    func fetchSavings(🐶: @escaping ( [Saving] ) -> Void) {
         savings = (try? CoreDataStack.context.fetch(fetchRequest)) ?? []
+        🐶(savings)
     } // End of Fetch saving
     
     func updateSaving() {

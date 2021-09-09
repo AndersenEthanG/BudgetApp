@@ -34,7 +34,7 @@
 		AAB5388426E2AE1C00081A28 /* PurchaseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388326E2AE1C00081A28 /* PurchaseDetailViewController.swift */; };
 		AAB5388726E2BE6000081A28 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388626E2BE6000081A28 /* BalanceViewController.swift */; };
 		AAB5388C26E2C56800081A28 /* IncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388B26E2C56800081A28 /* IncomeViewController.swift */; };
-		AAB5388E26E2C57B00081A28 /* SavingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388D26E2C57B00081A28 /* SavingsTableViewController.swift */; };
+		AAB5388E26E2C57B00081A28 /* SavingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388D26E2C57B00081A28 /* SavingsViewController.swift */; };
 		AAB5389026E2C58400081A28 /* ExpensesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388F26E2C58400081A28 /* ExpensesTableViewController.swift */; };
 		AAB5389226E2C5AF00081A28 /* IncomeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5389126E2C5AF00081A28 /* IncomeDetailViewController.swift */; };
 		AAB5389426E2C5B600081A28 /* SavingsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5389326E2C5B600081A28 /* SavingsDetailViewController.swift */; };
@@ -72,7 +72,7 @@
 		AAB5388326E2AE1C00081A28 /* PurchaseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseDetailViewController.swift; sourceTree = "<group>"; };
 		AAB5388626E2BE6000081A28 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
 		AAB5388B26E2C56800081A28 /* IncomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeViewController.swift; sourceTree = "<group>"; };
-		AAB5388D26E2C57B00081A28 /* SavingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsTableViewController.swift; sourceTree = "<group>"; };
+		AAB5388D26E2C57B00081A28 /* SavingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsViewController.swift; sourceTree = "<group>"; };
 		AAB5388F26E2C58400081A28 /* ExpensesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesTableViewController.swift; sourceTree = "<group>"; };
 		AAB5389126E2C5AF00081A28 /* IncomeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeDetailViewController.swift; sourceTree = "<group>"; };
 		AAB5389326E2C5B600081A28 /* SavingsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsDetailViewController.swift; sourceTree = "<group>"; };
@@ -237,7 +237,7 @@
 		AAB5388926E2C53000081A28 /* Savings */ = {
 			isa = PBXGroup;
 			children = (
-				AAB5388D26E2C57B00081A28 /* SavingsTableViewController.swift */,
+				AAB5388D26E2C57B00081A28 /* SavingsViewController.swift */,
 				AAB5389326E2C5B600081A28 /* SavingsDetailViewController.swift */,
 			);
 			path = Savings;
@@ -332,7 +332,7 @@
 				AAA1744526E7CAE300125021 /* DebtViewController.swift in Sources */,
 				AAB5388426E2AE1C00081A28 /* PurchaseDetailViewController.swift in Sources */,
 				AA61739B26E4165300F6737F /* AssetController.swift in Sources */,
-				AAB5388E26E2C57B00081A28 /* SavingsTableViewController.swift in Sources */,
+				AAB5388E26E2C57B00081A28 /* SavingsViewController.swift in Sources */,
 				AAB5385926E2989600081A28 /* AppDelegate.swift in Sources */,
 				AAB5389426E2C5B600081A28 /* SavingsDetailViewController.swift in Sources */,
 				AA6173A726E41A9E00F6737F /* Budget.swift in Sources */,

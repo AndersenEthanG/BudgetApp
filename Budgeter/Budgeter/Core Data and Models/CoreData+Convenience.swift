@@ -116,7 +116,7 @@ extension Purchase {
 extension Saving {
     @discardableResult convenience init(
         amount: Double,
-        frequency: Int,
+        frequency: String,
         isPercent: Bool,
         name: String,
         uuid: String = UUID().uuidString,
@@ -124,7 +124,7 @@ extension Saving {
     ) {
         self.init(context: context)
         self.amount = amount
-        self.frequency = Int16(frequency)
+        self.frequency = frequency
         self.isPercent = isPercent
         self.name = name
         self.uuid = uuid
