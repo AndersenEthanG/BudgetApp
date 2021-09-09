@@ -55,7 +55,7 @@ enum SortBy {
 
 /// This is similar to the SortBy, but it is for dates
 enum FilterBy {
-    case sorted, day, week, month, year
+    case sorted, hour, day, week, month, year
 } // End of Filter by
 
 func sortPurchasesByTimeArray(arrayToFilter: [Purchase], filterBy: FilterBy) -> [Purchase] {
@@ -86,6 +86,8 @@ func isSameDay(date1: Date, date2: Date, filterBy: FilterBy) -> Bool {
     switch filterBy {
     case .sorted:
         print("Is line \(#line) working?")
+    case .hour:
+        print("Is line \(#line) working?")
     case .day:
         let diff = Calendar.current.dateComponents([.day], from: date1, to: date2)
         if diff.day == 0 {
@@ -114,8 +116,8 @@ func isSameDay(date1: Date, date2: Date, filterBy: FilterBy) -> Bool {
         } else {
             isSameDay = false
         }
-    }
-    
+    } // End of Switch
+
     return isSameDay!
 } // End of Is same day
 
@@ -129,3 +131,51 @@ extension Date {
         return formatter.string(from: self)
     }
 } // End of Extension
+
+
+/// In an effort to save time and energy, I'm saving all incomes and such as hourly rates
+extension Double {
+    func convertToHourlyRate(currentRate: FilterBy) -> Double {
+        var returnValue: Double = 0
+        
+        switch currentRate {
+        case .sorted:
+            print("Is line \(#line) working?")
+        case .day:
+            print("Is line \(#line) working?")
+        case .hour:
+            returnValue = self
+        case .week:
+            returnValue = (self / 40)
+        case .month:
+            returnValue = (self / 27.74)
+        case .year:
+            returnValue = (self / 52 / 5)
+        } // End of Switch
+        
+        return returnValue
+    }
+} // End of convert to hourly rate
+
+
+// This will turn hourly back into the regular rate
+func convertHourlyToOtherRate(hourlyRate: Double, desiredRate: FilterBy) -> Double {
+    var finalValue: Double = hourlyRate
+    
+    switch desiredRate {
+    case .sorted:
+        print("Is line \(#line) working?")
+    case .hour:
+        finalValue = (finalValue * 1)
+    case .day:
+        finalValue = (finalValue * 8)
+    case .week:
+        finalValue = (finalValue * 40)
+    case .month:
+        finalValue = (finalValue * 40 * 52 / 12)
+    case .year:
+        finalValue = (finalValue * 40 * 52)
+    } // End of Switch
+    
+    return finalValue
+} // End of Function

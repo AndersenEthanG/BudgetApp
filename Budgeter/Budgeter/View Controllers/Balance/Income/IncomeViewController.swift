@@ -11,10 +11,13 @@ class IncomeViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var totalIncomeLabel: UILabel!
+    @IBOutlet weak var rateSegment: UISegmentedControl!
     
     
     // MARK: - Properties
     var incomes: [Income] = []
+    var currentSelectedIndex: FilterBy = .hour
     
     
     // MARK: - Lifecycle
@@ -53,6 +56,30 @@ class IncomeViewController: UIViewController {
     
     
     // MARK: - Actions
+    @IBAction func segmentDidChange(_ sender: Any) {
+        var currentIndex: FilterBy = currentSelectedIndex
+        
+        switch rateSegment.selectedSegmentIndex {
+        case 0:
+            // Hour
+            currentIndex = .hour
+        case 1:
+            // Week
+            currentIndex = .week
+        case 2:
+            // Month
+            currentIndex = .month
+        case 3:
+            // Year
+            currentIndex = .year
+        default:
+            print("Is line \(#line) working?")
+        } // End of Switch
+        
+        currentSelectedIndex = currentIndex
+        
+        updateView()
+    } // End of Segment did change
     
     
     // MARK: - Navigation
@@ -83,8 +110,10 @@ extension IncomeViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "incomeCell", for: indexPath)
         
         let income = incomes[indexPath.row]
+        let incomeAmount = convertHourlyToOtherRate(hourlyRate: income.amountPerHour, desiredRate: currentSelectedIndex)
         
         cell.textLabel?.text = income.name
+        cell.detailTextLabel?.text = incomeAmount.formatDoubleToMoney()
         
         return cell
     } // End of Cell data
@@ -99,6 +128,5 @@ extension IncomeViewController: UITableViewDelegate, UITableViewDataSource {
             fetchIncome()
         }
     } // End of Delete
-    
     
 } // End of Table View Extension
