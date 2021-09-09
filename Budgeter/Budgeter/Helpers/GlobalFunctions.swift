@@ -18,10 +18,20 @@ func vcGrabber(vcName: String) -> UIViewController {
 
 /// This extension turns money attributes from doubles into happy strings that look like money
 extension Double {
-    func formatDoubleToMoney() -> String {
+    func formatDoubleToMoneyString() -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
         let formattedNumber = numberFormatter.string(from: NSNumber(value: self))
+        
+        return formattedNumber!
+    }
+    
+    func formatToPercent() -> String {
+        let properNumber = ( self / 100 )
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .percent
+        let formattedNumber = numberFormatter.string(from: NSNumber(value: properNumber))
         
         return formattedNumber!
     }
@@ -37,12 +47,12 @@ extension String {
             return 0
         } else {
             
-        var trimmedInput = input.trimmingCharacters(in: CharacterSet(charactersIn: "0123456789.").inverted)
-        trimmedInput = trimmedInput.replacingOccurrences(of: "$", with: "")
-        trimmedInput = trimmedInput.replacingOccurrences(of: ",", with: "")
-        let doubleTrimmedInput = Double(trimmedInput)
-        
-        return doubleTrimmedInput!
+            var trimmedInput = input.trimmingCharacters(in: CharacterSet(charactersIn: "0123456789.").inverted)
+            trimmedInput = trimmedInput.replacingOccurrences(of: "$", with: "")
+            trimmedInput = trimmedInput.replacingOccurrences(of: ",", with: "")
+            let doubleTrimmedInput = Double(trimmedInput)
+            
+            return doubleTrimmedInput!
         }
     }
 } // End of Format to double
@@ -57,6 +67,56 @@ enum SortBy {
 enum FilterBy {
     case sorted, hour, day, week, month, year
 } // End of Filter by
+
+/// Some filter by things require saving as a string
+extension FilterBy {
+    func formatToString() -> String {
+        var returnString = ""
+        
+        switch self {
+        case .sorted:
+            returnString = "sorted"
+        case .hour:
+            returnString = "hour"
+        case .day:
+            returnString = "day"
+        case .week:
+            returnString = "week"
+        case .month:
+            returnString = "month"
+        case .year:
+            returnString = "year"
+        }
+        
+        return returnString
+    }
+} // End of Format to string from Filter By
+
+/// This turns strings back into FilterBy ways
+extension String {
+    func formatToFilterBy() -> FilterBy {
+        var returnValue: FilterBy = .day
+        
+        switch self {
+        case "sorted":
+            returnValue = .day
+        case "hour":
+            returnValue = .hour
+        case "day":
+            returnValue = .day
+        case "week":
+            returnValue = .week
+        case "month":
+            returnValue = .month
+        case "year":
+            returnValue = .year
+        default:
+            print("Is line \(#line) working?")
+        }
+        
+        return returnValue
+    }
+} // End of format to filter by
 
 func sortPurchasesByTimeArray(arrayToFilter: [Purchase], filterBy: FilterBy) -> [Purchase] {
     var finalArray: [Purchase] = []
@@ -117,7 +177,7 @@ func isSameDay(date1: Date, date2: Date, filterBy: FilterBy) -> Bool {
             isSameDay = false
         }
     } // End of Switch
-
+    
     return isSameDay!
 } // End of Is same day
 
@@ -148,9 +208,9 @@ extension Double {
         case .week:
             returnValue = (self / 40)
         case .month:
-            returnValue = (self / 27.74)
+            returnValue = (((self * 12) / 52) / 40)
         case .year:
-            returnValue = (self / 52 / 5)
+            returnValue = (self / 52 / 40)
         } // End of Switch
         
         return returnValue

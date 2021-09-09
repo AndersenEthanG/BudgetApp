@@ -38,7 +38,7 @@
 		AAB5389026E2C58400081A28 /* ExpensesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388F26E2C58400081A28 /* ExpensesTableViewController.swift */; };
 		AAB5389226E2C5AF00081A28 /* IncomeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5389126E2C5AF00081A28 /* IncomeDetailViewController.swift */; };
 		AAB5389426E2C5B600081A28 /* SavingsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5389326E2C5B600081A28 /* SavingsDetailViewController.swift */; };
-		AAB5389626E2C5BC00081A28 /* ExpensesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5389526E2C5BC00081A28 /* ExpensesDetailViewController.swift */; };
+		AAB5389626E2C5BC00081A28 /* ExpenseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5389526E2C5BC00081A28 /* ExpenseDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,7 +76,7 @@
 		AAB5388F26E2C58400081A28 /* ExpensesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesTableViewController.swift; sourceTree = "<group>"; };
 		AAB5389126E2C5AF00081A28 /* IncomeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeDetailViewController.swift; sourceTree = "<group>"; };
 		AAB5389326E2C5B600081A28 /* SavingsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsDetailViewController.swift; sourceTree = "<group>"; };
-		AAB5389526E2C5BC00081A28 /* ExpensesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesDetailViewController.swift; sourceTree = "<group>"; };
+		AAB5389526E2C5BC00081A28 /* ExpenseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,7 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				AAB5388F26E2C58400081A28 /* ExpensesTableViewController.swift */,
-				AAB5389526E2C5BC00081A28 /* ExpensesDetailViewController.swift */,
+				AAB5389526E2C5BC00081A28 /* ExpenseDetailViewController.swift */,
 			);
 			path = Expenses;
 			sourceTree = "<group>";
@@ -324,7 +324,7 @@
 			files = (
 				AAB5389226E2C5AF00081A28 /* IncomeDetailViewController.swift in Sources */,
 				AAB5388726E2BE6000081A28 /* BalanceViewController.swift in Sources */,
-				AAB5389626E2C5BC00081A28 /* ExpensesDetailViewController.swift in Sources */,
+				AAB5389626E2C5BC00081A28 /* ExpenseDetailViewController.swift in Sources */,
 				AA61739926E411FC00F6737F /* CoreDataStack.swift in Sources */,
 				AAB5387526E29E0C00081A28 /* LoginViewController.swift in Sources */,
 				AA6173A526E4168E00F6737F /* SavingController.swift in Sources */,

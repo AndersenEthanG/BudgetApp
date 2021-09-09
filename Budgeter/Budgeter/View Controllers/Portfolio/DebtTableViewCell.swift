@@ -28,9 +28,9 @@ class DebtTableViewCell: UITableViewCell {
         guard let debt = debt else { return }
         
         debtNameLabel.text = debt.name
-        debtTotalValueLabel.text = debt.value.formatDoubleToMoney()
-        debtAmountPaidLabel.text = debt.amountPaid.formatDoubleToMoney()
-        debtAmountRemainingLabel.text = (debt.value - debt.amountPaid).formatDoubleToMoney()
+        debtTotalValueLabel.text = debt.value.formatDoubleToMoneyString()
+        debtAmountPaidLabel.text = debt.amountPaid.formatDoubleToMoneyString()
+        debtAmountRemainingLabel.text = (debt.value - debt.amountPaid).formatDoubleToMoneyString()
     } // End of Update View
 
 } // End of Custom Cell

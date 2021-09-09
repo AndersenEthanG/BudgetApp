@@ -36,9 +36,9 @@ class DebtDetailViewController: UIViewController {
         guard let debt = debt else { return }
         
         debtNameField.text = debt.name
-        amountPaidField.text = debt.amountPaid.formatDoubleToMoney()
-        totalValueField.text = debt.value.formatDoubleToMoney()
-        amountRemainingLabel.text = ( "Amount Remaining: " + (debt.value - debt.amountPaid).formatDoubleToMoney())
+        amountPaidField.text = debt.amountPaid.formatDoubleToMoneyString()
+        totalValueField.text = debt.value.formatDoubleToMoneyString()
+        amountRemainingLabel.text = ( "Amount Remaining: " + (debt.value - debt.amountPaid).formatDoubleToMoneyString())
         
     } // End of Update view
     

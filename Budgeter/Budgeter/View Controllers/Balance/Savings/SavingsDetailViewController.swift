@@ -8,7 +8,7 @@
 import UIKit
 
 class SavingsDetailViewController: UIViewController {
-
+    
     // MARK: - Outlets
     @IBOutlet weak var savingNameField: UITextField!
     @IBOutlet weak var amountField: UITextField!
@@ -29,16 +29,16 @@ class SavingsDetailViewController: UIViewController {
         
         updateView()
     } // End of View did load
-
+    
     
     // MARK: - Functions
     func updateView() {
         if let saving = saving {
             navigationItem.title = "Edit Saving"
             savingNameField.text = saving.name
-            amountField.text = saving.amount.formatDoubleToMoney()
+            amountField.text = saving.amount.formatDoubleToMoneyString()
             isPercent = saving.isPercent
-            frequency = .day
+            frequency = (saving.frequency?.formatToFilterBy())!
         } // End of if we are editing
         
         updateIsPercentLabel()
@@ -49,7 +49,8 @@ class SavingsDetailViewController: UIViewController {
         var finalText = ""
         
         if isPercent == true {
-             finalText = "Percent"
+            finalText = "Percent"
+            togglePercentOrFixed()
         } else {
             finalText = "Fixed"
         }
@@ -62,7 +63,6 @@ class SavingsDetailViewController: UIViewController {
         var segmentIndex = 0
         
         switch self.frequency {
-        
         case .sorted:
             print("Is line \(#line) working?")
         case .hour:
@@ -76,19 +76,40 @@ class SavingsDetailViewController: UIViewController {
         case .year:
             segmentIndex = 2
         }
-    
+        
         segmentedController.selectedSegmentIndex = segmentIndex
     } // End of Update frequency label
     
+    func togglePercentOrFixed() {
+        if isPercent == true {
+            // Make things percent happy
+            amountField.text = saving?.amount.formatToPercent()
+        } else if isPercent == false {
+            // Make things $$$ happy
+        }
+    } // End of Toggle percent or Fixed
+    
+    
     // MARK: - Actions
     @IBAction func saveBtn(_ sender: Any) {
-        let amount: Double = amountField.text?.formatToDouble() ?? 0
-        let frequency = ""
         let isPercent = isPercent
+        var amount: Double = amountField.text?.formatToDouble() ?? 0
+        let frequency: String = frequency.formatToString()
         let name = savingNameField.text ?? "New Saving"
         
-        let newSaving = Saving(amount: amount, frequency: frequency, isPercent: isPercent, name: name)
-        SavingController.sharedInstance.createSaving(newSaving: newSaving)
+        // New or Update
+        if let saving = saving {
+            // Delete old one
+            SavingController.sharedInstance.deleteSaving(savingToDelete: self.saving!)
+            
+            // Update this one
+            self.saving = Saving(amount: amount, frequency: frequency, isPercent: isPercent, name: name)
+            SavingController.sharedInstance.updateSaving()
+        } else {
+            // Make a new one
+            let newSaving = Saving(amount: amount, frequency: frequency, isPercent: isPercent, name: name)
+            SavingController.sharedInstance.createSaving(newSaving: newSaving)
+        } // End of New or update
         
         navigationController?.popViewController(animated: true)
     } // End of Save Button

@@ -31,7 +31,7 @@ class PurchaseDetailViewController: UIViewController {
         if let purchase = purchase {
             navigationItem.title = "Edit Purchase"
             purchaseNameLabel.text = purchase.name
-            purchaseAmountLabel.text = purchase.amount.formatDoubleToMoney()
+            purchaseAmountLabel.text = purchase.amount.formatDoubleToMoneyString()
             purchaseDatePicker.date = purchase.purchaseDate!
         } // End of If Purchase exists
         

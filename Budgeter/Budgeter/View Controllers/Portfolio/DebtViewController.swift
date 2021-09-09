@@ -61,7 +61,7 @@ class DebtViewController: UIViewController {
             total += (debt.value - debt.amountPaid)
         }
         if total > 0 {
-            totalDebtLabel.text = (total.formatDoubleToMoney())
+            totalDebtLabel.text = (total.formatDoubleToMoneyString())
         } else {
             totalDebtLabel.text = "$0"
         }

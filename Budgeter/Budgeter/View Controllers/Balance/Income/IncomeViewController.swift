@@ -63,9 +63,11 @@ class IncomeViewController: UIViewController {
             finalPerHourAmount += income.amountPerHour
         }
         
-        let finalAmount = convertHourlyToOtherRate(hourlyRate: finalPerHourAmount, desiredRate: currentSelectedIndex)
+        let finalAmount: String = convertHourlyToOtherRate(hourlyRate: finalPerHourAmount, desiredRate: currentSelectedIndex).formatDoubleToMoneyString()
+        let filterByText: String = currentSelectedIndex.formatToString()
         
-        totalIncomeLabel.text = finalAmount.formatDoubleToMoney()
+        let finalText = ( finalAmount + " per " + filterByText )
+        totalIncomeLabel.text = finalText
     } // End of Update total income label
     
     
@@ -127,7 +129,7 @@ extension IncomeViewController: UITableViewDelegate, UITableViewDataSource {
         let incomeAmount = convertHourlyToOtherRate(hourlyRate: income.amountPerHour, desiredRate: currentSelectedIndex)
         
         cell.textLabel?.text = income.name
-        cell.detailTextLabel?.text = incomeAmount.formatDoubleToMoney()
+        cell.detailTextLabel?.text = incomeAmount.formatDoubleToMoneyString()
         
         return cell
     } // End of Cell data

@@ -79,7 +79,7 @@ class AssetsViewController: UIViewController {
             total += asset.value
         }
         if total > 0 {
-            totalAssetsLabel.text = (total.formatDoubleToMoney())
+            totalAssetsLabel.text = (total.formatDoubleToMoneyString())
         } else {
             totalAssetsLabel.text = "$0"
         }
@@ -215,7 +215,7 @@ extension AssetsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "assetCell", for: indexPath)
         let asset = dataAssets[indexPath.row]
         
-        let moneyString: String = asset.value.formatDoubleToMoney()
+        let moneyString: String = asset.value.formatDoubleToMoneyString()
         
         cell.textLabel?.text = asset.name
         cell.detailTextLabel?.text = (moneyString)
@@ -227,7 +227,7 @@ extension AssetsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var assetToEdit: Asset = dataAssets[indexPath.row]
         
-        let alert = UIAlertController(title: assetToEdit.name, message: String(assetToEdit.value.formatDoubleToMoney()), preferredStyle: .alert)
+        let alert = UIAlertController(title: assetToEdit.name, message: String(assetToEdit.value.formatDoubleToMoneyString()), preferredStyle: .alert)
         
         alert.addTextField { textField in
             textField.text = assetToEdit.name
@@ -235,7 +235,7 @@ extension AssetsViewController: UITableViewDelegate, UITableViewDataSource {
             textField.autocorrectionType = .default
         }
         alert.addTextField { textField in
-            textField.text = assetToEdit.value.formatDoubleToMoney()
+            textField.text = assetToEdit.value.formatDoubleToMoneyString()
             textField.keyboardType = .numberPad
         }
         

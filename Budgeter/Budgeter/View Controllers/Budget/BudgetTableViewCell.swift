@@ -29,7 +29,7 @@ class BudgetTableViewCell: UITableViewCell {
         
         noteLabel.text = purchase.name
         dateLabel.text = purchase.purchaseDate?.formatToString()
-        amountLabel.text = purchase.amount.formatDoubleToMoney()
+        amountLabel.text = purchase.amount.formatDoubleToMoneyString()
     } // End of Update View
 
 } // End of Class

@@ -33,7 +33,7 @@ class IncomeDetailViewController: UIViewController {
         if let income = income {
             navigationItem.title = "Edit Income"
             incomeNameField.text = income.name
-            amountField.text = income.amountPerHour.convertToHourlyRate(currentRate: currentSegmentFilterBy).formatDoubleToMoney()
+            amountField.text = income.amountPerHour.convertToHourlyRate(currentRate: currentSegmentFilterBy).formatDoubleToMoneyString()
         }
     } // End of Update view
     

@@ -46,11 +46,17 @@ class SavingsViewController: UIViewController {
     } // End of Function
     
     func updateView() {
+        
+        
         tableView.reloadData()
     } // End of Update View
     
     
+    
     // MARK: - Actions
+    @IBAction func calculateGotPaidBtn(_ sender: Any) {
+        
+    } // End of Got paid button
     
     
     // MARK: - Navigation
@@ -82,7 +88,15 @@ extension SavingsViewController: UITableViewDelegate, UITableViewDataSource {
         let saving = savings[indexPath.row]
         
         cell.textLabel?.text = saving.name
-        cell.detailTextLabel?.text = saving.amount.formatDoubleToMoney()
+        
+        var detail1 = saving.amount.formatDoubleToMoneyString()
+        let detail2 = ( " per " + saving.frequency! )
+        
+        if saving.isPercent == true {
+            detail1 = saving.amount.formatToPercent()
+        }
+        
+        cell.detailTextLabel?.text = ( detail1 + detail2 )
         
         return cell
     } // End of Cell data

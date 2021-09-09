@@ -26,8 +26,9 @@ class ExpenseController {
         CoreDataStack.saveContext()
     } // End of Create expense
     
-    func fetchExpenses() {
+    func fetchExpenses(🐶: @escaping ( [Expense] ) -> Void) {
         expenses = (try? CoreDataStack.context.fetch(fetchRequest)) ?? []
+        🐶(expenses)
     } // End of Fetch expense
     
     func updateExpense() {

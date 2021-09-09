@@ -57,7 +57,8 @@ extension Expense {
     @discardableResult convenience init(
         amount: Double,
         creationDate: Date = Date(),
-        frequency: Int,
+        frequency: String,
+        isPercent: Bool,
         name: String,
         updateDate: Date,
         uuid: String = UUID().uuidString,
@@ -66,7 +67,8 @@ extension Expense {
         self.init(context: context)
         self.amount = amount
         self.creationDate = creationDate
-        self.frequency = Int16(frequency)
+        self.frequency = frequency
+        self.isPercent = isPercent
         self.name = name
         self.updateDate = updateDate
         self.uuid = uuid
