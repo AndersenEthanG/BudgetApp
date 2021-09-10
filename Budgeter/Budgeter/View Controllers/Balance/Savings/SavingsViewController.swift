@@ -122,4 +122,8 @@ extension SavingsViewController: UITableViewDelegate, UITableViewDataSource {
         }
     } // End of Delete
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+    
 } // End of table view Extension

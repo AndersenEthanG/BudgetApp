@@ -16,6 +16,7 @@ class GotPaidViewController: UIViewController {
     
     // MARK: - Properties
     var savings: [Saving] = []
+    var amountPaid: Double = 0
     
     
     // MARK: - Lifecycle
@@ -32,19 +33,23 @@ class GotPaidViewController: UIViewController {
     // MARK: - Functions
     func updateView() {
         
-        
         tableView.reloadData()
     } // End of Update view
     
     
     // MARK: - Actions
     @IBAction func calculateBtn(_ sender: Any) {
+        guard let amount = amountPaidBtn.text else { return }
         
+        amountPaid = amount.formatToDouble()
+        
+        updateView()
     } // End of Calculate Button
     
     
 } // End of Got Paid View Controller
 
+// MARK: - Extensions
 extension GotPaidViewController: UITableViewDelegate, UITableViewDataSource {
     // Number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,10 +61,17 @@ extension GotPaidViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "gotPaidCell", for: indexPath) as! GotPaidTableViewCell
         let saving = savings[indexPath.row]
         
+        if amountPaid != 0 {
+            cell.amountToPay = amountPaid
+        }
+        
         cell.saving = saving
         
         return cell
     } // End of Cell for row at
     
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
 } // End of Extension
