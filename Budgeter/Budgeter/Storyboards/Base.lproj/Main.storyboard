@@ -828,7 +828,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Expenses $$$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIc-CH-p20">
-                                <rect key="frame" x="44" y="109" width="109" height="21"/>
+                                <rect key="frame" x="44" y="109" width="303" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -876,7 +876,17 @@
                                     <segment title="Month"/>
                                     <segment title="Year"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentDidChange:" destination="BSQ-nj-cZy" eventType="valueChanged" id="qex-Ak-RuL"/>
+                                </connections>
                             </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Per" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LHg-et-46F">
+                                <rect key="frame" x="193" y="158" width="26" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Ug1-i1-iNE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -896,7 +906,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cEP-1V-tpq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4496" y="1263"/>
+            <point key="canvasLocation" x="4495.794392523364" y="1262.8509719222463"/>
         </scene>
         <!--New Expense-->
         <scene sceneID="IdK-lV-D98">
@@ -1217,7 +1227,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="YUx-VM-4cP"/>
-        <segue reference="7o4-eA-GDI"/>
+        <segue reference="IcK-ct-ZB0"/>
         <segue reference="Wjh-z3-9Qj"/>
         <segue reference="2C1-2X-SD9"/>
         <segue reference="BOZ-nN-zTl"/>

@@ -17,6 +17,7 @@ class ExpenseViewController: UIViewController {
     
     // MARK: - Properties
     var expenses: [Expense] = []
+    var segmentIndex: FilterBy = .week
     
     
     // MARK: - Lifecycle
@@ -47,19 +48,82 @@ class ExpenseViewController: UIViewController {
     } // End of Fetch Expenses
     
     func updateView() {
-        updateExpensesLabel()
+        updateFilterBy()
         tableView.reloadData()
     } // End of Update View
     
-    func updateExpensesLabel() {
+    func updateExpensesLabel(filterBy: FilterBy) {
         var finalNumber: Double = 0
-        for expense in expenses {
-            finalNumber += expense.amount
-        }
         
-        expensesLabel.text = finalNumber.formatDoubleToMoneyString()
+        for expense in expenses {
+            var result = expense.amount.convertToHourlyRate(currentRate: (expense.frequency?.formatToFilterBy())!)
+            result = convertHourlyToOtherRate(hourlyRate: result, desiredRate: segmentIndex)
+                
+            finalNumber += result
+        } // End of Loop
+        
+        let preText = "Total Expenses: "
+        expensesLabel.text = ( preText + finalNumber.formatDoubleToMoneyString() )
     } // End of Update expenses label
     
+    func updateFilterBy() {
+        var finalFilter: FilterBy = segmentIndex
+        
+        switch segmentIndex {
+        case .sorted:
+            print("Is line \(#line) working?")
+        case .hour:
+            print("Is line \(#line) working?")
+        case .day:
+            print("Is line \(#line) working?")
+        case .week:
+            finalFilter = .week
+        case .month:
+            finalFilter = .month
+        case .year:
+            finalFilter = .year
+        } // End of Switch
+        
+        updateExpensesLabel(filterBy: finalFilter)
+    } // End of Update filter by
+    
+    
+    // MARK: - Actions
+    @IBAction func segmentDidChange(_ sender: Any) {
+        var finalIndex: FilterBy = segmentIndex
+        
+        switch segmentedController.selectedSegmentIndex {
+        case 0:
+            // Week
+            finalIndex = .week
+        case 1:
+            // Month
+            finalIndex = .month
+        case 2:
+            // Year
+            finalIndex = .year
+        default:
+            print("Is line \(#line) working?")
+        } // End of Switch
+        
+        segmentIndex = finalIndex
+        updateView()
+    } // End of Segment did change
+    
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toExpenseDetailVC" {
+            guard let destinationVC = segue.destination as? ExpenseDetailViewController,
+                  let indexPath = tableView.indexPathForSelectedRow else { return }
+            
+            // Data
+            let expense = expenses[indexPath.row]
+            
+            // Set data
+            destinationVC.expense = expense
+        }
+    } // End of Segue
     
 } // End of Expense View Controller
 

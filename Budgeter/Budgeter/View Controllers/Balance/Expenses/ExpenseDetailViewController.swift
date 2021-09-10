@@ -35,8 +35,30 @@ class ExpenseDetailViewController: UIViewController {
             nameField.text = expense.name
             amountField.text = expense.amount.formatDoubleToMoneyString()
             frequency = (expense.frequency?.formatToFilterBy())!
+            updateSegmentedController()
         }
     } // End of Update view
+    
+    func updateSegmentedController() {
+        var result: Int = 0
+        
+        switch frequency {
+        case .sorted:
+            print("Is line \(#line) working?")
+        case .hour:
+            print("Is line \(#line) working?")
+        case .day:
+            print("Is line \(#line) working?")
+        case .week:
+            result = 0
+        case .month:
+            result = 1
+        case .year:
+            result = 2
+        } // End of Switch
+        
+        segmentedController.selectedSegmentIndex = result
+    } // End of Update segmented controller
     
     
     // MARK: - Actions
