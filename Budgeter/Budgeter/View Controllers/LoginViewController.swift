@@ -17,6 +17,7 @@ class LoginViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func loginBtn(_ sender: Any) {
-        
+        let vc = vcGrabber(vcName: "budgetVC")
+        self.navigationController?.pushViewController(vc, animated: true)
     } // End of Login button
 } // End of Class

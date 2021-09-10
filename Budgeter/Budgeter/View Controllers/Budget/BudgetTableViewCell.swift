@@ -15,10 +15,21 @@ class BudgetTableViewCell: UITableViewCell {
     @IBOutlet weak var amountLabel: UILabel!
     
     
-    // MARK: - Lifecycle
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    // MARK: - Properties
+    var purchase: Purchase? {
+        didSet {
+            updateView()
+        }
+    } // End of Property
+    
+    
+    // MARK: - Functions
+    func updateView() {
+        guard let purchase = purchase else { return }
         
-    } // End of Awake from Nib
+        noteLabel.text = purchase.name
+        dateLabel.text = purchase.purchaseDate?.formatToString()
+        amountLabel.text = purchase.amount.formatDoubleToMoneyString()
+    } // End of Update View
 
 } // End of Class
