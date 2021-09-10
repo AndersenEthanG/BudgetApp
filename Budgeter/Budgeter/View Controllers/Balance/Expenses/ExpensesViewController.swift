@@ -1,5 +1,5 @@
 //
-//  ExpensesTableViewController.swift
+//  ExpensesViewController.swift
 //  Budgeter
 //
 //  Created by Ethan Andersen on 9/3/21.
@@ -29,6 +29,12 @@ class ExpenseViewController: UIViewController {
         fetchExpenses()
     } // End of View did load
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        fetchExpenses()
+    } // End of View will appear
+    
     
     // MARK: - Functions
     func fetchExpenses() {
@@ -39,11 +45,21 @@ class ExpenseViewController: UIViewController {
             self.updateView()
         }
     } // End of Fetch Expenses
-
     
     func updateView() {
-        
+        updateExpensesLabel()
+        tableView.reloadData()
     } // End of Update View
+    
+    func updateExpensesLabel() {
+        var finalNumber: Double = 0
+        for expense in expenses {
+            finalNumber += expense.amount
+        }
+        
+        expensesLabel.text = finalNumber.formatDoubleToMoneyString()
+    } // End of Update expenses label
+    
     
 } // End of Expense View Controller
 
@@ -58,19 +74,15 @@ extension ExpenseViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "incomeCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "expenseCell", for: indexPath)
         let expense = expenses[indexPath.row]
         
         cell.textLabel?.text = expense.name
         
-        var detail1 = expense.amount.formatDoubleToMoneyString()
-        let detail2 = ( " per " + expense.frequency! )
-
-        if expense.isPercent == true {
-            detail1 = expense.amount.formatToPercent()
-        }
+        let detail1 = expense.amount.formatDoubleToMoneyString()
+        let detail2 = expense.frequency!
         
-        cell.detailTextLabel?.text = ( detail1 + detail2 )
+        cell.detailTextLabel?.text = ( detail1 + " per " + detail2 )
         
         return cell
     } // End of Cell data

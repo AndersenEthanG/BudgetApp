@@ -15,6 +15,7 @@ class SavingsViewController: UIViewController {
     
     // MARK: - Properties
     var savings: [Saving] = []
+    var frequency: FilterBy = .week
     
     
     // MARK: - Lifecycle
@@ -47,20 +48,13 @@ class SavingsViewController: UIViewController {
     
     func updateView() {
         
-        
         tableView.reloadData()
     } // End of Update View
-    
-    
-    
-    // MARK: - Actions
-    @IBAction func calculateGotPaidBtn(_ sender: Any) {
-        
-    } // End of Got paid button
-    
+
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Savings Detail
         if segue.identifier == "toSavingDetailVC" {
             guard let destinationVC = segue.destination as? SavingsDetailViewController,
                   let indexPath = tableView.indexPathForSelectedRow else { return }
@@ -68,8 +62,24 @@ class SavingsViewController: UIViewController {
             let saving = savings[indexPath.row]
             
             destinationVC.saving = saving
+        } // End of Savings detail
+        
+        // Got Paid
+        if segue.identifier == "toGotPaidVC" {
+            guard let destinationVC = segue.destination as? GotPaidViewController else { return }
+            
+            var percentSavings: [Saving] = []
+            
+            for saving in savings {
+                if saving.isPercent == true {
+                    percentSavings.append(saving)
+                }
+                
+                destinationVC.savings = percentSavings
+            } // End of Loop
         }
-    } // End of Segue
+    } // End of Cell Segue
+    
     
 } // End of Class
 
@@ -90,13 +100,13 @@ extension SavingsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = saving.name
         
         var detail1 = saving.amount.formatDoubleToMoneyString()
-        let detail2 = ( " per " + saving.frequency! )
+        let detail2 = saving.frequency!
         
         if saving.isPercent == true {
             detail1 = saving.amount.formatToPercent()
         }
         
-        cell.detailTextLabel?.text = ( detail1 + detail2 )
+        cell.detailTextLabel?.text = ( detail1 + " per " + detail2 )
         
         return cell
     } // End of Cell data

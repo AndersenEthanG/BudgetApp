@@ -58,7 +58,6 @@ extension Expense {
         amount: Double,
         creationDate: Date = Date(),
         frequency: String,
-        isPercent: Bool,
         name: String,
         updateDate: Date,
         uuid: String = UUID().uuidString,
@@ -68,7 +67,6 @@ extension Expense {
         self.amount = amount
         self.creationDate = creationDate
         self.frequency = frequency
-        self.isPercent = isPercent
         self.name = name
         self.updateDate = updateDate
         self.uuid = uuid
