@@ -17,7 +17,7 @@ class IncomeViewController: UIViewController {
     
     // MARK: - Properties
     var incomes: [Income] = []
-    var currentSelectedIndex: FilterBy = .hour
+    var currentSelectedIndex: FilterBy = .month
     
     
     // MARK: - Lifecycle

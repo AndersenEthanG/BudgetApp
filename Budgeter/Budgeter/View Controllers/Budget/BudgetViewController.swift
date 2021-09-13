@@ -172,6 +172,7 @@ class BudgetViewController: UIViewController {
         
         return purchaseTotal
     } // End of Function
+
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

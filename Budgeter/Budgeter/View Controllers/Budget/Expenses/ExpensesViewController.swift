@@ -17,7 +17,7 @@ class ExpenseViewController: UIViewController {
     
     // MARK: - Properties
     var expenses: [Expense] = []
-    var segmentIndex: FilterBy = .week
+    var segmentIndex: FilterBy = .month
     
     
     // MARK: - Lifecycle
