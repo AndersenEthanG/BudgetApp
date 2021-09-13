@@ -10,15 +10,25 @@ import UIKit
 class BudgetViewController: UIViewController {
 
     // MARK: - Outlets
+    // Value Labels
+    @IBOutlet weak var totalIncomeLabel: UILabel!
+    @IBOutlet weak var reoccuringTotalLabel: UILabel!
+    @IBOutlet weak var savingAmountLabel: UILabel!
+    @IBOutlet weak var purchaseAmountLabel: UILabel!
     @IBOutlet weak var remainderAmountLabel: UILabel!
-    @IBOutlet weak var budgetTable: UITableView!
+    
+    // Other Outlets
     @IBOutlet weak var purchaseFilterSwitch: UISegmentedControl!
+    @IBOutlet weak var budgetTable: UITableView!
     
     
     // MARK: - Properties
     var purchases: [Purchase] = []
     var purchasesData: [Purchase] = []
-    var filteredBy: FilterBy = .sorted
+
+    var budget: Budget?
+    
+    var filteredBy: FilterBy = .month
     
     
     // MARK: - Lifecycle
@@ -30,40 +40,109 @@ class BudgetViewController: UIViewController {
         budgetTable.delegate = self
         budgetTable.dataSource = self
         
-        fetchPurchases()
+        updateView()
     } // End of View did load
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        fetchPurchases()
+        updateView()
     }
     
     // MARK: - Functions
-    func fetchPurchases() {
-        PurchaseController.sharedInstance.fetchPurchases { fetchedPurchases in
-            self.purchases = []
-            self.purchases = fetchedPurchases
-            
-            self.filterData()
-            self.updateView()
-        }
-    } // End of Fetch Purchases
-    
     func updateView() {
+        fetchPurchases()
+        fetchBudget()
+        filterPurchasesData()
+        updateBudgetData()
         
         budgetTable.reloadData()
     } // End of Update View
     
-    func filterData() {
+    func fetchPurchases() {
+        PurchaseController.sharedInstance.fetchPurchases { fetchedPurchases in
+            self.purchases = []
+            self.purchases = fetchedPurchases
+        }
+    } // End of Fetch Purchases
+    
+    func fetchBudget() {
+        BudgetController.sharedInstance.fetchBudget { fetchedBudget in
+            self.budget = nil
+            self.budget = fetchedBudget
+        }
+    } // End of Fetch budget
+
+    
+    func updateBudgetData() {
+        let budget = filterBudgetData()
+        
+        let totalIncome: String = budget.incomeTotal.formatDoubleToMoneyString()
+        let reoccuringTotal: String = budget.reoccuringTotal.formatDoubleToMoneyString()
+        let savingAmount: String = budget.savingTotal.formatDoubleToMoneyString()
+        let remainderAmount: String = (budget.remainderAmount?.formatDoubleToMoneyString())!
+        
+        let purchaseAmount: String = calculatePurchasesAmount().formatDoubleToMoneyString()
+        
+        totalIncomeLabel.text = totalIncome
+        reoccuringTotalLabel.text = reoccuringTotal
+        savingAmountLabel.text = savingAmount
+        purchaseAmountLabel.text = purchaseAmount
+        remainderAmountLabel.text = remainderAmount
+    } // End of Update budget
+    
+    func filterPurchasesData() {
         let purchaseArray = self.purchases
         let filterBy = filteredBy
         
         self.purchasesData = sortPurchasesByTimeArray(arrayToFilter: purchaseArray, filterBy: filterBy)
         
-        updateView()
+        budgetTable.reloadData()
     } // End of Filter data
     
+    
+    func updateBudgetDataBySorted() {
+        // Make the whole stack view hidden, only show the cells
+    } // End of Function
+    
+    func filterBudgetData() -> Budget {
+        let budget = self.budget!
+        var desiredRate: FilterBy = .month
+        
+        switch filteredBy {
+        case .sorted:
+            print("Is line \(#line) working?")
+        case .hour:
+            print("Is line \(#line) working?")
+        case .day:
+            desiredRate = .day
+        case .week:
+            desiredRate = .week
+        case .month:
+            desiredRate = .month
+        case .year:
+            print("Is line \(#line) working?")
+        }
+        
+        let incomeTotal = convertMonthlyRateToOtherRate(monthlyRate: budget.incomeTotal, desiredRate: desiredRate)
+        let remainderAmount = convertMonthlyRateToOtherRate(monthlyRate: budget.remainderAmount!, desiredRate: desiredRate)
+        let reoccuringTotal = convertMonthlyRateToOtherRate(monthlyRate: budget.reoccuringTotal, desiredRate: desiredRate)
+        let savingTotal = convertMonthlyRateToOtherRate(monthlyRate: budget.savingTotal, desiredRate: desiredRate)
+        
+        let filteredBudget = Budget(incomeTotal: incomeTotal, savingTotal: savingTotal, reoccuringTotal: reoccuringTotal, remainderAmount: remainderAmount)
+        
+        return filteredBudget
+    } // End of Filter budget data
+    
+    func updateData() {
+        if filteredBy == .sorted {
+            updateBudgetDataBySorted()
+        } else {
+            updateBudgetData()
+        }
+        
+        filterPurchasesData()
+    } // End of Update data
     
     // MARK: - Actions
     @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
@@ -80,9 +159,19 @@ class BudgetViewController: UIViewController {
             print("Is line \(#line) working?")
         }
         
-        filterData()
+        updateData()
     } // End of Segment did  change
 
+    func calculatePurchasesAmount() -> Double {
+        let filteredPurchases: [Purchase] = purchasesData
+        var purchaseTotal: Double = 0
+        
+        for purchase in filteredPurchases {
+            purchaseTotal += purchase.amount
+        } // End of For loop
+        
+        return purchaseTotal
+    } // End of Function
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -125,5 +214,9 @@ extension BudgetViewController: UITableViewDelegate, UITableViewDataSource {
             fetchPurchases()
         }
     } // End of Delete
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
     
 } // End of Extension

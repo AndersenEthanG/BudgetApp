@@ -186,8 +186,8 @@ func isSameDay(date1: Date, date2: Date, filterBy: FilterBy) -> Bool {
 extension Date {
     func formatToString() -> String {
         let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
         return formatter.string(from: self)
     }
 } // End of Extension
@@ -241,4 +241,24 @@ func convertHourlyToOtherRate(hourlyRate: Double, desiredRate: FilterBy) -> Doub
 } // End of Function
 
 
-
+// This is used for the Budget model and controller, it will turn the standard monthly rate to the desired rate
+func convertMonthlyRateToOtherRate(monthlyRate: Double, desiredRate: FilterBy) -> Double {
+    var finalValue: Double = monthlyRate
+    
+    switch desiredRate {
+    case .sorted:
+        print("Is line \(#line) working?")
+    case .hour:
+        finalValue = ( monthlyRate / 730 )
+    case .day:
+        finalValue = ( monthlyRate / 30.14 )
+    case .week:
+        finalValue = ( monthlyRate / 4.34 )
+    case .month:
+        finalValue = ( monthlyRate * 1 )
+    case .year:
+        finalValue = ( monthlyRate * 12 )
+    } // End of Switch
+    
+    return finalValue
+} // End of

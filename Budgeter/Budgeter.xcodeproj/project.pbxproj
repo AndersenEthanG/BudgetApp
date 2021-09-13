@@ -41,6 +41,7 @@
 		AAB5389226E2C5AF00081A28 /* IncomeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5389126E2C5AF00081A28 /* IncomeDetailViewController.swift */; };
 		AAB5389426E2C5B600081A28 /* SavingsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5389326E2C5B600081A28 /* SavingsDetailViewController.swift */; };
 		AAB5389626E2C5BC00081A28 /* ExpenseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5389526E2C5BC00081A28 /* ExpenseDetailViewController.swift */; };
+		AAB9FE2226EFBC6100AF51B9 /* BudgetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB9FE2126EFBC6100AF51B9 /* BudgetController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		AAB5389126E2C5AF00081A28 /* IncomeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeDetailViewController.swift; sourceTree = "<group>"; };
 		AAB5389326E2C5B600081A28 /* SavingsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsDetailViewController.swift; sourceTree = "<group>"; };
 		AAB5389526E2C5BC00081A28 /* ExpenseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailViewController.swift; sourceTree = "<group>"; };
+		AAB9FE2126EFBC6100AF51B9 /* BudgetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 				AA6173A026E4168200F6737F /* IncomeController.swift */,
 				AA6173A226E4168900F6737F /* PurchaseController.swift */,
 				AA6173A426E4168E00F6737F /* SavingController.swift */,
+				AAB9FE2126EFBC6100AF51B9 /* BudgetController.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				AA6173A726E41A9E00F6737F /* Budget.swift in Sources */,
 				AA899D0D26E7CFED00A93FCB /* DebtDetailViewController.swift in Sources */,
 				AA61739726E411F200F6737F /* CoreData+Convenience.swift in Sources */,
+				AAB9FE2226EFBC6100AF51B9 /* BudgetController.swift in Sources */,
 				AAB5387826E29E9700081A28 /* GlobalFunctions.swift in Sources */,
 				AA1009A326E2CD9900D6F23B /* AssetsViewController.swift in Sources */,
 				AA6173A126E4168200F6737F /* IncomeController.swift in Sources */,
