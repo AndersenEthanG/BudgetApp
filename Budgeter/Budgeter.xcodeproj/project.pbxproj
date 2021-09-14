@@ -24,6 +24,7 @@
 		AA990CD626EAD7AD0044F1C7 /* GotPaidTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA990CD526EAD7AD0044F1C7 /* GotPaidTableViewCell.swift */; };
 		AAA1744526E7CAE300125021 /* DebtViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1744426E7CAE300125021 /* DebtViewController.swift */; };
 		AAABFA7226F1365700DDF6B3 /* ExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAABFA7126F1365700DDF6B3 /* ExpenseTableViewCell.swift */; };
+		AAABFA7426F14E9F00DDF6B3 /* IncomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAABFA7326F14E9F00DDF6B3 /* IncomeTableViewCell.swift */; };
 		AAB5385926E2989600081A28 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5385826E2989600081A28 /* AppDelegate.swift */; };
 		AAB5385B26E2989600081A28 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5385A26E2989600081A28 /* SceneDelegate.swift */; };
 		AAB5386026E2989600081A28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB5385E26E2989600081A28 /* Main.storyboard */; };
@@ -62,6 +63,7 @@
 		AA990CD526EAD7AD0044F1C7 /* GotPaidTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GotPaidTableViewCell.swift; sourceTree = "<group>"; };
 		AAA1744426E7CAE300125021 /* DebtViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtViewController.swift; sourceTree = "<group>"; };
 		AAABFA7126F1365700DDF6B3 /* ExpenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewCell.swift; sourceTree = "<group>"; };
+		AAABFA7326F14E9F00DDF6B3 /* IncomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeTableViewCell.swift; sourceTree = "<group>"; };
 		AAB5385526E2989600081A28 /* Budgeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Budgeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB5385826E2989600081A28 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAB5385A26E2989600081A28 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -222,8 +224,8 @@
 				AAB5388126E2ACDE00081A28 /* BudgetTableViewCell.swift */,
 				AAB5388326E2AE1C00081A28 /* PurchaseDetailViewController.swift */,
 				AAB5388826E2C52300081A28 /* Income */,
-				AAB5388A26E2C53900081A28 /* Expenses */,
 				AAB5388926E2C53000081A28 /* Savings */,
+				AAB5388A26E2C53900081A28 /* Expenses */,
 			);
 			path = Budget;
 			sourceTree = "<group>";
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				AAB5388B26E2C56800081A28 /* IncomeViewController.swift */,
+				AAABFA7326F14E9F00DDF6B3 /* IncomeTableViewCell.swift */,
 				AAB5389126E2C5AF00081A28 /* IncomeDetailViewController.swift */,
 			);
 			path = Income;
@@ -351,6 +354,7 @@
 				AA6173A126E4168200F6737F /* IncomeController.swift in Sources */,
 				AA6173A326E4168900F6737F /* PurchaseController.swift in Sources */,
 				AA899D0B26E7CD3700A93FCB /* DebtTableViewCell.swift in Sources */,
+				AAABFA7426F14E9F00DDF6B3 /* IncomeTableViewCell.swift in Sources */,
 				AAB5385B26E2989600081A28 /* SceneDelegate.swift in Sources */,
 				AAB5388226E2ACDE00081A28 /* BudgetTableViewCell.swift in Sources */,
 				AAB5388C26E2C56800081A28 /* IncomeViewController.swift in Sources */,

@@ -11,7 +11,6 @@ class DebtTableViewCell: UITableViewCell {
 
     // MARK: - Properties
     @IBOutlet weak var debtNameLabel: UILabel!
-    @IBOutlet weak var debtTotalValueLabel: UILabel!
     @IBOutlet weak var debtAmountPaidLabel: UILabel!
     @IBOutlet weak var debtAmountRemainingLabel: UILabel!
     
@@ -28,7 +27,6 @@ class DebtTableViewCell: UITableViewCell {
         guard let debt = debt else { return }
         
         debtNameLabel.text = debt.name
-        debtTotalValueLabel.text = debt.value.formatDoubleToMoneyString()
         debtAmountPaidLabel.text = debt.amountPaid.formatDoubleToMoneyString()
         debtAmountRemainingLabel.text = (debt.value - debt.amountPaid).formatDoubleToMoneyString()
     } // End of Update View

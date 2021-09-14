@@ -45,8 +45,7 @@ class GotPaidViewController: UIViewController {
         
         updateView()
     } // End of Calculate Button
-    
-    
+
 } // End of Got Paid View Controller
 
 // MARK: - Extensions

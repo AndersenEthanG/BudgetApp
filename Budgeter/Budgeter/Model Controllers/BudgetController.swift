@@ -21,10 +21,10 @@ class BudgetController {
     
     
     // MARK: - Functions
-    func fetchBudget(🐶: @escaping ( Budget ) -> Void) {
+    func fetchBudget(frequency: FilterBy, 🐶: @escaping ( Budget ) -> Void) {
         // Fetch all budget elements from the CoreData
         // All of the values should be in monthly amounts
-        fetchAndCalculateIncome()
+        fetchAndCalculateIncome(frequency: frequency)
         fetchAndCalculateSaving()
         fetchAndCalculateReoccuring()
         calculateRemainder()
@@ -40,10 +40,10 @@ class BudgetController {
     
     
     // Income
-    func fetchAndCalculateIncome() {
+    func fetchAndCalculateIncome(frequency: FilterBy) {
         var incomeTotal: Double = 0
         /// This will calculate based on all of the income tab money and return a single monthly value
-        incomeTotal = IncomeController.sharedInstance.getTotalIncome(frequency: .month)
+        incomeTotal = IncomeController.sharedInstance.getTotalIncome(frequency: frequency)
         
         self.incomeTotal = incomeTotal
     } // End of Fetch and calculate income

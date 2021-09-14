@@ -44,13 +44,18 @@ class IncomeController {
     } // End of Delete income
     
     func getTotalIncome(frequency: FilterBy) -> Double {
+        let returnFrequency = frequency
+        
         var finalResult: Double = 0
         
         fetchIncomes { fetchedIncomes in
             for income in fetchedIncomes {
-                let incomePerHour = income.amountPerHour
-                let incomePerMonth = convertHourlyToOtherRate(hourlyRate: incomePerHour, desiredRate: .month)
-                finalResult += incomePerMonth
+                let amount = income.amount
+                let frequency: FilterBy = (income.frequency?.formatToFilterBy())!
+                
+                let amountPerHour = amount.convertToHourlyRate(currentRate: frequency)
+                let amountPerMonth = convertHourlyToOtherRate(hourlyRate: amountPerHour, desiredRate: returnFrequency)
+                finalResult += amountPerMonth
             } // End of Loop
         } // End of fetch
         return finalResult

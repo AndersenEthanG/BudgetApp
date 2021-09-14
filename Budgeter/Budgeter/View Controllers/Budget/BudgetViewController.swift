@@ -67,7 +67,7 @@ class BudgetViewController: UIViewController {
     } // End of Fetch Purchases
     
     func fetchBudget() {
-        BudgetController.sharedInstance.fetchBudget { fetchedBudget in
+        BudgetController.sharedInstance.fetchBudget(frequency: filteredBy) { fetchedBudget in
             self.budget = nil
             self.budget = fetchedBudget
         }
@@ -82,6 +82,7 @@ class BudgetViewController: UIViewController {
         let savingAmount: String = budget.savingTotal.formatDoubleToMoneyString()
         let remainderAmount: String = (budget.remainderAmount?.formatDoubleToMoneyString())!
         
+        filterPurchasesData()
         let purchaseAmount: String = calculatePurchasesAmount().formatDoubleToMoneyString()
         
         totalIncomeLabel.text = totalIncome
@@ -107,7 +108,7 @@ class BudgetViewController: UIViewController {
     
     func filterBudgetData() -> Budget {
         let budget = self.budget!
-        var desiredRate: FilterBy = .month
+        var desiredRate: FilterBy = filteredBy
         
         switch filteredBy {
         case .sorted:
@@ -121,7 +122,7 @@ class BudgetViewController: UIViewController {
         case .month:
             desiredRate = .month
         case .year:
-            print("Is line \(#line) working?")
+            desiredRate = .year
         }
         
         let incomeTotal = convertMonthlyRateToOtherRate(monthlyRate: budget.incomeTotal, desiredRate: desiredRate)
@@ -154,6 +155,8 @@ class BudgetViewController: UIViewController {
         case 2:
             filteredBy = .month
         case 3:
+            filteredBy = .year
+        case 4:
             filteredBy = .sorted
         default:
             print("Is line \(#line) working?")

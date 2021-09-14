@@ -53,6 +53,7 @@ class SavingsDetailViewController: UIViewController {
             togglePercentOrFixed()
         } else {
             finalText = "Fixed"
+            togglePercentOrFixed()
         }
         
         percentOrFixedLabel.text = finalText
@@ -86,6 +87,7 @@ class SavingsDetailViewController: UIViewController {
             amountField.text = saving?.amount.formatToPercent()
         } else if isPercent == false {
             // Make things $$$ happy
+            amountField.text = saving?.amount.formatDoubleToMoneyString()
         }
     } // End of Toggle percent or Fixed
     

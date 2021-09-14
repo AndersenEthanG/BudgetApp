@@ -60,13 +60,20 @@ class IncomeViewController: UIViewController {
         var finalPerHourAmount: Double = 0
         
         for income in incomes {
-            finalPerHourAmount += income.amountPerHour
+            let amount = income.amount
+            let currentFrequency = (income.frequency?.formatToFilterBy())!
+        
+            let perHourAmount = amount.convertToHourlyRate(currentRate: currentFrequency)
+        
+            finalPerHourAmount += perHourAmount
         }
         
-        let finalAmount: String = convertHourlyToOtherRate(hourlyRate: finalPerHourAmount, desiredRate: currentSelectedIndex).formatDoubleToMoneyString()
+        let desiredFinalPerAmount = convertHourlyToOtherRate(hourlyRate: finalPerHourAmount, desiredRate: currentSelectedIndex)
+        
+        let finalAmountText: String = desiredFinalPerAmount.formatDoubleToMoneyString()
         let filterByText: String = currentSelectedIndex.formatToString()
         
-        let finalText = ( finalAmount + " per " + filterByText )
+        let finalText = ( "About " + finalAmountText + " per " + filterByText )
         totalIncomeLabel.text = finalText
     } // End of Update total income label
     
@@ -123,13 +130,11 @@ extension IncomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     // Cell Data
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "incomeCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "incomeCell", for: indexPath) as? IncomeTableViewCell else { return IncomeTableViewCell() }
         
         let income = incomes[indexPath.row]
-        let incomeAmount = convertHourlyToOtherRate(hourlyRate: income.amountPerHour, desiredRate: currentSelectedIndex)
         
-        cell.textLabel?.text = income.name
-        cell.detailTextLabel?.text = incomeAmount.formatDoubleToMoneyString()
+        cell.income = income
         
         return cell
     } // End of Cell data
@@ -144,5 +149,9 @@ extension IncomeViewController: UITableViewDelegate, UITableViewDataSource {
             fetchIncome()
         }
     } // End of Delete
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
     
 } // End of Table View Extension
