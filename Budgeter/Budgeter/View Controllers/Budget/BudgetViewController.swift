@@ -215,12 +215,8 @@ extension BudgetViewController: UITableViewDelegate, UITableViewDataSource {
             let purchaseToDelete = purchasesData[indexPath.row]
             PurchaseController.sharedInstance.deletePurchase(purchaseToDelete: purchaseToDelete)
             
-            fetchPurchases()
+            updateView()
         }
     } // End of Delete
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
-    }
     
 } // End of Extension
