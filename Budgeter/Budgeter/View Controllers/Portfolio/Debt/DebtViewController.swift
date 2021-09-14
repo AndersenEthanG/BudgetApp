@@ -11,6 +11,7 @@ class DebtViewController: UIViewController {
 
     // MARK: - Outlets
     @IBOutlet weak var totalDebtLabel: UILabel!
+    @IBOutlet weak var totalDebtValueLabel: UILabel!
     @IBOutlet weak var sortByButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
@@ -51,7 +52,7 @@ class DebtViewController: UIViewController {
     
     func updateView() {
         updateTotalDebtLabel()
-        
+        updateTotalDebtValueLabel()
         tableView.reloadData()
     } // End of Update View
     
@@ -65,6 +66,18 @@ class DebtViewController: UIViewController {
         } else {
             totalDebtLabel.text = "$0"
         }
+    } // End of Function
+    
+    func updateTotalDebtValueLabel() {
+        var total: Double = 0
+        
+        for debt in debts {
+            total += debt.value
+        }
+        
+        let finalText = total.formatDoubleToMoneyString()
+        
+        totalDebtValueLabel.text = finalText
     } // End of Function
     
     
@@ -116,5 +129,9 @@ extension DebtViewController: UITableViewDelegate, UITableViewDataSource {
             tableView.reloadData()
         }
     } // End of Delete row
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
     
 } // End of Table View Extension

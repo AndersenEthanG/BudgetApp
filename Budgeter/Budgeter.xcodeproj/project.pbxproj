@@ -23,13 +23,13 @@
 		AA990CD426EAD67A0044F1C7 /* GotPaidViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA990CD326EAD67A0044F1C7 /* GotPaidViewController.swift */; };
 		AA990CD626EAD7AD0044F1C7 /* GotPaidTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA990CD526EAD7AD0044F1C7 /* GotPaidTableViewCell.swift */; };
 		AAA1744526E7CAE300125021 /* DebtViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA1744426E7CAE300125021 /* DebtViewController.swift */; };
+		AAABFA7226F1365700DDF6B3 /* ExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAABFA7126F1365700DDF6B3 /* ExpenseTableViewCell.swift */; };
 		AAB5385926E2989600081A28 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5385826E2989600081A28 /* AppDelegate.swift */; };
 		AAB5385B26E2989600081A28 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5385A26E2989600081A28 /* SceneDelegate.swift */; };
 		AAB5386026E2989600081A28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB5385E26E2989600081A28 /* Main.storyboard */; };
 		AAB5386326E2989700081A28 /* Budgeter.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAB5386126E2989700081A28 /* Budgeter.xcdatamodeld */; };
 		AAB5386526E2989700081A28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAB5386426E2989700081A28 /* Assets.xcassets */; };
 		AAB5386826E2989700081A28 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB5386626E2989700081A28 /* LaunchScreen.storyboard */; };
-		AAB5387526E29E0C00081A28 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5387426E29E0C00081A28 /* LoginViewController.swift */; };
 		AAB5387826E29E9700081A28 /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5387726E29E9700081A28 /* GlobalFunctions.swift */; };
 		AAB5387A26E2A8A100081A28 /* BudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5387926E2A8A100081A28 /* BudgetViewController.swift */; };
 		AAB5388226E2ACDE00081A28 /* BudgetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388126E2ACDE00081A28 /* BudgetTableViewCell.swift */; };
@@ -61,6 +61,7 @@
 		AA990CD326EAD67A0044F1C7 /* GotPaidViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GotPaidViewController.swift; sourceTree = "<group>"; };
 		AA990CD526EAD7AD0044F1C7 /* GotPaidTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GotPaidTableViewCell.swift; sourceTree = "<group>"; };
 		AAA1744426E7CAE300125021 /* DebtViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebtViewController.swift; sourceTree = "<group>"; };
+		AAABFA7126F1365700DDF6B3 /* ExpenseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewCell.swift; sourceTree = "<group>"; };
 		AAB5385526E2989600081A28 /* Budgeter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Budgeter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB5385826E2989600081A28 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAB5385A26E2989600081A28 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,7 +70,6 @@
 		AAB5386426E2989700081A28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAB5386726E2989700081A28 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AAB5386926E2989700081A28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AAB5387426E29E0C00081A28 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AAB5387726E29E9700081A28 /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		AAB5387926E2A8A100081A28 /* BudgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetViewController.swift; sourceTree = "<group>"; };
 		AAB5388126E2ACDE00081A28 /* BudgetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetTableViewCell.swift; sourceTree = "<group>"; };
@@ -99,9 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				AA1009A226E2CD9900D6F23B /* AssetsViewController.swift */,
-				AAA1744426E7CAE300125021 /* DebtViewController.swift */,
-				AA899D0A26E7CD3700A93FCB /* DebtTableViewCell.swift */,
-				AA899D0C26E7CFED00A93FCB /* DebtDetailViewController.swift */,
+				AAABFA7026F1355000DDF6B3 /* Debt */,
 			);
 			path = Portfolio;
 			sourceTree = "<group>";
@@ -112,6 +110,16 @@
 				AA899D1026E7EC3400A93FCB /* CloudKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AAABFA7026F1355000DDF6B3 /* Debt */ = {
+			isa = PBXGroup;
+			children = (
+				AAA1744426E7CAE300125021 /* DebtViewController.swift */,
+				AA899D0A26E7CD3700A93FCB /* DebtTableViewCell.swift */,
+				AA899D0C26E7CFED00A93FCB /* DebtDetailViewController.swift */,
+			);
+			path = Debt;
 			sourceTree = "<group>";
 		};
 		AAB5384C26E2989600081A28 = {
@@ -179,7 +187,6 @@
 		AAB5387226E29DC500081A28 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				AAB5387426E29E0C00081A28 /* LoginViewController.swift */,
 				AAB5388026E2AC8B00081A28 /* Budget */,
 				AA1009A126E2CD8C00D6F23B /* Portfolio */,
 			);
@@ -245,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				AAB5388F26E2C58400081A28 /* ExpensesViewController.swift */,
+				AAABFA7126F1365700DDF6B3 /* ExpenseTableViewCell.swift */,
 				AAB5389526E2C5BC00081A28 /* ExpenseDetailViewController.swift */,
 			);
 			path = Expenses;
@@ -320,10 +328,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAABFA7226F1365700DDF6B3 /* ExpenseTableViewCell.swift in Sources */,
 				AAB5389226E2C5AF00081A28 /* IncomeDetailViewController.swift in Sources */,
 				AAB5389626E2C5BC00081A28 /* ExpenseDetailViewController.swift in Sources */,
 				AA61739926E411FC00F6737F /* CoreDataStack.swift in Sources */,
-				AAB5387526E29E0C00081A28 /* LoginViewController.swift in Sources */,
 				AA6173A526E4168E00F6737F /* SavingController.swift in Sources */,
 				AAB5387A26E2A8A100081A28 /* BudgetViewController.swift in Sources */,
 				AAA1744526E7CAE300125021 /* DebtViewController.swift in Sources */,

@@ -138,15 +138,10 @@ extension ExpenseViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "expenseCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "expenseCell", for: indexPath) as? ExpenseTableViewCell else { return ExpenseTableViewCell() }
         let expense = expenses[indexPath.row]
         
-        cell.textLabel?.text = expense.name
-        
-        let detail1 = expense.amount.formatDoubleToMoneyString()
-        let detail2 = expense.frequency!
-        
-        cell.detailTextLabel?.text = ( detail1 + " per " + detail2 )
+        cell.expense = expense
         
         return cell
     } // End of Cell data
@@ -161,5 +156,9 @@ extension ExpenseViewController: UITableViewDelegate, UITableViewDataSource {
             fetchExpenses()
         }
     } // End of Delete
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
     
 } // End of table view Extension

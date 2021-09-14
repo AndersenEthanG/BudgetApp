@@ -43,13 +43,7 @@ class BudgetController {
     func fetchAndCalculateIncome() {
         var incomeTotal: Double = 0
         /// This will calculate based on all of the income tab money and return a single monthly value
-        IncomeController.sharedInstance.fetchIncomes { fetchedIncomes in
-            for income in fetchedIncomes {
-                let incomePerHour = income.amountPerHour
-                let incomePerMonth = convertHourlyToOtherRate(hourlyRate: incomePerHour, desiredRate: .month)
-                incomeTotal += incomePerMonth
-            }
-        } // End of Fetch Income
+        incomeTotal = IncomeController.sharedInstance.getTotalIncome(frequency: .month)
         
         self.incomeTotal = incomeTotal
     } // End of Fetch and calculate income
