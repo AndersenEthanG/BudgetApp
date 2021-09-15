@@ -650,7 +650,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="kAO-6z-lTs">
-                                        <rect key="frame" x="0.0" y="159" width="364" height="352"/>
+                                        <rect key="frame" x="0.0" y="159.33333333333331" width="364" height="352"/>
                                     </datePicker>
                                 </subviews>
                             </stackView>
@@ -708,46 +708,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="qzw-Sh-739">
-                                <rect key="frame" x="102" y="183" width="224" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Hour"/>
-                                    <segment title="Week"/>
-                                    <segment title="Month"/>
-                                    <segment title="Year"/>
-                                </segments>
-                                <connections>
-                                    <action selector="segmentDidChange:" destination="ksc-17-q0S" eventType="valueChanged" id="Spj-fq-mpt"/>
-                                </connections>
-                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="AH1-eu-c1N">
                                 <rect key="frame" x="0.0" y="245" width="428" height="616"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="incomeCell" rowHeight="98" id="Eeo-mW-RuS" customClass="IncomeTableViewCell" customModule="Budgeter" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="98"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="incomeCell" id="Eeo-mW-RuS" customClass="IncomeTableViewCell" customModule="Budgeter" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="46.333332061767578"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Eeo-mW-RuS" id="i44-cU-nTS">
-                                            <rect key="frame" x="0.0" y="0.0" width="428" height="98"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="428" height="46.333332061767578"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="incomeAmount" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8D7-Qp-vCA">
-                                                    <rect key="frame" x="209" y="38" width="199" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="incomeName" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZj-U9-h48">
-                                                    <rect key="frame" x="20" y="24" width="173" height="48"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vTw-95-TnR">
+                                                    <rect key="frame" x="20" y="10.999999999999998" width="388" height="24.333333333333329"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="incomeName" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nZj-U9-h48">
+                                                            <rect key="frame" x="0.0" y="0.0" width="190" height="24.333333333333332"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="incomeAmount" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8D7-Qp-vCA">
+                                                            <rect key="frame" x="198" y="0.0" width="190" height="24.333333333333332"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="vTw-95-TnR" firstAttribute="top" secondItem="i44-cU-nTS" secondAttribute="topMargin" id="MIk-PY-9yB"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="vTw-95-TnR" secondAttribute="trailing" id="aaO-Gh-nPp"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="vTw-95-TnR" secondAttribute="bottom" id="fzB-82-wwh"/>
+                                                <constraint firstItem="vTw-95-TnR" firstAttribute="leading" secondItem="i44-cU-nTS" secondAttribute="leadingMargin" id="ljO-Dr-ndg"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="incomeAmountLabel" destination="8D7-Qp-vCA" id="7og-eB-IpZ"/>
@@ -757,16 +753,38 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total $$$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OI7-2J-HM4">
-                                <rect key="frame" x="79" y="120" width="270" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="obG-AX-n9e">
+                                <rect key="frame" x="32" y="120" width="364" height="93"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total $$$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OI7-2J-HM4">
+                                        <rect key="frame" x="0.0" y="0.0" width="364" height="27.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="qzw-Sh-739">
+                                        <rect key="frame" x="0.0" y="59.333333333333343" width="364" height="34.666666666666657"/>
+                                        <segments>
+                                            <segment title="Hour"/>
+                                            <segment title="Week"/>
+                                            <segment title="Month"/>
+                                            <segment title="Year"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="segmentDidChange:" destination="ksc-17-q0S" eventType="valueChanged" id="Spj-fq-mpt"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XOS-UD-aoY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="AH1-eu-c1N" firstAttribute="top" secondItem="obG-AX-n9e" secondAttribute="bottom" constant="32" id="ffA-ol-new"/>
+                            <constraint firstItem="obG-AX-n9e" firstAttribute="leading" secondItem="XOS-UD-aoY" secondAttribute="leading" constant="32" id="hAN-KF-T0D"/>
+                            <constraint firstItem="XOS-UD-aoY" firstAttribute="trailing" secondItem="obG-AX-n9e" secondAttribute="trailing" constant="32" id="lDS-i5-WeZ"/>
+                            <constraint firstItem="obG-AX-n9e" firstAttribute="top" secondItem="XOS-UD-aoY" secondAttribute="top" constant="32" id="qe1-op-rOf"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Income" id="mOl-PE-Moa">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="U9I-28-DOp">
@@ -946,7 +964,7 @@
         <scene sceneID="esP-sO-pCU">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mSK-HX-XeA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Assets" id="2hi-PT-LCH"/>
+                    <tabBarItem key="tabBarItem" title="Assets" image="dollarsign.circle.fill" catalog="system" selectedImage="dollarsign.circle.fill" id="2hi-PT-LCH"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Z5w-Kj-2cF">
                         <rect key="frame" x="0.0" y="44" width="428" height="44"/>
@@ -965,7 +983,7 @@
         <scene sceneID="mEU-oW-CnD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gVA-h2-fvP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Debts" id="h7g-5Y-7Ae"/>
+                    <tabBarItem key="tabBarItem" title="Debts" image="creditcard.fill" catalog="system" selectedImage="creditcard.fill" id="h7g-5Y-7Ae"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ahP-Cy-JgJ">
                         <rect key="frame" x="0.0" y="44" width="428" height="44"/>
@@ -1178,7 +1196,7 @@
         <scene sceneID="Tt2-uq-QEq">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cB8-Qc-T8i" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Budget" id="V2L-Jo-gQi"/>
+                    <tabBarItem key="tabBarItem" title="Budget" image="books.vertical.fill" catalog="system" selectedImage="books.vertical.fill" id="V2L-Jo-gQi"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fmF-BO-zVL">
                         <rect key="frame" x="0.0" y="44" width="428" height="44"/>
@@ -1202,7 +1220,10 @@
         <segue reference="hZ2-iP-4fo"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="books.vertical.fill" catalog="system" width="128" height="100"/>
         <image name="circle" catalog="system" width="128" height="121"/>
+        <image name="creditcard.fill" catalog="system" width="128" height="88"/>
+        <image name="dollarsign.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

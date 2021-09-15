@@ -150,8 +150,4 @@ extension IncomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
     } // End of Delete
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    
 } // End of Table View Extension
