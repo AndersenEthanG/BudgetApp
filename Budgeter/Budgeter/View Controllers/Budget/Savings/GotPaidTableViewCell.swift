@@ -15,6 +15,7 @@ class GotPaidTableViewCell: UITableViewCell {
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var amountToPayLabel: UILabel!
     
+    @IBOutlet weak var rightStack: UIStackView!
     
     // MARK: - Properties
     var saving: Saving? {
