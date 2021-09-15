@@ -364,16 +364,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="aYQ-Rz-G2L">
+                                <rect key="frame" x="16" y="104" width="396" height="161"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total $$$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osp-Dt-6Ml">
+                                        <rect key="frame" x="0.0" y="0.0" width="396" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="YLl-nj-W7f">
+                                        <rect key="frame" x="0.0" y="68" width="396" height="32"/>
+                                        <segments>
+                                            <segment title="All"/>
+                                            <segment title="Liquid"/>
+                                            <segment title="Not Liquid"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="didChangeSegment:" destination="AtZ-Cp-H48" eventType="valueChanged" id="y6m-WD-hP6"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gK4-bH-yQW">
+                                        <rect key="frame" x="0.0" y="131" width="396" height="30"/>
+                                        <state key="normal" title="Sort By"/>
+                                        <connections>
+                                            <action selector="sortByBtn:" destination="AtZ-Cp-H48" eventType="touchUpInside" id="laZ-FE-5zl"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sm4-Cw-vTb">
-                                <rect key="frame" x="0.0" y="253" width="433" height="631"/>
+                                <rect key="frame" x="0.0" y="285" width="428" height="558"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="assetCell" textLabel="NWh-As-2ca" detailTextLabel="G0V-5T-mdm" style="IBUITableViewCellStyleValue1" id="djb-tc-9sA">
-                                        <rect key="frame" x="0.0" y="24.333333969116211" width="433" height="47.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="24.333333969116211" width="428" height="47.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="djb-tc-9sA" id="bm5-Wr-krI">
-                                            <rect key="frame" x="0.0" y="0.0" width="433" height="47.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="428" height="47.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NWh-As-2ca">
@@ -384,7 +413,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G0V-5T-mdm">
-                                                    <rect key="frame" x="367" y="14.000000000000002" width="46" height="21.666666666666668"/>
+                                                    <rect key="frame" x="362" y="14.000000000000002" width="46" height="21.666666666666668"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
@@ -395,36 +424,14 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total $$$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osp-Dt-6Ml">
-                                <rect key="frame" x="109" y="119" width="210" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="YLl-nj-W7f">
-                                <rect key="frame" x="98" y="169" width="232" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="All"/>
-                                    <segment title="Liquid"/>
-                                    <segment title="Not Liquid"/>
-                                </segments>
-                                <connections>
-                                    <action selector="didChangeSegment:" destination="AtZ-Cp-H48" eventType="valueChanged" id="y6m-WD-hP6"/>
-                                </connections>
-                            </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gK4-bH-yQW">
-                                <rect key="frame" x="268" y="208" width="143" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Sort By"/>
-                                <connections>
-                                    <action selector="sortByBtn:" destination="AtZ-Cp-H48" eventType="touchUpInside" id="laZ-FE-5zl"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="VX6-qM-UW4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="aYQ-Rz-G2L" firstAttribute="top" secondItem="VX6-qM-UW4" secondAttribute="top" constant="16" id="Xeh-n9-yWH"/>
+                            <constraint firstItem="aYQ-Rz-G2L" firstAttribute="leading" secondItem="qB7-bb-zPl" secondAttribute="leading" constant="16" id="dyb-oI-ZE5"/>
+                            <constraint firstItem="VX6-qM-UW4" firstAttribute="trailing" secondItem="aYQ-Rz-G2L" secondAttribute="trailing" constant="16" id="flE-aV-C2o"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Assets" id="CkU-DQ-ler">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="7c7-0m-rmg">
@@ -691,7 +698,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="kAO-6z-lTs">
-                                        <rect key="frame" x="0.0" y="159.33333333333331" width="364" height="352"/>
+                                        <rect key="frame" x="0.0" y="159" width="364" height="352"/>
                                     </datePicker>
                                 </subviews>
                             </stackView>
