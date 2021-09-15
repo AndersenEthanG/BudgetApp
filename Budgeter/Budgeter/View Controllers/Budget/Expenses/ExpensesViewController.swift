@@ -156,9 +156,5 @@ extension ExpenseViewController: UITableViewDelegate, UITableViewDataSource {
             fetchExpenses()
         }
     } // End of Delete
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    
+
 } // End of table view Extension
