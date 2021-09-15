@@ -20,6 +20,7 @@ class BudgetViewController: UIViewController {
     // Other Outlets
     @IBOutlet weak var purchaseFilterSwitch: UISegmentedControl!
     @IBOutlet weak var budgetTable: UITableView!
+    @IBOutlet weak var topHalfStack: UIStackView!
     
     
     // MARK: - Properties
@@ -144,6 +145,7 @@ class BudgetViewController: UIViewController {
         
         filterPurchasesData()
     } // End of Update data
+
     
     // MARK: - Actions
     @IBAction func segmentDidChange(_ sender: UISegmentedControl) {

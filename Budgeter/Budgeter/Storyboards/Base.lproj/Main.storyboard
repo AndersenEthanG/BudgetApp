@@ -561,25 +561,25 @@
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(totalIncome)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9W4-NW-54q">
                                                         <rect key="frame" x="0.0" y="0.0" width="186" height="35"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(savingAmount)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gY2-f3-ylt">
                                                         <rect key="frame" x="0.0" y="39" width="186" height="35"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(reoccuringTotal)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7E5-ES-16s">
                                                         <rect key="frame" x="0.0" y="78" width="186" height="35"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(purchaseAmount)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EUa-Et-UVk">
                                                         <rect key="frame" x="0.0" y="117" width="186" height="35"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -663,6 +663,7 @@
                         <outlet property="remainderAmountLabel" destination="WBC-s4-wQp" id="dzI-Pr-jym"/>
                         <outlet property="reoccuringTotalLabel" destination="7E5-ES-16s" id="Dv1-ye-0lu"/>
                         <outlet property="savingAmountLabel" destination="gY2-f3-ylt" id="BDw-xk-Dog"/>
+                        <outlet property="topHalfStack" destination="cCO-vw-lk4" id="uTX-J9-Pda"/>
                         <outlet property="totalIncomeLabel" destination="9W4-NW-54q" id="ud0-QQ-94r"/>
                     </connections>
                 </viewController>
