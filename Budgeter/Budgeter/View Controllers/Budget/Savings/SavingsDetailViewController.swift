@@ -30,6 +30,11 @@ class SavingsDetailViewController: UIViewController {
         updateView()
     } // End of View did load
     
+    // This function makes the keyboard go away
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    } // End of Function
+    
     
     // MARK: - Functions
     func updateView() {

@@ -57,20 +57,19 @@ class IncomeViewController: UIViewController {
     
     
     func updateTotalIncomeLabel() {
-        var finalPerHourAmount: Double = 0
+        var finalAmount: Double = 0
         
         for income in incomes {
             let amount = income.amount
-            let currentFrequency = (income.frequency?.formatToFilterBy())!
+            let currentRate: FilterBy = (income.frequency?.formatToFilterBy())!
+            let desiredRate = currentSelectedIndex
         
-            let perHourAmount = amount.convertToHourlyRate(currentRate: currentFrequency)
+            let result = convertRate(rate: amount, currentRate: currentRate, desiredRate: desiredRate)
         
-            finalPerHourAmount += perHourAmount
+            finalAmount += result
         }
         
-        let desiredFinalPerAmount = convertHourlyToOtherRate(hourlyRate: finalPerHourAmount, desiredRate: currentSelectedIndex)
-        
-        let finalAmountText: String = desiredFinalPerAmount.formatDoubleToMoneyString()
+        let finalAmountText: String = finalAmount.formatDoubleToMoneyString()
         let filterByText: String = currentSelectedIndex.formatToString()
         
         let finalText = ( "About " + finalAmountText + " per " + filterByText )

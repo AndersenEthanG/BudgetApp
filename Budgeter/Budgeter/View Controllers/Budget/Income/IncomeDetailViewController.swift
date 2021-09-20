@@ -27,13 +27,23 @@ class IncomeDetailViewController: UIViewController {
         updateView()
     } // End of View did load
     
+    // This function makes the keyboard go away
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        updateAmountText()
+        self.view.endEditing(true)
+    } // End of Function
+    
     
     // MARK: - Functions
     func updateView() {
+        
+        incomeNameField.returnKeyType = .next
+        amountField.returnKeyType = .done
+        
         if let income = income {
             navigationItem.title = "Edit Income"
             incomeNameField.text = income.name
-            amountField.text = income.amount.formatDoubleToMoneyString()
+            updateAmountText()
             updateSegmentedController()
         }
     } // End of Update view
@@ -62,6 +72,12 @@ class IncomeDetailViewController: UIViewController {
         
         perSegmentedController.selectedSegmentIndex = selectedIndex
     } // End of Update segmented controller
+    
+    func updateAmountText() {
+        guard let income = self.income else { return }
+        amountField.text = income.amount.formatDoubleToMoneyString()
+    } // End of update amount text
+    
     
     // MARK: - Actions
     @IBAction func saveBtn(_ sender: Any) {

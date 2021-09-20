@@ -36,7 +36,10 @@ class BudgetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        cleanData()
+        
         purchaseFilterSwitch.selectedSegmentIndex = 2
+        updateFilterSwitch()
         
         budgetTable.delegate = self
         budgetTable.dataSource = self
@@ -46,6 +49,9 @@ class BudgetViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+
+        cleanData()
         
         updateView()
     }
@@ -68,7 +74,7 @@ class BudgetViewController: UIViewController {
     } // End of Fetch Purchases
     
     func fetchBudget() {
-        BudgetController.sharedInstance.fetchBudget(frequency: filteredBy) { fetchedBudget in
+        BudgetController.sharedInstance.fetchBudget { fetchedBudget in
             self.budget = nil
             self.budget = fetchedBudget
         }
@@ -109,6 +115,7 @@ class BudgetViewController: UIViewController {
     
     func filterBudgetData() -> Budget {
         let budget = self.budget!
+        let currentRate = budget.rate
         var desiredRate: FilterBy = filteredBy
         
         switch filteredBy {
@@ -125,13 +132,8 @@ class BudgetViewController: UIViewController {
         case .year:
             desiredRate = .year
         }
-        
-        let incomeTotal = convertMonthlyRateToOtherRate(monthlyRate: budget.incomeTotal, desiredRate: desiredRate)
-        let remainderAmount = convertMonthlyRateToOtherRate(monthlyRate: budget.remainderAmount!, desiredRate: desiredRate)
-        let reoccuringTotal = convertMonthlyRateToOtherRate(monthlyRate: budget.reoccuringTotal, desiredRate: desiredRate)
-        let savingTotal = convertMonthlyRateToOtherRate(monthlyRate: budget.savingTotal, desiredRate: desiredRate)
-        
-        let filteredBudget = Budget(incomeTotal: incomeTotal, savingTotal: savingTotal, reoccuringTotal: reoccuringTotal, remainderAmount: remainderAmount)
+    
+        let filteredBudget = convertBudget(budget: budget, currentRate: currentRate, desiredRate: desiredRate)
         
         return filteredBudget
     } // End of Filter budget data
@@ -146,6 +148,41 @@ class BudgetViewController: UIViewController {
         filterPurchasesData()
     } // End of Update data
 
+    func cleanData() {
+        // Data sources
+        self.purchases = []
+        self.purchasesData = []
+        self.budget = nil
+        
+        // Labels
+        self.totalIncomeLabel.text = ""
+        self.reoccuringTotalLabel.text = ""
+        self.savingAmountLabel.text = ""
+        self.purchaseAmountLabel.text = ""
+        self.remainderAmountLabel.text = ""
+    } // End of Clean data
+    
+    func updateFilterSwitch() {
+        var finalIndex: Int = 0
+        
+        switch filteredBy {
+        case .sorted:
+            finalIndex = 4
+        case .hour:
+            print("Is line \(#line) working?")
+        case .day:
+            finalIndex = 0
+        case .week:
+            finalIndex = 1
+        case .month:
+            finalIndex = 2
+        case .year:
+            finalIndex = 3
+        } // End of Switch
+        
+        purchaseFilterSwitch.selectedSegmentIndex = finalIndex
+    } // End of Update filter switch
+    
     
     // MARK: - Actions
     @IBAction func segmentDidChange(_ sender: UISegmentedControl) {

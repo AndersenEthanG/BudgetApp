@@ -56,8 +56,11 @@ class ExpenseViewController: UIViewController {
         var finalNumber: Double = 0
         
         for expense in expenses {
-            var result = expense.amount.convertToHourlyRate(currentRate: (expense.frequency?.formatToFilterBy())!)
-            result = convertHourlyToOtherRate(hourlyRate: result, desiredRate: segmentIndex)
+            let rate = expense.amount
+            let currentRate: FilterBy = (expense.frequency?.formatToFilterBy())!
+            let desiredRate = filterBy
+            
+            let result = convertRate(rate: rate, currentRate: currentRate, desiredRate: desiredRate)
                 
             finalNumber += result
         } // End of Loop

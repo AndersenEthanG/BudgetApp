@@ -21,10 +21,10 @@ class BudgetController {
     
     
     // MARK: - Functions
-    func fetchBudget(frequency: FilterBy, 🐶: @escaping ( Budget ) -> Void) {
+    func fetchBudget(🐶: @escaping ( Budget ) -> Void) {
         // Fetch all budget elements from the CoreData
         // All of the values should be in monthly amounts
-        fetchAndCalculateIncome(frequency: frequency)
+        fetchAndCalculateIncome()
         fetchAndCalculateSaving()
         fetchAndCalculateReoccuring()
         calculateRemainder()
@@ -40,9 +40,10 @@ class BudgetController {
     
     
     // Income
-    func fetchAndCalculateIncome(frequency: FilterBy) {
+    func fetchAndCalculateIncome() {
         var incomeTotal: Double = 0
         /// This will calculate based on all of the income tab money and return a single monthly value
+        let frequency: FilterBy = .month
         incomeTotal = IncomeController.sharedInstance.getTotalIncome(frequency: frequency)
         
         self.incomeTotal = incomeTotal
@@ -57,10 +58,11 @@ class BudgetController {
         SavingController.sharedInstance.fetchSavings { fetchedSavings in
             for saving in fetchedSavings {
                 let saving: Saving = saving
-                let frequency: FilterBy = (saving.frequency?.formatToFilterBy())!
+                let rate = saving.amount
+                let currentRate: FilterBy = (saving.frequency?.formatToFilterBy())!
+                let desiredRate: FilterBy = .month
                 
-                let hourlySaving = saving.amount.convertToHourlyRate(currentRate: frequency)
-                let monthlySaving = convertHourlyToOtherRate(hourlyRate: hourlySaving, desiredRate: .month)
+                let monthlySaving = convertRate(rate: rate, currentRate: currentRate, desiredRate: desiredRate)
                 
                 switch saving.isPercent {
                 case true:
@@ -89,10 +91,11 @@ class BudgetController {
         ExpenseController.sharedInstance.fetchExpenses { fetchedExpenses in
             for expense in fetchedExpenses {
                 let expense: Expense = expense
-                let frequency: FilterBy = (expense.frequency?.formatToFilterBy())!
+                let rate = expense.amount
+                let currentRate: FilterBy = (expense.frequency?.formatToFilterBy())!
+                let desiredRate: FilterBy = .month
                 
-                let hourlyExpense = expense.amount.convertToHourlyRate(currentRate: frequency)
-                let monthlyExpense = convertHourlyToOtherRate(hourlyRate: hourlyExpense, desiredRate: .month)
+                let monthlyExpense = convertRate(rate: rate, currentRate: currentRate, desiredRate: desiredRate)
                 
                 totalExpenses += monthlyExpense
             } // End of Loop

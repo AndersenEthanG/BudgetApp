@@ -13,5 +13,6 @@ struct Budget {
     let savingTotal: Double
     let reoccuringTotal: Double
     var remainderAmount: Double?
+    let rate: FilterBy = .month
     
 } // End of Budget

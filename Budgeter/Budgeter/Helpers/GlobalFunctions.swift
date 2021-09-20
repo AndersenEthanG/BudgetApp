@@ -195,7 +195,7 @@ extension Date {
 
 /// In an effort to save time and energy, I'm saving all incomes and such as hourly rates
 extension Double {
-    func convertToHourlyRate(currentRate: FilterBy) -> Double {
+    func OLDconvertToHourlyRate(currentRate: FilterBy) -> Double {
         var returnValue: Double = 0
         
         switch currentRate {
@@ -219,7 +219,7 @@ extension Double {
 
 
 // This will turn hourly back into the regular rate
-func convertHourlyToOtherRate(hourlyRate: Double, desiredRate: FilterBy) -> Double {
+func OLDconvertHourlyToOtherRate(hourlyRate: Double, desiredRate: FilterBy) -> Double {
     var finalValue: Double = hourlyRate
     
     switch desiredRate {
@@ -242,7 +242,7 @@ func convertHourlyToOtherRate(hourlyRate: Double, desiredRate: FilterBy) -> Doub
 
 
 // This is used for the Budget model and controller, it will turn the standard monthly rate to the desired rate
-func convertMonthlyRateToOtherRate(monthlyRate: Double, desiredRate: FilterBy) -> Double {
+func OLDconvertMonthlyRateToOtherRate(monthlyRate: Double, desiredRate: FilterBy) -> Double {
     var finalValue: Double = monthlyRate
     
     switch desiredRate {
@@ -262,3 +262,21 @@ func convertMonthlyRateToOtherRate(monthlyRate: Double, desiredRate: FilterBy) -
     
     return finalValue
 } // End of
+
+func convertRate(rate: Double, currentRate: FilterBy, desiredRate: FilterBy) -> Double {
+    
+    let hourlyRate = rate.OLDconvertToHourlyRate(currentRate: currentRate)
+    let finalValue = OLDconvertHourlyToOtherRate(hourlyRate: hourlyRate, desiredRate: desiredRate)
+    
+    return finalValue
+} // End of Function
+
+func convertBudget(budget: Budget, currentRate: FilterBy, desiredRate: FilterBy) -> Budget {
+    
+    let incomeTotal = convertRate(rate: budget.incomeTotal, currentRate: currentRate, desiredRate: desiredRate)
+    let remainderAmount = convertRate(rate: budget.remainderAmount!, currentRate: currentRate, desiredRate: desiredRate)
+    let reoccuringTotal = convertRate(rate: budget.reoccuringTotal, currentRate: currentRate, desiredRate: desiredRate)
+    let savingTotal = convertRate(rate: budget.savingTotal, currentRate: currentRate, desiredRate: desiredRate)
+    
+    return Budget(incomeTotal: incomeTotal, savingTotal: savingTotal, reoccuringTotal: reoccuringTotal, remainderAmount: remainderAmount)
+} // End of Function

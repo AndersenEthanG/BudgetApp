@@ -42,6 +42,10 @@ class DebtDetailViewController: UIViewController {
         
     } // End of Update view
     
+    // This function makes the keyboard go away
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    } // End of Function
     
     // MARK: - Actions
     @IBAction func saveBtn(_ sender: Any) {
