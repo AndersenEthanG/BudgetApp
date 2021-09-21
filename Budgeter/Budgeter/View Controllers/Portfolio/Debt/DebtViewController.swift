@@ -59,7 +59,10 @@ class DebtViewController: UIViewController {
     func updateTotalDebtLabel() {
         var total: Double = 0
         for debt in debts {
-            total += (debt.value - debt.amountPaid)
+            let calculatedTotal = ( debt.value - debt.amountPaid)
+            if calculatedTotal >= 0 {
+                total += calculatedTotal
+            }
         }
         if total > 0 {
             totalDebtLabel.text = (total.formatDoubleToMoneyString())
