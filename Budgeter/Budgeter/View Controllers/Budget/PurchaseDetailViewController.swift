@@ -41,12 +41,12 @@ class PurchaseDetailViewController: UIViewController {
         
         
     } // End of Update View
-    
+
     
     // MARK: - Actions
     @IBAction func saveBtn(_ sender: Any) {
         // Get values
-        let amount = purchaseAmountLabel.text
+        let amount: Double = purchaseAmountLabel.text!.formatToDouble()
         let name = purchaseNameLabel.text ?? "New Purchase"
         let purchaseDate = purchaseDatePicker.date
         
@@ -55,11 +55,11 @@ class PurchaseDetailViewController: UIViewController {
             PurchaseController.sharedInstance.deletePurchase(purchaseToDelete: self.purchase!)
             
             // Update
-            self.purchase = Purchase(amount: (amount?.formatToDouble())!, name: name, purchaseDate: purchaseDate)
+            self.purchase = Purchase(amount: amount, name: name, purchaseDate: purchaseDate)
             PurchaseController.sharedInstance.updatePurchase()
         } else {
             // Create
-            let newPurchase = Purchase(amount: amount?.formatToDouble() ?? 0, name: name, purchaseDate: purchaseDate)
+            let newPurchase = Purchase(amount: amount, name: name, purchaseDate: purchaseDate)
             PurchaseController.sharedInstance.createPurchase(newPurchase: newPurchase)
         }
         

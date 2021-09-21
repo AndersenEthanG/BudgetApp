@@ -74,7 +74,7 @@ class BudgetViewController: UIViewController {
     } // End of Fetch Purchases
     
     func fetchBudget() {
-        BudgetController.sharedInstance.fetchBudget { fetchedBudget in
+        BudgetController.sharedInstance.fetchBudget(totalPurchases: calculatePurchasesAmount()) { fetchedBudget in
             self.budget = nil
             self.budget = fetchedBudget
         }
@@ -87,11 +87,14 @@ class BudgetViewController: UIViewController {
         let totalIncome: String = budget.incomeTotal.formatDoubleToMoneyString()
         let reoccuringTotal: String = budget.reoccuringTotal.formatDoubleToMoneyString()
         let savingAmount: String = budget.savingTotal.formatDoubleToMoneyString()
-        let remainderAmount: String = (budget.remainderAmount?.formatDoubleToMoneyString())!
         
         filterPurchasesData()
-        let purchaseAmount: String = calculatePurchasesAmount().formatDoubleToMoneyString()
+        let rawPurchaseAmount: Double = calculatePurchasesAmount()
+        let purchaseAmount: String = rawPurchaseAmount.formatDoubleToMoneyString()
+        let remainderAmount: String = calculateRemainderAmount(adjustedBudget: budget, purchaseTotal: rawPurchaseAmount).formatDoubleToMoneyString()
         
+        
+        // Set the text values
         totalIncomeLabel.text = totalIncome
         reoccuringTotalLabel.text = reoccuringTotal
         savingAmountLabel.text = savingAmount
@@ -215,6 +218,18 @@ class BudgetViewController: UIViewController {
         return purchaseTotal
     } // End of Function
 
+    
+    func calculateRemainderAmount(adjustedBudget: Budget, purchaseTotal: Double) -> Double {
+        let income = adjustedBudget.incomeTotal
+        let savings = adjustedBudget.savingTotal
+        let expenses = adjustedBudget.reoccuringTotal
+        let purchases = purchaseTotal
+        
+        let finalRemainder: Double = ( income - savings - expenses - purchases )
+        
+        return finalRemainder
+    } // End of Calculate remainder amount
+    
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -47,15 +47,19 @@ extension String {
             return 0
         } else {
             
-            var trimmedInput = input.trimmingCharacters(in: CharacterSet(charactersIn: "0123456789.").inverted)
+            var trimmedInput = input.trimmingCharacters(in: CharacterSet(charactersIn: "0123456789.-").inverted)
             trimmedInput = trimmedInput.replacingOccurrences(of: "$", with: "")
             trimmedInput = trimmedInput.replacingOccurrences(of: ",", with: "")
             let doubleTrimmedInput = Double(trimmedInput)
             
-            return doubleTrimmedInput!
-        }
-    }
-} // End of Format to double
+            if doubleTrimmedInput! <= 0 {
+                return 0
+            } else {
+                return doubleTrimmedInput!
+            }
+        } // End of Primary if else
+    } // End of Function
+} // End of Format to double extension
 
 
 /// This is for the sorting systems
@@ -274,9 +278,10 @@ func convertRate(rate: Double, currentRate: FilterBy, desiredRate: FilterBy) -> 
 func convertBudget(budget: Budget, currentRate: FilterBy, desiredRate: FilterBy) -> Budget {
     
     let incomeTotal = convertRate(rate: budget.incomeTotal, currentRate: currentRate, desiredRate: desiredRate)
-    let remainderAmount = convertRate(rate: budget.remainderAmount!, currentRate: currentRate, desiredRate: desiredRate)
-    let reoccuringTotal = convertRate(rate: budget.reoccuringTotal, currentRate: currentRate, desiredRate: desiredRate)
     let savingTotal = convertRate(rate: budget.savingTotal, currentRate: currentRate, desiredRate: desiredRate)
+    let reoccuringTotal = convertRate(rate: budget.reoccuringTotal, currentRate: currentRate, desiredRate: desiredRate)
     
-    return Budget(incomeTotal: incomeTotal, savingTotal: savingTotal, reoccuringTotal: reoccuringTotal, remainderAmount: remainderAmount)
+    return Budget(incomeTotal: incomeTotal, savingTotal: savingTotal, reoccuringTotal: reoccuringTotal)
 } // End of Function
+
+

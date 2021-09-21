@@ -12,7 +12,6 @@ struct Budget {
     let incomeTotal: Double
     let savingTotal: Double
     let reoccuringTotal: Double
-    var remainderAmount: Double?
     let rate: FilterBy = .month
     
 } // End of Budget

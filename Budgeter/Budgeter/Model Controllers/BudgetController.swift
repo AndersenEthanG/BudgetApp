@@ -21,20 +21,18 @@ class BudgetController {
     
     
     // MARK: - Functions
-    func fetchBudget(🐶: @escaping ( Budget ) -> Void) {
+    func fetchBudget(totalPurchases: Double, 🐶: @escaping ( Budget ) -> Void) {
         // Fetch all budget elements from the CoreData
         // All of the values should be in monthly amounts
         fetchAndCalculateIncome()
         fetchAndCalculateSaving()
         fetchAndCalculateReoccuring()
-        calculateRemainder()
         
         let incomeTotal = self.incomeTotal
         let savingTotal = self.savingTotal
-        let remainderAmount = self.remainderAmount
         let reoccuringTotal = self.reoccuringTotal
                 
-        let fetchedBudget = Budget(incomeTotal: incomeTotal, savingTotal: savingTotal, reoccuringTotal: reoccuringTotal, remainderAmount: remainderAmount)
+        let fetchedBudget = Budget(incomeTotal: incomeTotal, savingTotal: savingTotal, reoccuringTotal: reoccuringTotal)
         🐶(fetchedBudget)
     } // End of fetch budget
     
@@ -103,17 +101,5 @@ class BudgetController {
             self.reoccuringTotal = totalExpenses
         } // End of fetch function
     } // End of Function
-    
-    
-    // Remainder calculate
-    func calculateRemainder() {
-        let income = self.incomeTotal
-        let saving = self.savingTotal
-        let expense = self.reoccuringTotal
-        
-        let finalRemainder = ( income - saving - expense )
-        self.remainderAmount = finalRemainder
-    } // End of calculate remainder
-    
     
 } // End of Class
