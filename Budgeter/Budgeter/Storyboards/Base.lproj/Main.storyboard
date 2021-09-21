@@ -1003,7 +1003,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0bi-fr-7r5">
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="0bi-fr-7r5">
                                         <rect key="frame" x="0.0" y="160.33333333333331" width="364" height="32"/>
                                         <segments>
                                             <segment title="Week"/>
@@ -1045,7 +1045,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cae-jT-QP1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5437.8504672897197" y="2010.5831533477324"/>
+            <point key="canvasLocation" x="5438" y="2011"/>
         </scene>
         <!--Assets-->
         <scene sceneID="esP-sO-pCU">

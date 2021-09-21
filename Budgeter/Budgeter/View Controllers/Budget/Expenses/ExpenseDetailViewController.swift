@@ -17,7 +17,7 @@ class ExpenseDetailViewController: UIViewController {
     
     // MARK: - Properties
     var expense: Expense?
-    var frequency: FilterBy = .week
+    var frequency: FilterBy = .month
     
     
     // MARK: - Lifecycle
