@@ -33,12 +33,14 @@ class DebtDetailViewController: UIViewController {
     } // End of View did load
     
     func updateView() {
-        guard let debt = debt else { return }
-        
+        if let debt = debt {
         debtNameField.text = debt.name
         amountPaidField.text = debt.amountPaid.formatDoubleToMoneyString()
         totalValueField.text = debt.value.formatDoubleToMoneyString()
         amountRemainingLabel.text = ( "Amount Remaining: " + (debt.value - debt.amountPaid).formatDoubleToMoneyString())
+        } else {
+            debtNameField.becomeFirstResponder()
+        }
         
     } // End of Update view
     

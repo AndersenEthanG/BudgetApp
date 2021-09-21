@@ -40,6 +40,8 @@ class ExpenseDetailViewController: UIViewController {
             amountField.text = expense.amount.formatDoubleToMoneyString()
             frequency = (expense.frequency?.formatToFilterBy())!
             updateSegmentedController()
+        } else {
+            nameField.becomeFirstResponder()
         }
     } // End of Update view
     

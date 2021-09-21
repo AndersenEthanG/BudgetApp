@@ -37,8 +37,9 @@ class PurchaseDetailViewController: UIViewController {
             purchaseNameLabel.text = purchase.name
             purchaseAmountLabel.text = purchase.amount.formatDoubleToMoneyString()
             purchaseDatePicker.date = purchase.purchaseDate!
+        } else {
+            purchaseNameLabel.becomeFirstResponder()
         } // End of If Purchase exists
-        
         
     } // End of Update View
 

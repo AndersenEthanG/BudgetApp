@@ -45,6 +45,8 @@ class IncomeDetailViewController: UIViewController {
             incomeNameField.text = income.name
             updateAmountText()
             updateSegmentedController()
+        } else {
+            incomeNameField.becomeFirstResponder()
         }
     } // End of Update view
     

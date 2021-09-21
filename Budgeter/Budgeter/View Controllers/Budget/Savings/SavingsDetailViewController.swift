@@ -44,6 +44,8 @@ class SavingsDetailViewController: UIViewController {
             amountField.text = saving.amount.formatDoubleToMoneyString()
             isPercent = saving.isPercent
             frequency = (saving.frequency?.formatToFilterBy())!
+        } else {
+            savingNameField.becomeFirstResponder()
         } // End of if we are editing
         
         updateIsPercentLabel()
