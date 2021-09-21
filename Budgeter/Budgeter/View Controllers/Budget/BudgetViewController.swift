@@ -91,7 +91,7 @@ class BudgetViewController: UIViewController {
         filterPurchasesData()
         let rawPurchaseAmount: Double = calculatePurchasesAmount()
         let purchaseAmount: String = rawPurchaseAmount.formatDoubleToMoneyString()
-        let remainderAmount: String = calculateRemainderAmount(adjustedBudget: budget, purchaseTotal: rawPurchaseAmount).formatDoubleToMoneyString()
+        let remainderAmount: Double = calculateRemainderAmount(adjustedBudget: budget, purchaseTotal: rawPurchaseAmount)
         
         
         // Set the text values
@@ -99,7 +99,12 @@ class BudgetViewController: UIViewController {
         reoccuringTotalLabel.text = reoccuringTotal
         savingAmountLabel.text = savingAmount
         purchaseAmountLabel.text = purchaseAmount
-        remainderAmountLabel.text = remainderAmount
+        remainderAmountLabel.text = remainderAmount.formatDoubleToMoneyString()
+        if remainderAmount > 0 {
+            remainderAmountLabel.textColor = hexStringToUIColor(hex: "22d16e")
+        } else {
+            remainderAmountLabel.textColor = .red
+        }
     } // End of Update budget
     
     func filterPurchasesData() {
