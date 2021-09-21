@@ -100,7 +100,7 @@ class BudgetViewController: UIViewController {
         savingAmountLabel.text = savingAmount
         purchaseAmountLabel.text = purchaseAmount
         remainderAmountLabel.text = remainderAmount.formatDoubleToMoneyString()
-        if remainderAmount > 0 {
+        if remainderAmount >= 0 {
             remainderAmountLabel.textColor = hexStringToUIColor(hex: CustomColors.green )
         } else {
             remainderAmountLabel.textColor = .red

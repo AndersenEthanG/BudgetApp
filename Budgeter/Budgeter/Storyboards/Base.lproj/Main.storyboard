@@ -860,7 +860,7 @@
             </objects>
             <point key="canvasLocation" x="4429.9065420560746" y="317.49460043196547"/>
         </scene>
-        <!--Expense View Controller-->
+        <!--Expenses-->
         <scene sceneID="3IB-Bf-cP2">
             <objects>
                 <viewController id="BSQ-nj-cZy" customClass="ExpenseViewController" customModule="Budgeter" customModuleProvider="target" sceneMemberID="viewController">
@@ -959,7 +959,7 @@
                             <constraint firstItem="tLQ-pG-A69" firstAttribute="top" secondItem="Ug1-i1-iNE" secondAttribute="top" constant="32" id="pkM-RE-18c"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="qzf-4U-VWl">
+                    <navigationItem key="navigationItem" title="Expenses" id="qzf-4U-VWl">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="nqN-ck-y3R">
                             <connections>
                                 <segue destination="ae8-qo-4Rm" kind="show" id="7o4-eA-GDI"/>
