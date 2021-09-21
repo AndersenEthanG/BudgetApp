@@ -533,9 +533,9 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="186" height="152"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Eb-SH-7mX">
-                                                        <rect key="frame" x="0.0" y="0.0" width="63" height="35"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="72" height="35"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                        <state key="normal" title="Income"/>
+                                                        <state key="normal" title="Incomes"/>
                                                         <connections>
                                                             <segue destination="ksc-17-q0S" kind="show" identifier="toBigThreeVC" id="WNd-4T-bbA"/>
                                                         </connections>
