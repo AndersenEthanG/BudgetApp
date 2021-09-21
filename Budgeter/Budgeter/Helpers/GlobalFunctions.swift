@@ -7,6 +7,12 @@
 
 import UIKit
 
+/// This are my custom colors
+enum CustomColors {
+    static let green: String = "22d16e"
+    static let red: String = ""
+} // End of Struct
+
 /// This function is used to navigate from view controller to view controller, I just made the code a little smaller to save space
 func vcGrabber(vcName: String) -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
