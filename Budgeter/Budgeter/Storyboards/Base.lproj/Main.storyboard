@@ -757,7 +757,7 @@
             </objects>
             <point key="canvasLocation" x="2136" y="400"/>
         </scene>
-        <!--Income-->
+        <!--Incomes-->
         <scene sceneID="vWS-tr-QGT">
             <objects>
                 <viewController id="ksc-17-q0S" customClass="IncomeViewController" customModule="Budgeter" customModuleProvider="target" sceneMemberID="viewController">
@@ -843,7 +843,7 @@
                             <constraint firstItem="obG-AX-n9e" firstAttribute="top" secondItem="XOS-UD-aoY" secondAttribute="top" constant="32" id="qe1-op-rOf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Income" id="mOl-PE-Moa">
+                    <navigationItem key="navigationItem" title="Incomes" id="mOl-PE-Moa">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="U9I-28-DOp">
                             <connections>
                                 <segue destination="Nvf-Jz-Q26" kind="show" id="0Ze-zs-Ko0"/>
