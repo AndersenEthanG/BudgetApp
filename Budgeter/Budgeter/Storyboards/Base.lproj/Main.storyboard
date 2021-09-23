@@ -51,8 +51,8 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r1N-Ha-rJQ">
-                                <rect key="frame" x="164" y="120" width="100" height="31"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <rect key="frame" x="139.66666666666666" y="112" width="148.99999999999997" height="55"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                 <state key="normal" title="Got Paid?"/>
                                 <connections>
                                     <segue destination="wbP-IU-rfN" kind="presentation" identifier="toGotPaidVC" id="09f-Vl-4Ty"/>
@@ -62,9 +62,8 @@
                         <viewLayoutGuide key="safeArea" id="QZG-Qj-cUF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="r1N-Ha-rJQ" firstAttribute="top" secondItem="QZG-Qj-cUF" secondAttribute="top" constant="32" id="DHK-Dp-Cqg"/>
                             <constraint firstItem="r1N-Ha-rJQ" firstAttribute="centerX" secondItem="QZG-Qj-cUF" secondAttribute="centerX" id="Kcm-ue-LyQ"/>
-                            <constraint firstItem="2zh-bw-1c5" firstAttribute="top" secondItem="r1N-Ha-rJQ" secondAttribute="bottom" constant="32" id="Wef-NN-Z3T"/>
+                            <constraint firstItem="r1N-Ha-rJQ" firstAttribute="centerY" secondItem="QZG-Qj-cUF" secondAttribute="centerY" multiplier="0.3" id="cMq-dg-q8D"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Savings" id="N49-cz-3UN">
@@ -75,6 +74,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="gotPaidButton" destination="r1N-Ha-rJQ" id="kkt-aD-lNz"/>
                         <outlet property="tableView" destination="2zh-bw-1c5" id="Dej-B4-mAe"/>
                     </connections>
                 </viewController>
