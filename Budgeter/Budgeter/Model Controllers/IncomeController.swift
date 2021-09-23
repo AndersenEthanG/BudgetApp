@@ -43,4 +43,21 @@ class IncomeController {
         CoreDataStack.saveContext()
     } // End of Delete income
     
+    func getTotalIncome(frequency: FilterBy) -> Double {
+        var finalResult: Double = 0
+        
+        fetchIncomes { fetchedIncomes in
+            for income in fetchedIncomes {
+                let amount = income.amount
+                let currentRate: FilterBy = (income.frequency?.formatToFilterBy())!
+                let desiredRate: FilterBy = frequency
+                
+                let amountPerMonth = convertRate(rate: amount, currentRate: currentRate, desiredRate: desiredRate)
+                
+                finalResult += amountPerMonth
+            } // End of Loop
+        } // End of fetch
+        return finalResult
+    } // End of Get total income
+    
 } // End of Class

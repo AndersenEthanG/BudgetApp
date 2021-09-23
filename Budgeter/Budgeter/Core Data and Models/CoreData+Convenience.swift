@@ -76,17 +76,18 @@ extension Expense {
 
 extension Income {
     @discardableResult convenience init(
-        amountPerHour: Double,
+        amount: Double,
         creationDate: Date = Date(),
-        frequency: Int,
+        frequency: String,
         name: String,
         updatedDate: Date,
         uuid: String = UUID().uuidString,
         context: NSManagedObjectContext = CoreDataStack.context
     ) {
         self.init(context: context)
-        self.amountPerHour = amountPerHour
+        self.amount = amount
         self.creationDate = creationDate
+        self.frequency = frequency
         self.name = name
         self.updatedDate = updatedDate
         self.uuid = uuid

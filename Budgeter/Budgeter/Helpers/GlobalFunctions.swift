@@ -7,6 +7,12 @@
 
 import UIKit
 
+/// This are my custom colors
+enum CustomColors {
+    static let green: String = "22d16e"
+    static let red: String = ""
+} // End of Struct
+
 /// This function is used to navigate from view controller to view controller, I just made the code a little smaller to save space
 func vcGrabber(vcName: String) -> UIViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -47,15 +53,19 @@ extension String {
             return 0
         } else {
             
-            var trimmedInput = input.trimmingCharacters(in: CharacterSet(charactersIn: "0123456789.").inverted)
+            var trimmedInput = input.trimmingCharacters(in: CharacterSet(charactersIn: "0123456789.-").inverted)
             trimmedInput = trimmedInput.replacingOccurrences(of: "$", with: "")
             trimmedInput = trimmedInput.replacingOccurrences(of: ",", with: "")
             let doubleTrimmedInput = Double(trimmedInput)
             
-            return doubleTrimmedInput!
-        }
-    }
-} // End of Format to double
+            if doubleTrimmedInput! <= 0 {
+                return 0
+            } else {
+                return doubleTrimmedInput!
+            }
+        } // End of Primary if else
+    } // End of Function
+} // End of Format to double extension
 
 
 /// This is for the sorting systems
@@ -186,8 +196,8 @@ func isSameDay(date1: Date, date2: Date, filterBy: FilterBy) -> Bool {
 extension Date {
     func formatToString() -> String {
         let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
         return formatter.string(from: self)
     }
 } // End of Extension
@@ -195,7 +205,7 @@ extension Date {
 
 /// In an effort to save time and energy, I'm saving all incomes and such as hourly rates
 extension Double {
-    func convertToHourlyRate(currentRate: FilterBy) -> Double {
+    func OLDconvertToHourlyRate(currentRate: FilterBy) -> Double {
         var returnValue: Double = 0
         
         switch currentRate {
@@ -219,7 +229,7 @@ extension Double {
 
 
 // This will turn hourly back into the regular rate
-func convertHourlyToOtherRate(hourlyRate: Double, desiredRate: FilterBy) -> Double {
+func OLDconvertHourlyToOtherRate(hourlyRate: Double, desiredRate: FilterBy) -> Double {
     var finalValue: Double = hourlyRate
     
     switch desiredRate {
@@ -241,4 +251,64 @@ func convertHourlyToOtherRate(hourlyRate: Double, desiredRate: FilterBy) -> Doub
 } // End of Function
 
 
+// This is used for the Budget model and controller, it will turn the standard monthly rate to the desired rate
+func OLDconvertMonthlyRateToOtherRate(monthlyRate: Double, desiredRate: FilterBy) -> Double {
+    var finalValue: Double = monthlyRate
+    
+    switch desiredRate {
+    case .sorted:
+        print("Is line \(#line) working?")
+    case .hour:
+        finalValue = ( monthlyRate / 730 )
+    case .day:
+        finalValue = ( monthlyRate / 30.14 )
+    case .week:
+        finalValue = ( monthlyRate / 4.34 )
+    case .month:
+        finalValue = ( monthlyRate * 1 )
+    case .year:
+        finalValue = ( monthlyRate * 12 )
+    } // End of Switch
+    
+    return finalValue
+} // End of
 
+func convertRate(rate: Double, currentRate: FilterBy, desiredRate: FilterBy) -> Double {
+    
+    let hourlyRate = rate.OLDconvertToHourlyRate(currentRate: currentRate)
+    let finalValue = OLDconvertHourlyToOtherRate(hourlyRate: hourlyRate, desiredRate: desiredRate)
+    
+    return finalValue
+} // End of Function
+
+func convertBudget(budget: Budget, currentRate: FilterBy, desiredRate: FilterBy) -> Budget {
+    
+    let incomeTotal = convertRate(rate: budget.incomeTotal, currentRate: currentRate, desiredRate: desiredRate)
+    let savingTotal = convertRate(rate: budget.savingTotal, currentRate: currentRate, desiredRate: desiredRate)
+    let reoccuringTotal = convertRate(rate: budget.reoccuringTotal, currentRate: currentRate, desiredRate: desiredRate)
+    
+    return Budget(incomeTotal: incomeTotal, savingTotal: savingTotal, reoccuringTotal: reoccuringTotal)
+} // End of Function
+
+
+func hexStringToUIColor(hex: String) -> UIColor {
+    var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+    
+    if (cString.hasPrefix("#")) {
+        cString.remove(at: cString.startIndex)
+    }
+    
+    if ((cString.count) != 6) {
+        return UIColor.gray
+    }
+    
+    var rgbValue:UInt64 = 0
+    Scanner(string: cString).scanHexInt64(&rgbValue)
+    
+    return UIColor(
+        red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+        green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+        blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+        alpha: CGFloat(1.0)
+    )
+} // End of Function

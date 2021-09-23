@@ -17,7 +17,7 @@ class IncomeViewController: UIViewController {
     
     // MARK: - Properties
     var incomes: [Income] = []
-    var currentSelectedIndex: FilterBy = .hour
+    var currentSelectedIndex: FilterBy = .month
     
     
     // MARK: - Lifecycle
@@ -57,16 +57,22 @@ class IncomeViewController: UIViewController {
     
     
     func updateTotalIncomeLabel() {
-        var finalPerHourAmount: Double = 0
+        var finalAmount: Double = 0
         
         for income in incomes {
-            finalPerHourAmount += income.amountPerHour
+            let amount = income.amount
+            let currentRate: FilterBy = (income.frequency?.formatToFilterBy())!
+            let desiredRate = currentSelectedIndex
+        
+            let result = convertRate(rate: amount, currentRate: currentRate, desiredRate: desiredRate)
+        
+            finalAmount += result
         }
         
-        let finalAmount: String = convertHourlyToOtherRate(hourlyRate: finalPerHourAmount, desiredRate: currentSelectedIndex).formatDoubleToMoneyString()
+        let finalAmountText: String = finalAmount.formatDoubleToMoneyString()
         let filterByText: String = currentSelectedIndex.formatToString()
         
-        let finalText = ( finalAmount + " per " + filterByText )
+        let finalText = ( "About " + finalAmountText + " per " + filterByText )
         totalIncomeLabel.text = finalText
     } // End of Update total income label
     
@@ -123,13 +129,11 @@ extension IncomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     // Cell Data
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "incomeCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "incomeCell", for: indexPath) as? IncomeTableViewCell else { return IncomeTableViewCell() }
         
         let income = incomes[indexPath.row]
-        let incomeAmount = convertHourlyToOtherRate(hourlyRate: income.amountPerHour, desiredRate: currentSelectedIndex)
         
-        cell.textLabel?.text = income.name
-        cell.detailTextLabel?.text = incomeAmount.formatDoubleToMoneyString()
+        cell.income = income
         
         return cell
     } // End of Cell data

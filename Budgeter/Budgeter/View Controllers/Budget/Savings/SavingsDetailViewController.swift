@@ -30,6 +30,11 @@ class SavingsDetailViewController: UIViewController {
         updateView()
     } // End of View did load
     
+    // This function makes the keyboard go away
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    } // End of Function
+    
     
     // MARK: - Functions
     func updateView() {
@@ -39,6 +44,8 @@ class SavingsDetailViewController: UIViewController {
             amountField.text = saving.amount.formatDoubleToMoneyString()
             isPercent = saving.isPercent
             frequency = (saving.frequency?.formatToFilterBy())!
+        } else {
+            savingNameField.becomeFirstResponder()
         } // End of if we are editing
         
         updateIsPercentLabel()
@@ -53,6 +60,7 @@ class SavingsDetailViewController: UIViewController {
             togglePercentOrFixed()
         } else {
             finalText = "Fixed"
+            togglePercentOrFixed()
         }
         
         percentOrFixedLabel.text = finalText
@@ -86,6 +94,7 @@ class SavingsDetailViewController: UIViewController {
             amountField.text = saving?.amount.formatToPercent()
         } else if isPercent == false {
             // Make things $$$ happy
+            amountField.text = saving?.amount.formatDoubleToMoneyString()
         }
     } // End of Toggle percent or Fixed
     

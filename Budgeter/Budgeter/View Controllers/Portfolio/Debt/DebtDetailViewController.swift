@@ -33,15 +33,21 @@ class DebtDetailViewController: UIViewController {
     } // End of View did load
     
     func updateView() {
-        guard let debt = debt else { return }
-        
+        if let debt = debt {
         debtNameField.text = debt.name
         amountPaidField.text = debt.amountPaid.formatDoubleToMoneyString()
         totalValueField.text = debt.value.formatDoubleToMoneyString()
         amountRemainingLabel.text = ( "Amount Remaining: " + (debt.value - debt.amountPaid).formatDoubleToMoneyString())
+        } else {
+            debtNameField.becomeFirstResponder()
+        }
         
     } // End of Update view
     
+    // This function makes the keyboard go away
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    } // End of Function
     
     // MARK: - Actions
     @IBAction func saveBtn(_ sender: Any) {

@@ -17,7 +17,7 @@ class IncomeDetailViewController: UIViewController {
     
     // MARK: - Properties
     var income: Income?
-    var currentSegmentFilterBy: FilterBy = .hour
+    var currentSegmentFilterBy: FilterBy = .month
     
     
     // MARK: - Lifecycle
@@ -27,22 +27,65 @@ class IncomeDetailViewController: UIViewController {
         updateView()
     } // End of View did load
     
+    // This function makes the keyboard go away
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        updateAmountText()
+        self.view.endEditing(true)
+    } // End of Function
+    
     
     // MARK: - Functions
     func updateView() {
+        
+        incomeNameField.returnKeyType = .next
+        amountField.returnKeyType = .done
+        
         if let income = income {
             navigationItem.title = "Edit Income"
             incomeNameField.text = income.name
-            amountField.text = income.amountPerHour.convertToHourlyRate(currentRate: currentSegmentFilterBy).formatDoubleToMoneyString()
+            updateAmountText()
+            updateSegmentedController()
+        } else {
+            incomeNameField.becomeFirstResponder()
         }
     } // End of Update view
+    
+    func updateSegmentedController() {
+        guard let income = income else { return }
+        
+        currentSegmentFilterBy = (income.frequency?.formatToFilterBy())!
+        
+        var selectedIndex: Int = 0
+        
+        switch currentSegmentFilterBy {
+        case .sorted:
+            print("Is line \(#line) working?")
+        case .hour:
+            selectedIndex = 0
+        case .day:
+            print("Is line \(#line) working?")
+        case .week:
+            selectedIndex = 1
+        case .month:
+            selectedIndex = 2
+        case .year:
+            selectedIndex = 3
+        } // End of Switch
+        
+        perSegmentedController.selectedSegmentIndex = selectedIndex
+    } // End of Update segmented controller
+    
+    func updateAmountText() {
+        guard let income = self.income else { return }
+        amountField.text = income.amount.formatDoubleToMoneyString()
+    } // End of update amount text
     
     
     // MARK: - Actions
     @IBAction func saveBtn(_ sender: Any) {
         // Get values
-        let amountPerHour: Double = (amountField.text?.formatToDouble().convertToHourlyRate(currentRate: currentSegmentFilterBy))!
-        let frequency = 0
+        let amount: Double = (amountField.text?.formatToDouble())!
+        let frequency = currentSegmentFilterBy.formatToString()
         let name = incomeNameField.text ?? "New Income"
         let updatedDate = Date()
         
@@ -52,11 +95,11 @@ class IncomeDetailViewController: UIViewController {
             IncomeController.sharedInstance.deleteIncome(incomeToDelete: self.income!)
 
             // Update
-            self.income = Income(amountPerHour: amountPerHour, frequency: frequency, name: name, updatedDate: updatedDate)
+            self.income = Income(amount: amount, frequency: frequency, name: name, updatedDate: updatedDate)
             IncomeController.sharedInstance.updateIncome()
         } else {
             // New
-            let newIncome = Income(amountPerHour: amountPerHour, frequency: frequency, name: name, updatedDate: updatedDate)
+            let newIncome = Income(amount: amount, frequency: frequency, name: name, updatedDate: updatedDate)
             IncomeController.sharedInstance.createIncome(newIncome: newIncome)
         }
         

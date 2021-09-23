@@ -11,6 +11,7 @@ class SavingsViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var gotPaidButton: UIButton!
     
     
     // MARK: - Properties
@@ -35,6 +36,12 @@ class SavingsViewController: UIViewController {
         fetchSavings()
     } // End of View will appear
     
+    // This will update things when the phone changes to dark mode
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            super.traitCollectionDidChange(previousTraitCollection)
+            updateView()
+        } // End of Update to dark mode
+    
     
     // MARK: - Functions
     func fetchSavings() {
@@ -47,10 +54,26 @@ class SavingsViewController: UIViewController {
     } // End of Function
     
     func updateView() {
-        
+        setupGotPaidButton()
         tableView.reloadData()
     } // End of Update View
 
+    func setupGotPaidButton() {
+        gotPaidButton.layer.borderWidth = 2
+        gotPaidButton.layer.cornerRadius = 10
+        gotPaidButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
+        if self.traitCollection.userInterfaceStyle == .light {
+            gotPaidButton.backgroundColor = hexStringToUIColor(hex: "E0E0E0")
+            gotPaidButton.setTitleColor(hexStringToUIColor(hex: "007AFF"), for: .normal)
+            gotPaidButton.layer.borderColor = UIColor.black.cgColor
+        } else if self.traitCollection.userInterfaceStyle == .dark {
+            gotPaidButton.backgroundColor = .black
+            gotPaidButton.setTitleColor(hexStringToUIColor(hex: "007AFF"), for: .normal)
+            gotPaidButton.layer.borderColor = UIColor.white.cgColor
+        }
+    } // End of Got paid button
+    
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -123,7 +146,7 @@ extension SavingsViewController: UITableViewDelegate, UITableViewDataSource {
     } // End of Delete
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 60
     }
     
 } // End of table view Extension

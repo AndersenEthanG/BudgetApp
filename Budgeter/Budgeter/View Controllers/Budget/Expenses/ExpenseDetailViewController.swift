@@ -17,7 +17,7 @@ class ExpenseDetailViewController: UIViewController {
     
     // MARK: - Properties
     var expense: Expense?
-    var frequency: FilterBy = .week
+    var frequency: FilterBy = .month
     
     
     // MARK: - Lifecycle
@@ -27,6 +27,10 @@ class ExpenseDetailViewController: UIViewController {
         updateView()
     } // End of View did load
     
+    // This function makes the keyboard go away
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    } // End of Function
     
     // MARK: - Functions
     func updateView() {
@@ -36,6 +40,8 @@ class ExpenseDetailViewController: UIViewController {
             amountField.text = expense.amount.formatDoubleToMoneyString()
             frequency = (expense.frequency?.formatToFilterBy())!
             updateSegmentedController()
+        } else {
+            nameField.becomeFirstResponder()
         }
     } // End of Update view
     

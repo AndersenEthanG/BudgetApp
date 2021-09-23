@@ -17,6 +17,7 @@ class GotPaidViewController: UIViewController {
     // MARK: - Properties
     var savings: [Saving] = []
     var amountPaid: Double = 0
+    var calculateWasPressed: Bool = false
     
     
     // MARK: - Lifecycle
@@ -29,24 +30,34 @@ class GotPaidViewController: UIViewController {
         updateView()
     } // End of View did load
     
+    // This function makes the keyboard go away
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    } // End of Function
+    
     
     // MARK: - Functions
     func updateView() {
-        
+        updateAmountPaidLabel()
         tableView.reloadData()
     } // End of Update view
     
+    func updateAmountPaidLabel() {
+        if amountPaidBtn.text != "" {
+            amountPaidBtn.text = amountPaid.formatDoubleToMoneyString()
+        }
+    } // End of Update Amount Paid Label
     
     // MARK: - Actions
     @IBAction func calculateBtn(_ sender: Any) {
         guard let amount = amountPaidBtn.text else { return }
         
+        calculateWasPressed = true
         amountPaid = amount.formatToDouble()
         
         updateView()
     } // End of Calculate Button
-    
-    
+
 } // End of Got Paid View Controller
 
 // MARK: - Extensions
@@ -61,6 +72,12 @@ extension GotPaidViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "gotPaidCell", for: indexPath) as! GotPaidTableViewCell
         let saving = savings[indexPath.row]
         
+        if calculateWasPressed == true {
+            cell.rightStack.isHidden = false
+        } else {
+            cell.rightStack.isHidden = true
+        }
+        
         if amountPaid != 0 {
             cell.amountToPay = amountPaid
         }
@@ -70,8 +87,4 @@ extension GotPaidViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     } // End of Cell for row at
     
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
-    }
 } // End of Extension

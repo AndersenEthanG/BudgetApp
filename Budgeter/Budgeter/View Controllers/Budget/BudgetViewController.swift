@@ -10,59 +10,186 @@ import UIKit
 class BudgetViewController: UIViewController {
 
     // MARK: - Outlets
+    // Value Labels
+    @IBOutlet weak var totalIncomeLabel: UILabel!
+    @IBOutlet weak var reoccuringTotalLabel: UILabel!
+    @IBOutlet weak var savingAmountLabel: UILabel!
+    @IBOutlet weak var purchaseAmountLabel: UILabel!
     @IBOutlet weak var remainderAmountLabel: UILabel!
-    @IBOutlet weak var budgetTable: UITableView!
+    
+    // Other Outlets
     @IBOutlet weak var purchaseFilterSwitch: UISegmentedControl!
+    @IBOutlet weak var budgetTable: UITableView!
+    @IBOutlet weak var topHalfStack: UIStackView!
     
     
     // MARK: - Properties
     var purchases: [Purchase] = []
     var purchasesData: [Purchase] = []
-    var filteredBy: FilterBy = .sorted
+
+    var budget: Budget?
+    
+    var filteredBy: FilterBy = .month
     
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        cleanData()
+        
         purchaseFilterSwitch.selectedSegmentIndex = 2
+        updateFilterSwitch()
         
         budgetTable.delegate = self
         budgetTable.dataSource = self
         
-        fetchPurchases()
+        updateView()
     } // End of View did load
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        fetchPurchases()
+
+        cleanData()
+        
+        updateView()
     }
     
     // MARK: - Functions
-    func fetchPurchases() {
-        PurchaseController.sharedInstance.fetchPurchases { fetchedPurchases in
-            self.purchases = []
-            self.purchases = fetchedPurchases
-            
-            self.filterData()
-            self.updateView()
-        }
-    } // End of Fetch Purchases
-    
     func updateView() {
+        fetchPurchases()
+        fetchBudget()
+        filterPurchasesData()
+        updateBudgetData()
         
         budgetTable.reloadData()
     } // End of Update View
     
-    func filterData() {
+    func fetchPurchases() {
+        PurchaseController.sharedInstance.fetchPurchases { fetchedPurchases in
+            self.purchases = []
+            self.purchases = fetchedPurchases
+        }
+    } // End of Fetch Purchases
+    
+    func fetchBudget() {
+        BudgetController.sharedInstance.fetchBudget(totalPurchases: calculatePurchasesAmount()) { fetchedBudget in
+            self.budget = nil
+            self.budget = fetchedBudget
+        }
+    } // End of Fetch budget
+
+    
+    func updateBudgetData() {
+        let budget = filterBudgetData()
+        
+        let totalIncome: String = budget.incomeTotal.formatDoubleToMoneyString()
+        let reoccuringTotal: String = budget.reoccuringTotal.formatDoubleToMoneyString()
+        let savingAmount: String = budget.savingTotal.formatDoubleToMoneyString()
+        
+        filterPurchasesData()
+        let rawPurchaseAmount: Double = calculatePurchasesAmount()
+        let purchaseAmount: String = rawPurchaseAmount.formatDoubleToMoneyString()
+        let remainderAmount: Double = calculateRemainderAmount(adjustedBudget: budget, purchaseTotal: rawPurchaseAmount)
+        
+        
+        // Set the text values
+        totalIncomeLabel.text = totalIncome
+        reoccuringTotalLabel.text = reoccuringTotal
+        savingAmountLabel.text = savingAmount
+        purchaseAmountLabel.text = purchaseAmount
+        remainderAmountLabel.text = remainderAmount.formatDoubleToMoneyString()
+        if remainderAmount >= 0 {
+            remainderAmountLabel.textColor = hexStringToUIColor(hex: CustomColors.green )
+        } else {
+            remainderAmountLabel.textColor = .red
+        }
+    } // End of Update budget
+    
+    func filterPurchasesData() {
         let purchaseArray = self.purchases
         let filterBy = filteredBy
         
         self.purchasesData = sortPurchasesByTimeArray(arrayToFilter: purchaseArray, filterBy: filterBy)
         
-        updateView()
+        budgetTable.reloadData()
     } // End of Filter data
+    
+    
+    func updateBudgetDataBySorted() {
+        // Make the whole stack view hidden, only show the cells
+    } // End of Function
+    
+    func filterBudgetData() -> Budget {
+        let budget = self.budget!
+        let currentRate = budget.rate
+        var desiredRate: FilterBy = filteredBy
+        
+        switch filteredBy {
+        case .sorted:
+            print("Is line \(#line) working?")
+        case .hour:
+            print("Is line \(#line) working?")
+        case .day:
+            desiredRate = .day
+        case .week:
+            desiredRate = .week
+        case .month:
+            desiredRate = .month
+        case .year:
+            desiredRate = .year
+        }
+    
+        let filteredBudget = convertBudget(budget: budget, currentRate: currentRate, desiredRate: desiredRate)
+        
+        return filteredBudget
+    } // End of Filter budget data
+    
+    func updateData() {
+        if filteredBy == .sorted {
+            updateBudgetDataBySorted()
+        } else {
+            updateBudgetData()
+        }
+        
+        filterPurchasesData()
+    } // End of Update data
+
+    func cleanData() {
+        // Data sources
+        self.purchases = []
+        self.purchasesData = []
+        self.budget = nil
+        
+        // Labels
+        self.totalIncomeLabel.text = ""
+        self.reoccuringTotalLabel.text = ""
+        self.savingAmountLabel.text = ""
+        self.purchaseAmountLabel.text = ""
+        self.remainderAmountLabel.text = ""
+    } // End of Clean data
+    
+    func updateFilterSwitch() {
+        var finalIndex: Int = 0
+        
+        switch filteredBy {
+        case .sorted:
+            finalIndex = 4
+        case .hour:
+            print("Is line \(#line) working?")
+        case .day:
+            finalIndex = 0
+        case .week:
+            finalIndex = 1
+        case .month:
+            finalIndex = 2
+        case .year:
+            finalIndex = 3
+        } // End of Switch
+        
+        purchaseFilterSwitch.selectedSegmentIndex = finalIndex
+    } // End of Update filter switch
     
     
     // MARK: - Actions
@@ -75,14 +202,39 @@ class BudgetViewController: UIViewController {
         case 2:
             filteredBy = .month
         case 3:
+            filteredBy = .year
+        case 4:
             filteredBy = .sorted
         default:
             print("Is line \(#line) working?")
         }
         
-        filterData()
+        updateData()
     } // End of Segment did  change
 
+    func calculatePurchasesAmount() -> Double {
+        let filteredPurchases: [Purchase] = purchasesData
+        var purchaseTotal: Double = 0
+        
+        for purchase in filteredPurchases {
+            purchaseTotal += purchase.amount
+        } // End of For loop
+        
+        return purchaseTotal
+    } // End of Function
+
+    
+    func calculateRemainderAmount(adjustedBudget: Budget, purchaseTotal: Double) -> Double {
+        let income = adjustedBudget.incomeTotal
+        let savings = adjustedBudget.savingTotal
+        let expenses = adjustedBudget.reoccuringTotal
+        let purchases = purchaseTotal
+        
+        let finalRemainder: Double = ( income - savings - expenses - purchases )
+        
+        return finalRemainder
+    } // End of Calculate remainder amount
+    
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -122,7 +274,7 @@ extension BudgetViewController: UITableViewDelegate, UITableViewDataSource {
             let purchaseToDelete = purchasesData[indexPath.row]
             PurchaseController.sharedInstance.deletePurchase(purchaseToDelete: purchaseToDelete)
             
-            fetchPurchases()
+            updateView()
         }
     } // End of Delete
     

@@ -17,7 +17,7 @@ class ExpenseViewController: UIViewController {
     
     // MARK: - Properties
     var expenses: [Expense] = []
-    var segmentIndex: FilterBy = .week
+    var segmentIndex: FilterBy = .month
     
     
     // MARK: - Lifecycle
@@ -56,8 +56,11 @@ class ExpenseViewController: UIViewController {
         var finalNumber: Double = 0
         
         for expense in expenses {
-            var result = expense.amount.convertToHourlyRate(currentRate: (expense.frequency?.formatToFilterBy())!)
-            result = convertHourlyToOtherRate(hourlyRate: result, desiredRate: segmentIndex)
+            let rate = expense.amount
+            let currentRate: FilterBy = (expense.frequency?.formatToFilterBy())!
+            let desiredRate = filterBy
+            
+            let result = convertRate(rate: rate, currentRate: currentRate, desiredRate: desiredRate)
                 
             finalNumber += result
         } // End of Loop
@@ -138,15 +141,10 @@ extension ExpenseViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "expenseCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "expenseCell", for: indexPath) as? ExpenseTableViewCell else { return ExpenseTableViewCell() }
         let expense = expenses[indexPath.row]
         
-        cell.textLabel?.text = expense.name
-        
-        let detail1 = expense.amount.formatDoubleToMoneyString()
-        let detail2 = expense.frequency!
-        
-        cell.detailTextLabel?.text = ( detail1 + " per " + detail2 )
+        cell.expense = expense
         
         return cell
     } // End of Cell data
@@ -161,5 +159,5 @@ extension ExpenseViewController: UITableViewDelegate, UITableViewDataSource {
             fetchExpenses()
         }
     } // End of Delete
-    
+
 } // End of table view Extension
