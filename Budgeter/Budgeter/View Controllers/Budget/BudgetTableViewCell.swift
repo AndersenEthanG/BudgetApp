@@ -38,15 +38,15 @@ class BudgetTableViewCell: UITableViewCell {
         var newTextColor: String = ""
         
         if purchaseAmmount < 0 {
-            newTextColor = CustomColors.red
+            newTextColor = CustomColors.green
         } else if purchaseAmmount == 0 {
             newTextColor = "000000"
         } else if purchaseAmmount > 0 {
-            newTextColor = CustomColors.green
+            newTextColor = CustomColors.red
         }
         
         amountLabel.textColor = hexStringToUIColor(hex: newTextColor)
-        amountLabel.text = purchaseAmmount.formatDoubleToMoneyString()
+        amountLabel.text = (purchaseAmmount * -1).formatDoubleToMoneyString()
     } // End of Update amount label
     
 } // End of Class
