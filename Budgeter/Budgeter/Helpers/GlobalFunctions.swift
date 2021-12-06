@@ -10,7 +10,7 @@ import UIKit
 /// This are my custom colors
 enum CustomColors {
     static let green: String = "22d16e"
-    static let red: String = ""
+    static let red: String = "FF0000"
 } // End of Struct
 
 /// This function is used to navigate from view controller to view controller, I just made the code a little smaller to save space
@@ -57,12 +57,8 @@ extension String {
             trimmedInput = trimmedInput.replacingOccurrences(of: "$", with: "")
             trimmedInput = trimmedInput.replacingOccurrences(of: ",", with: "")
             let doubleTrimmedInput = Double(trimmedInput)
-            
-            if doubleTrimmedInput! <= 0 {
-                return 0
-            } else {
-                return doubleTrimmedInput!
-            }
+
+            return doubleTrimmedInput!
         } // End of Primary if else
     } // End of Function
 } // End of Format to double extension
@@ -72,6 +68,7 @@ extension String {
 enum SortBy {
     case byValueAscending, byValueDescending, alphabetically
 } // End of Sort By
+
 
 /// This is similar to the SortBy, but it is for dates
 enum FilterBy {

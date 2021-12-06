@@ -29,7 +29,24 @@ class BudgetTableViewCell: UITableViewCell {
         
         noteLabel.text = purchase.name
         dateLabel.text = purchase.purchaseDate?.formatToString()
-        amountLabel.text = purchase.amount.formatDoubleToMoneyString()
+        updateAmountLabel()
+        
     } // End of Update View
 
+    func updateAmountLabel() {
+        guard let purchaseAmmount = purchase?.amount else { return }
+        var newTextColor: String = ""
+        
+        if purchaseAmmount < 0 {
+            newTextColor = CustomColors.red
+        } else if purchaseAmmount == 0 {
+            newTextColor = "000000"
+        } else if purchaseAmmount > 0 {
+            newTextColor = CustomColors.green
+        }
+        
+        amountLabel.textColor = hexStringToUIColor(hex: newTextColor)
+        amountLabel.text = purchaseAmmount.formatDoubleToMoneyString()
+    } // End of Update amount label
+    
 } // End of Class

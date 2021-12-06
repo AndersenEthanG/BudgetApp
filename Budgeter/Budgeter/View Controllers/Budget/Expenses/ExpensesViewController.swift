@@ -13,11 +13,13 @@ class ExpenseViewController: UIViewController {
     @IBOutlet weak var expensesLabel: UILabel!
     @IBOutlet weak var segmentedController: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var sortByButton: UIButton!
     
     
     // MARK: - Properties
     var expenses: [Expense] = []
     var segmentIndex: FilterBy = .month
+    var sortBy: SortBy = .byValueDescending
     
     
     // MARK: - Lifecycle
@@ -49,6 +51,7 @@ class ExpenseViewController: UIViewController {
     
     func updateView() {
         updateFilterBy()
+        sortExpenses(sortBy: self.sortBy)
         tableView.reloadData()
     } // End of Update View
     
@@ -90,6 +93,39 @@ class ExpenseViewController: UIViewController {
         updateExpensesLabel(filterBy: finalFilter)
     } // End of Update filter by
     
+    func sortExpenses(sortBy: SortBy) {
+        switch sortBy {
+        case .byValueAscending:
+            expenses.sort {
+                convertRate(rate: $0.amount, currentRate: ($0.frequency?.formatToFilterBy())!, desiredRate: .year) < convertRate(rate: $1.amount, currentRate: ($1.frequency?.formatToFilterBy())!, desiredRate: .year)
+            }
+            self.sortByButton.setTitle("Sort By: Ascending", for: .normal)
+        case .byValueDescending:
+            expenses.sort {
+                convertRate(rate: $0.amount, currentRate: ($0.frequency?.formatToFilterBy())!, desiredRate: .year) > convertRate(rate: $1.amount, currentRate: ($1.frequency?.formatToFilterBy())!, desiredRate: .year)
+            }
+            self.sortByButton.setTitle("Sort By: Descending", for: .normal)
+        case .alphabetically:
+            //TODO(ethan) Figure out how to sort strings
+            print("Is line \(#line) working?")
+        } // End of Switch
+        
+        updateSortByButton()
+    } // End of Sort data
+    
+    func updateSortByButton() {
+        var updatedTitle: String = ""
+        switch sortBy {
+        case .byValueAscending:
+            updatedTitle = "Sort By: Ascending"
+        case .byValueDescending:
+            updatedTitle = "Sort By: Descending"
+        case .alphabetically:
+            updatedTitle = "Sort: Alphabetically"
+        }
+        sortByButton.titleLabel?.text = updatedTitle
+    } // End of update filter by button Function
+    
     
     // MARK: - Actions
     @IBAction func segmentDidChange(_ sender: Any) {
@@ -112,6 +148,16 @@ class ExpenseViewController: UIViewController {
         segmentIndex = finalIndex
         updateView()
     } // End of Segment did change
+    
+    
+    @IBAction func sortByBtn(_ sender: Any) {
+        if self.sortBy == .byValueAscending {
+            self.sortBy = .byValueDescending
+        } else if self.sortBy == .byValueDescending {
+            self.sortBy = .byValueAscending
+        }
+        updateView()
+    } // End of Sort By Button
     
     
     // MARK: - Navigation
