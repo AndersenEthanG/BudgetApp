@@ -50,11 +50,10 @@ class BudgetViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-
         cleanData()
-        
         updateView()
-    }
+    } // End of View will appear
+    
     
     // MARK: - Functions
     func updateView() {
@@ -191,27 +190,6 @@ class BudgetViewController: UIViewController {
         purchaseFilterSwitch.selectedSegmentIndex = finalIndex
     } // End of Update filter switch
     
-    
-    // MARK: - Actions
-    @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            filteredBy = .day
-        case 1:
-            filteredBy = .week
-        case 2:
-            filteredBy = .month
-        case 3:
-            filteredBy = .year
-        case 4:
-            filteredBy = .sorted
-        default:
-            print("Is line \(#line) working?")
-        }
-        
-        updateData()
-    } // End of Segment did  change
-
     func calculatePurchasesAmount() -> Double {
         let filteredPurchases: [Purchase] = purchasesData
         var purchaseTotal: Double = 0
@@ -235,6 +213,28 @@ class BudgetViewController: UIViewController {
         return finalRemainder
     } // End of Calculate remainder amount
     
+    
+    // MARK: - Actions
+    // Filter by time button
+    @IBAction func segmentDidChange(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            filteredBy = .day
+        case 1:
+            filteredBy = .week
+        case 2:
+            filteredBy = .month
+        case 3:
+            filteredBy = .year
+        case 4:
+            filteredBy = .sorted
+        default:
+            print("Is line \(#line) working?")
+        }
+        
+        updateData()
+    } // End of Segment did change
+
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

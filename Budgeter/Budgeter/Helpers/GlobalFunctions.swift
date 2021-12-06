@@ -125,9 +125,9 @@ extension String {
     }
 } // End of format to filter by
 
+
 func sortPurchasesByTimeArray(arrayToFilter: [Purchase], filterBy: FilterBy) -> [Purchase] {
     var finalArray: [Purchase] = []
-    let today = Date()
     
     if filterBy == .sorted {
         finalArray = arrayToFilter.sorted {
@@ -135,7 +135,7 @@ func sortPurchasesByTimeArray(arrayToFilter: [Purchase], filterBy: FilterBy) -> 
         }
     } else {
         for item in arrayToFilter {
-            let isSameDayResult = isSameDay(date1: today, date2: item.purchaseDate!, filterBy: filterBy)
+            let isSameDayResult = isSameDay(dateToCompare: item.purchaseDate!, filterBy: filterBy)
             if isSameDayResult == true {
                 finalArray.append(item)
             }
@@ -146,8 +146,10 @@ func sortPurchasesByTimeArray(arrayToFilter: [Purchase], filterBy: FilterBy) -> 
 } // End of Filter By Function
 
 
-/// This is used for our sorting things, it checks if dates are in the same time
-func isSameDay(date1: Date, date2: Date, filterBy: FilterBy) -> Bool {
+// This function needed cleanup - it was doing literal 7 days, 1 month, instead of *that* week or *this* month
+// This is used for our sorting things, it checks if dates are in the same time
+func isSameDay(dateToCompare: Date, filterBy: FilterBy) -> Bool {
+    let dateToday = Date()
     var isSameDay: Bool?
     
     switch filterBy {
@@ -156,31 +158,31 @@ func isSameDay(date1: Date, date2: Date, filterBy: FilterBy) -> Bool {
     case .hour:
         print("Is line \(#line) working?")
     case .day:
-        let diff = Calendar.current.dateComponents([.day], from: date1, to: date2)
-        if diff.day == 0 {
+        switch Calendar.current.isDateInToday(dateToCompare) {
+        case true:
             isSameDay = true
-        } else {
+        case false:
             isSameDay = false
         }
     case .week:
-        let diff = Calendar.current.dateComponents([.weekOfMonth], from: date1, to: date2)
-        if diff.weekOfMonth == 0 {
+        switch Calendar.current.isDate(dateToday, equalTo: dateToCompare, toGranularity: .weekOfMonth) {
+        case true:
             isSameDay = true
-        } else {
+        case false:
             isSameDay = false
         }
     case .month:
-        let diff = Calendar.current.dateComponents([.month], from: date1, to: date2)
-        if diff.month == 0 {
+        switch Calendar.current.isDate(dateToday, equalTo: dateToCompare, toGranularity: .month) {
+        case true:
             isSameDay = true
-        } else {
+        case false:
             isSameDay = false
         }
     case .year:
-        let diff = Calendar.current.dateComponents([.year], from: date1, to: date2)
-        if diff.year == 0 {
+        switch Calendar.current.isDate(dateToday, equalTo: dateToCompare, toGranularity: .year) {
+        case true:
             isSameDay = true
-        } else {
+        case false:
             isSameDay = false
         }
     } // End of Switch
