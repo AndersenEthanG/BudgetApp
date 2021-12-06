@@ -8,7 +8,7 @@
 import UIKit
 
 class BudgetTableViewCell: UITableViewCell {
-
+    
     // MARK: - Outlets
     @IBOutlet weak var noteLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -32,21 +32,17 @@ class BudgetTableViewCell: UITableViewCell {
         updateAmountLabel()
         
     } // End of Update View
-
+    
     func updateAmountLabel() {
         guard let purchaseAmmount = purchase?.amount else { return }
-        var newTextColor: String = ""
         
         if purchaseAmmount < 0 {
-            newTextColor = CustomColors.green
-        } else if purchaseAmmount == 0 {
-            newTextColor = "000000"
-        } else if purchaseAmmount > 0 {
-            newTextColor = CustomColors.red
+            amountLabel.text = ( "+" + (purchaseAmmount * -1).formatDoubleToMoneyString() )
+            amountLabel.textColor = hexStringToUIColor(hex: CustomColors.green)
+        } else {
+            amountLabel.text = (purchaseAmmount * -1).formatDoubleToMoneyString()
+            amountLabel.textColor = .black
         }
-        
-        amountLabel.textColor = hexStringToUIColor(hex: newTextColor)
-        amountLabel.text = (purchaseAmmount * -1).formatDoubleToMoneyString()
     } // End of Update amount label
     
 } // End of Class
