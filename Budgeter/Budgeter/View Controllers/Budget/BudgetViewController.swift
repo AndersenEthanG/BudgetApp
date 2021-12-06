@@ -111,6 +111,7 @@ class BudgetViewController: UIViewController {
         let filterBy = filteredBy
         
         self.purchasesData = sortPurchasesByTimeArray(arrayToFilter: purchaseArray, filterBy: filterBy)
+        sortChronologically()
         
         budgetTable.reloadData()
     } // End of Filter data
@@ -213,6 +214,11 @@ class BudgetViewController: UIViewController {
         return finalRemainder
     } // End of Calculate remainder amount
     
+    func sortChronologically() {
+        purchasesData.sort {
+            $0.purchaseDate! > $1.purchaseDate!
+        }
+    } // End of sort purchases chronologically
     
     // MARK: - Actions
     // Filter by time button
