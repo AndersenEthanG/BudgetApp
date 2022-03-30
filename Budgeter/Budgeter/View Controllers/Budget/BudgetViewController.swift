@@ -19,7 +19,7 @@ class BudgetViewController: UIViewController {
     
     // Other Outlets
     @IBOutlet weak var purchaseFilterSwitch: UISegmentedControl!
-    @IBOutlet weak var budgetTable: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var topHalfStack: UIStackView!
     
     
@@ -30,78 +30,62 @@ class BudgetViewController: UIViewController {
     var budget: Budget?
     
     var filteredBy: FilterBy = .month
-    let group = DispatchGroup()
-    
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        cleanData()
+        cleanDataAndView()
         
         purchaseFilterSwitch.selectedSegmentIndex = 2
         updateFilterSwitch()
         
-        budgetTable.delegate = self
-        budgetTable.dataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
         
-        updateView()
-        checkIfUserLoggedInForFirstTime()
+        fetchPurchases()
+        fetchBudget()
+        
+        delayedUpdate()
     } // End of View did load
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        cleanData()
-        updateView()
+        cleanDataAndView()
+        fetchPurchases()
+        fetchBudget()
     } // End of View will appear
     
     
     // MARK: - Functions
-    func updateView() {
-        group.enter()
-        fetchPurchases()
-        fetchBudget()
-        filterPurchasesData()
-        updateBudgetData()
-        
-        group.notify(queue: DispatchQueue.main) {
-            self.budgetTable.reloadData()
-        }
-    } // End of Update View
-    
     func fetchPurchases() {
-        group.enter()
         PurchaseController.sharedInstance.fetchPurchases { fetchedPurchases in
             self.purchases = []
             self.purchases = fetchedPurchases
-            self.group.leave()
+            self.filterPurchasesData()
         }
     } // End of Fetch Purchases
     
     func fetchBudget() {
-        group.enter()
         BudgetController.sharedInstance.fetchBudget(totalPurchases: calculatePurchasesAmount()) { fetchedBudget in
             self.budget = nil
             self.budget = fetchedBudget
-            self.group.leave()
+            self.updateBudgetData()
         }
     } // End of Fetch budget
     
     
     func updateBudgetData() {
-        group.enter()
         let budget = filterBudgetData()
         
         let totalIncome: String = budget.incomeTotal.formatDoubleToMoneyString()
         let reoccuringTotal: String = budget.reoccuringTotal.formatDoubleToMoneyString()
         let savingAmount: String = budget.savingTotal.formatDoubleToMoneyString()
         
-        filterPurchasesData()
         let rawPurchaseAmount: Double = calculatePurchasesAmount()
         let purchaseAmount: String = rawPurchaseAmount.formatDoubleToMoneyString()
         let remainderAmount: Double = calculateRemainderAmount(adjustedBudget: budget, purchaseTotal: rawPurchaseAmount)
-        
         
         // Set the text values
         totalIncomeLabel.text = totalIncome
@@ -114,19 +98,16 @@ class BudgetViewController: UIViewController {
         } else {
             remainderAmountLabel.textColor = .red
         }
-        group.leave()
     } // End of Update budget
     
     func filterPurchasesData() {
-        group.enter()
         let purchaseArray = self.purchases
         let filterBy = filteredBy
         
         self.purchasesData = sortPurchasesByTimeArray(arrayToFilter: purchaseArray, filterBy: filterBy)
         sortChronologically()
         
-        budgetTable.reloadData()
-        group.leave()
+        tableView.reloadData()
     } // End of Filter data
     
     
@@ -135,7 +116,6 @@ class BudgetViewController: UIViewController {
     } // End of Function
     
     func filterBudgetData() -> Budget {
-        group.enter()
         let budget = self.budget!
         let currentRate = budget.rate
         var desiredRate: FilterBy = filteredBy
@@ -170,7 +150,7 @@ class BudgetViewController: UIViewController {
         filterPurchasesData()
     } // End of Update data
     
-    func cleanData() {
+    func cleanDataAndView() {
         // Data sources
         self.purchases = []
         self.purchasesData = []
@@ -234,15 +214,13 @@ class BudgetViewController: UIViewController {
         }
     } // End of sort purchases chronologically
     
-    func checkIfUserLoggedInForFirstTime() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            if UserDidLogInForFirstTime == false {
-                self.updateView()
-                UserDidLogInForFirstTime = true
-            }
-        } // End of Async after
-    } // End of check if user logged in for the first time
-    
+    func delayedUpdate() {
+        // This is in case the app is being launced for hte firs time, or if there is some new information, it will come in at this time
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+            self.fetchPurchases()
+            self.fetchBudget()
+        }
+    } // End of Delayed update
     
     // MARK: - Actions
     // Filter by time button
@@ -270,7 +248,7 @@ class BudgetViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toExpenseDetailVC" {
             guard let destinationVC = segue.destination as? PurchaseDetailViewController,
-                  let indexPath = budgetTable.indexPathForSelectedRow else { return }
+                  let indexPath = tableView.indexPathForSelectedRow else { return }
             
             let purchase = purchasesData[indexPath.row]
             destinationVC.purchase = purchase
@@ -304,7 +282,8 @@ extension BudgetViewController: UITableViewDelegate, UITableViewDataSource {
             let purchaseToDelete = purchasesData[indexPath.row]
             PurchaseController.sharedInstance.deletePurchase(purchaseToDelete: purchaseToDelete)
             
-            updateView()
+            tableView.reloadData()
+//            fetchPurchases()
         }
     } // End of Delete
     
