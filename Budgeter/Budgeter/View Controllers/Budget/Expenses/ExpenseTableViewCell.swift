@@ -13,6 +13,7 @@ class ExpenseTableViewCell: UITableViewCell {
     @IBOutlet weak var expenseTitleLabel: UILabel!
     @IBOutlet weak var expenseAmountLabel: UILabel!
     @IBOutlet weak var expensePercentLabel: UILabel!
+    @IBOutlet weak var expensePaymentSouceLabel: UILabel!
     
     
     // MARK: - Properties
@@ -30,6 +31,7 @@ class ExpenseTableViewCell: UITableViewCell {
         expenseTitleLabel.text = expense.name
         updateExpenseAmountLabel()
         updateExpensePercentLabel()
+        expensePaymentSouceLabel.text = expense.paymentSource ?? ""
     } // End of Function
     
     func updateExpenseAmountLabel() {
@@ -52,7 +54,7 @@ class ExpenseTableViewCell: UITableViewCell {
         
         let calculatedAmount = ( (expenseAmount / totalIncome) * 100 )
 
-        let finalText: String = ( calculatedAmount.formatToPercent() + " of total income" )
+        let finalText: String = ( String(format: "%.2f", calculatedAmount) + "% of total income" )
 
         expensePercentLabel.text = finalText
     } // End of Function

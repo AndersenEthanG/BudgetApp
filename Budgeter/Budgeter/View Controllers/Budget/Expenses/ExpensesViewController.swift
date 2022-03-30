@@ -14,12 +14,15 @@ class ExpenseViewController: UIViewController {
     @IBOutlet weak var segmentedController: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var sortByButton: UIButton!
+    @IBOutlet weak var filterByButton: UIButton!
     
     
     // MARK: - Properties
     var expenses: [Expense] = []
+    var filteredExpenses: [Expense] = []
     var segmentIndex: FilterBy = .month
     var sortBy: SortBy = .byValueDescending
+    var paymentSource: String = "All"
     
     
     // MARK: - Lifecycle
@@ -45,12 +48,12 @@ class ExpenseViewController: UIViewController {
             self.expenses = []
             self.expenses = fetchedExpenses
             
-            self.updateView()
+            self.filterExpensesBySource(paymentSource: self.paymentSource)
         }
     } // End of Fetch Expenses
     
     func updateView() {
-        updateFilterBy()
+        updateSortBy()
         sortExpenses(sortBy: self.sortBy)
         tableView.reloadData()
     } // End of Update View
@@ -58,7 +61,7 @@ class ExpenseViewController: UIViewController {
     func updateExpensesLabel(filterBy: FilterBy) {
         var finalNumber: Double = 0
         
-        for expense in expenses {
+        for expense in filteredExpenses {
             let rate = expense.amount
             let currentRate: FilterBy = (expense.frequency?.formatToFilterBy())!
             let desiredRate = filterBy
@@ -72,7 +75,7 @@ class ExpenseViewController: UIViewController {
         expensesLabel.text = ( preText + finalNumber.formatDoubleToMoneyString() )
     } // End of Update expenses label
     
-    func updateFilterBy() {
+    func updateSortBy() {
         var finalFilter: FilterBy = segmentIndex
         
         switch segmentIndex {
@@ -96,12 +99,12 @@ class ExpenseViewController: UIViewController {
     func sortExpenses(sortBy: SortBy) {
         switch sortBy {
         case .byValueAscending:
-            expenses.sort {
+            filteredExpenses.sort {
                 convertRate(rate: $0.amount, currentRate: ($0.frequency?.formatToFilterBy())!, desiredRate: .year) < convertRate(rate: $1.amount, currentRate: ($1.frequency?.formatToFilterBy())!, desiredRate: .year)
             }
             self.sortByButton.setTitle("Sort By: Ascending", for: .normal)
         case .byValueDescending:
-            expenses.sort {
+            filteredExpenses.sort {
                 convertRate(rate: $0.amount, currentRate: ($0.frequency?.formatToFilterBy())!, desiredRate: .year) > convertRate(rate: $1.amount, currentRate: ($1.frequency?.formatToFilterBy())!, desiredRate: .year)
             }
             self.sortByButton.setTitle("Sort By: Descending", for: .normal)
@@ -125,6 +128,22 @@ class ExpenseViewController: UIViewController {
         }
         sortByButton.titleLabel?.text = updatedTitle
     } // End of update filter by button Function
+    
+    func filterExpensesBySource(paymentSource: String) {
+        var selectedExpenses: [Expense] = []
+        
+        for expense in expenses {
+            if expense.paymentSource == paymentSource || paymentSource == "All" {
+                    selectedExpenses.append(expense)
+            }
+        } // End of Loop
+        
+        self.filteredExpenses = selectedExpenses
+        
+        filterByButton.setTitle("Filter By: \(paymentSource)", for: .normal)
+        
+        updateView()
+    } // End of filter expenses
     
     
     // MARK: - Actions
@@ -160,6 +179,46 @@ class ExpenseViewController: UIViewController {
     } // End of Sort By Button
     
     
+    @IBAction func filterByBtn(_ sender: Any) {
+        let alert = UIAlertController(title: "Filter By", message: "Select which payment source you want to see ", preferredStyle: .actionSheet)
+                
+        // Normal actions
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let allAction = UIAlertAction(title: "All", style: .destructive) { action in
+            let selectedPaymentSource = "All"
+            self.filterExpensesBySource(paymentSource: selectedPaymentSource)
+        }
+        alert.addAction(allAction)
+        
+        
+        var duplicationCheck: [String] = []
+        // Get all the payment source options
+        for expense in self.expenses {
+            let paymentSource = expense.paymentSource
+            
+            if !duplicationCheck.contains(paymentSource!) && paymentSource != "" && paymentSource != nil {
+                
+                duplicationCheck.append(paymentSource!)
+                
+                let newAction = UIAlertAction(title: paymentSource, style: .default) { action in
+                    let selectedPaymentSource = paymentSource!
+                    
+                    self.paymentSource = selectedPaymentSource
+                    self.filterExpensesBySource(paymentSource: selectedPaymentSource)
+                } // End of New action
+                
+                alert.addAction(newAction)
+            } // End of duplication check
+            
+        } // End of Loop
+        
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    } // End of Filter by Button
+    
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toExpenseDetailVC" {
@@ -167,7 +226,7 @@ class ExpenseViewController: UIViewController {
                   let indexPath = tableView.indexPathForSelectedRow else { return }
             
             // Data
-            let expense = expenses[indexPath.row]
+            let expense = filteredExpenses[indexPath.row]
             
             // Set data
             destinationVC.expense = expense
@@ -177,18 +236,17 @@ class ExpenseViewController: UIViewController {
 } // End of Expense View Controller
 
 
-// MARK: - Extensions
+// MARK: - Table View Extension
 extension ExpenseViewController: UITableViewDelegate, UITableViewDataSource {
-    // MARK: - Table view data source
     // Number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return expenses.count
+        return filteredExpenses.count
     } // End of Number of rows
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "expenseCell", for: indexPath) as? ExpenseTableViewCell else { return ExpenseTableViewCell() }
-        let expense = expenses[indexPath.row]
+        let expense = filteredExpenses[indexPath.row]
         
         cell.expense = expense
         
@@ -198,7 +256,7 @@ extension ExpenseViewController: UITableViewDelegate, UITableViewDataSource {
     // Delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let expenseToDelete = expenses[indexPath.row]
+            let expenseToDelete = filteredExpenses[indexPath.row]
             
             ExpenseController.sharedInstance.deleteExpense(expenseToDelete: expenseToDelete)
             

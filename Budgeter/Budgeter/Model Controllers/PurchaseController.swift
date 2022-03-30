@@ -27,9 +27,15 @@ class PurchaseController {
     } // End of Create purchase
     
     func fetchPurchases(🐶: @escaping ( [Purchase] ) -> Void) {
-        purchases = (try? CoreDataStack.context.fetch(fetchRequest)) ?? []
-        
-        🐶(purchases)
+        do {
+            let fetchedPurchases = try CoreDataStack.context.fetch(fetchRequest)
+            
+            self.purchases = fetchedPurchases
+            
+            🐶(fetchedPurchases)
+        } catch {
+            print("Is line \(#line) working?")
+        } // End of Do catch
     } // End of Fetch purchase
     
     func updatePurchase() {

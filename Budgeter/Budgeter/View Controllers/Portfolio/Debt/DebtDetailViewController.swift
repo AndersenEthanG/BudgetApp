@@ -8,7 +8,7 @@
 import UIKit
 
 class DebtDetailViewController: UIViewController {
-
+    
     // MARK: - Outlets
     // Labels
     @IBOutlet weak var debtNameLabel: UILabel!
@@ -28,16 +28,16 @@ class DebtDetailViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         updateView()
     } // End of View did load
     
     func updateView() {
         if let debt = debt {
-        debtNameField.text = debt.name
-        amountPaidField.text = debt.amountPaid.formatDoubleToMoneyString()
-        totalValueField.text = debt.value.formatDoubleToMoneyString()
-        amountRemainingLabel.text = ( "Amount Remaining: " + (debt.value - debt.amountPaid).formatDoubleToMoneyString())
+            debtNameField.text = debt.name
+            amountPaidField.text = debt.amountPaid.formatDoubleToMoneyString()
+            totalValueField.text = debt.value.formatDoubleToMoneyString()
+            amountRemainingLabel.text = ( "Amount Remaining: " + (debt.value - debt.amountPaid).formatDoubleToMoneyString())
         } else {
             debtNameField.becomeFirstResponder()
         }
@@ -46,8 +46,21 @@ class DebtDetailViewController: UIViewController {
     
     // This function makes the keyboard go away
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        reformatLabels()
         self.view.endEditing(true)
     } // End of Function
+    
+    func reformatLabels() {
+        guard let amountPaid: Double = amountPaidField.text?.formatToDouble(),
+              let totalValue: Double = totalValueField.text?.formatToDouble() else { return }
+        
+        let amountRemaining: String = (totalValue - amountPaid).formatDoubleToMoneyString()
+        
+        amountPaidField.text = amountPaid.formatDoubleToMoneyString()
+        totalValueField.text = totalValue.formatDoubleToMoneyString()
+        amountRemainingLabel.text = ("Amount Remaining: " + amountRemaining)
+    } // End of Update remaining label
+    
     
     // MARK: - Actions
     @IBAction func saveBtn(_ sender: Any) {

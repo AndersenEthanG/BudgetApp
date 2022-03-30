@@ -18,12 +18,15 @@ class BudgetController {
     var savingTotal: Double = 0
     var reoccuringTotal: Double = 0
     var remainderAmount: Double = 0
+    let group = DispatchGroup()
     
     
     // MARK: - Functions
     func fetchBudget(totalPurchases: Double, 🐶: @escaping ( Budget ) -> Void) {
         // Fetch all budget elements from the CoreData
         // All of the values should be in monthly amounts
+        
+        group.enter()
         fetchAndCalculateIncome()
         fetchAndCalculateSaving()
         fetchAndCalculateReoccuring()
@@ -31,7 +34,7 @@ class BudgetController {
         let incomeTotal = self.incomeTotal
         let savingTotal = self.savingTotal
         let reoccuringTotal = self.reoccuringTotal
-                
+        
         let fetchedBudget = Budget(incomeTotal: incomeTotal, savingTotal: savingTotal, reoccuringTotal: reoccuringTotal)
         🐶(fetchedBudget)
     } // End of fetch budget
@@ -39,17 +42,20 @@ class BudgetController {
     
     // Income
     func fetchAndCalculateIncome() {
+        group.enter()
         var incomeTotal: Double = 0
         /// This will calculate based on all of the income tab money and return a single monthly value
         let frequency: FilterBy = .month
         incomeTotal = IncomeController.sharedInstance.getTotalIncome(frequency: frequency)
         
         self.incomeTotal = incomeTotal
+        group.leave()
     } // End of Fetch and calculate income
     
     
     // Saving
     func fetchAndCalculateSaving() {
+        group.enter()
         /// This will calculate how much money based on percent of income and natural savings per month, how much money we save
         var totalMonthAmountSaved: Double = 0
         
@@ -78,12 +84,14 @@ class BudgetController {
             } // End of For loop
             
             self.savingTotal = totalMonthAmountSaved
+            self.group.leave()
         } // End of Fetch savings
     } // End of Function
     
     
     // Reoccuring
     func fetchAndCalculateReoccuring() {
+        group.enter()
         var totalExpenses: Double = 0
         
         ExpenseController.sharedInstance.fetchExpenses { fetchedExpenses in
@@ -99,6 +107,7 @@ class BudgetController {
             } // End of Loop
             
             self.reoccuringTotal = totalExpenses
+            self.group.leave()
         } // End of fetch function
     } // End of Function
     

@@ -8,7 +8,7 @@
 import UIKit
 
 class BudgetViewController: UIViewController {
-
+    
     // MARK: - Outlets
     // Value Labels
     @IBOutlet weak var totalIncomeLabel: UILabel!
@@ -26,10 +26,11 @@ class BudgetViewController: UIViewController {
     // MARK: - Properties
     var purchases: [Purchase] = []
     var purchasesData: [Purchase] = []
-
+    
     var budget: Budget?
     
     var filteredBy: FilterBy = .month
+    let group = DispatchGroup()
     
     
     // MARK: - Lifecycle
@@ -45,8 +46,9 @@ class BudgetViewController: UIViewController {
         budgetTable.dataSource = self
         
         updateView()
+        checkIfUserLoggedInForFirstTime()
     } // End of View did load
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -57,30 +59,38 @@ class BudgetViewController: UIViewController {
     
     // MARK: - Functions
     func updateView() {
+        group.enter()
         fetchPurchases()
         fetchBudget()
         filterPurchasesData()
         updateBudgetData()
         
-        budgetTable.reloadData()
+        group.notify(queue: DispatchQueue.main) {
+            self.budgetTable.reloadData()
+        }
     } // End of Update View
     
     func fetchPurchases() {
+        group.enter()
         PurchaseController.sharedInstance.fetchPurchases { fetchedPurchases in
             self.purchases = []
             self.purchases = fetchedPurchases
+            self.group.leave()
         }
     } // End of Fetch Purchases
     
     func fetchBudget() {
+        group.enter()
         BudgetController.sharedInstance.fetchBudget(totalPurchases: calculatePurchasesAmount()) { fetchedBudget in
             self.budget = nil
             self.budget = fetchedBudget
+            self.group.leave()
         }
     } // End of Fetch budget
-
+    
     
     func updateBudgetData() {
+        group.enter()
         let budget = filterBudgetData()
         
         let totalIncome: String = budget.incomeTotal.formatDoubleToMoneyString()
@@ -104,9 +114,11 @@ class BudgetViewController: UIViewController {
         } else {
             remainderAmountLabel.textColor = .red
         }
+        group.leave()
     } // End of Update budget
     
     func filterPurchasesData() {
+        group.enter()
         let purchaseArray = self.purchases
         let filterBy = filteredBy
         
@@ -114,6 +126,7 @@ class BudgetViewController: UIViewController {
         sortChronologically()
         
         budgetTable.reloadData()
+        group.leave()
     } // End of Filter data
     
     
@@ -122,6 +135,7 @@ class BudgetViewController: UIViewController {
     } // End of Function
     
     func filterBudgetData() -> Budget {
+        group.enter()
         let budget = self.budget!
         let currentRate = budget.rate
         var desiredRate: FilterBy = filteredBy
@@ -140,7 +154,7 @@ class BudgetViewController: UIViewController {
         case .year:
             desiredRate = .year
         }
-    
+        
         let filteredBudget = convertBudget(budget: budget, currentRate: currentRate, desiredRate: desiredRate)
         
         return filteredBudget
@@ -155,7 +169,7 @@ class BudgetViewController: UIViewController {
         
         filterPurchasesData()
     } // End of Update data
-
+    
     func cleanData() {
         // Data sources
         self.purchases = []
@@ -201,7 +215,7 @@ class BudgetViewController: UIViewController {
         
         return purchaseTotal
     } // End of Function
-
+    
     
     func calculateRemainderAmount(adjustedBudget: Budget, purchaseTotal: Double) -> Double {
         let income = adjustedBudget.incomeTotal
@@ -219,6 +233,16 @@ class BudgetViewController: UIViewController {
             $0.purchaseDate! > $1.purchaseDate!
         }
     } // End of sort purchases chronologically
+    
+    func checkIfUserLoggedInForFirstTime() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            if UserDidLogInForFirstTime == false {
+                self.updateView()
+                UserDidLogInForFirstTime = true
+            }
+        } // End of Async after
+    } // End of check if user logged in for the first time
+    
     
     // MARK: - Actions
     // Filter by time button
@@ -240,7 +264,7 @@ class BudgetViewController: UIViewController {
         
         updateData()
     } // End of Segment did change
-
+    
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

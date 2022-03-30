@@ -27,8 +27,12 @@ class IncomeController {
     } // End of Create income
     
     func fetchIncomes(🐶: @escaping ( [Income] ) -> Void) {
-        incomes = (try? CoreDataStack.context.fetch(fetchRequest)) ?? []
-        🐶(incomes)
+        do {
+            incomes = try CoreDataStack.context.fetch(fetchRequest)
+            🐶(incomes)
+        } catch {
+            print("Is line \(#line) working?")
+        }
     } // End of Fetch income
     
     func updateIncome() {

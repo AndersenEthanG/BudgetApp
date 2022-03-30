@@ -27,8 +27,12 @@ class SavingController {
     } // End of Create saving
     
     func fetchSavings(🐶: @escaping ( [Saving] ) -> Void) {
-        savings = (try? CoreDataStack.context.fetch(fetchRequest)) ?? []
-        🐶(savings)
+        do {
+            savings = try CoreDataStack.context.fetch(fetchRequest)
+            🐶(savings)
+        } catch {
+            print("Is line \(#line) working?")
+        }
     } // End of Fetch saving
     
     func updateSaving() {

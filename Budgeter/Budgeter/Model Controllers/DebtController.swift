@@ -27,8 +27,13 @@ class DebtController {
     } // End of Create debt
     
     func fetchDebts(🐶: @escaping ( [Debt] ) -> Void) {
-        debts = (try? CoreDataStack.context.fetch(fetchRequest)) ?? []
-        🐶(debts)
+        do {
+            debts = try CoreDataStack.context.fetch(fetchRequest)
+            🐶(debts)
+        }
+        catch {
+            print("Is line \(#line) working?")
+        }
     } // End of Fetch debt
     
     func updateDebt() {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Asset" representedClassName="Asset" syncable="YES" codeGenerationType="class">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="liquid" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -21,6 +21,8 @@
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="frequency" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="paymentDate" optional="YES" attributeType="String"/>
+        <attribute name="paymentSource" optional="YES" attributeType="String"/>
         <attribute name="updateDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="uuid" optional="YES" attributeType="String"/>
     </entity>
@@ -49,7 +51,7 @@
     <elements>
         <element name="Asset" positionX="18" positionY="63" width="128" height="119"/>
         <element name="Debt" positionX="36" positionY="81" width="128" height="119"/>
-        <element name="Expense" positionX="0" positionY="45" width="128" height="119"/>
+        <element name="Expense" positionX="0" positionY="45" width="128" height="149"/>
         <element name="Income" positionX="-36" positionY="9" width="128" height="119"/>
         <element name="Purchase" positionX="-63" positionY="-18" width="128" height="104"/>
         <element name="Saving" positionX="-18" positionY="27" width="128" height="104"/>

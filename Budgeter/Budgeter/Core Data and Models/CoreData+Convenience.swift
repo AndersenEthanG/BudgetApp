@@ -56,18 +56,22 @@ extension Debt {
 extension Expense {
     @discardableResult convenience init(
         amount: Double,
+        paymentSource: String?,
         creationDate: Date = Date(),
         frequency: String,
         name: String,
+        paymentDate: String?,
         updateDate: Date,
         uuid: String = UUID().uuidString,
         context: NSManagedObjectContext = CoreDataStack.context
     ) {
         self.init(context: context)
         self.amount = amount
+        self.paymentSource = paymentSource
         self.creationDate = creationDate
         self.frequency = frequency
         self.name = name
+        self.paymentDate = paymentDate
         self.updateDate = updateDate
         self.uuid = uuid
     }

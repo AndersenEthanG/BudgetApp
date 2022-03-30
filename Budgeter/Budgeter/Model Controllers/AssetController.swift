@@ -27,8 +27,12 @@ class AssetController {
     } // End of Create asset
     
     func fetchAssets(🐶: @escaping ([Asset]) -> Void) {
-        assets = (try? CoreDataStack.context.fetch(fetchRequest)) ?? []
-        🐶(assets)
+        do {
+            assets = try CoreDataStack.context.fetch(fetchRequest)
+            🐶(assets)
+        } catch {
+            print("Is line \(#line) working?")
+        }
     } // End of Fetch asset
     
     func updateAsset() {
