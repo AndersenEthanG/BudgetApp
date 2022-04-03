@@ -47,7 +47,7 @@ class ExpensePaymentSourceViewController: UIViewController {
         alert.addTextField { textField in
             textField.placeholder = "Name..."
             textField.autocapitalizationType = .words
-            textField.autocorrectionType = .no
+            textField.autocorrectionType = .default
         }
         
         let saveAction = UIAlertAction(title: "Save", style: .default) { action in
@@ -95,11 +95,31 @@ extension ExpensePaymentSourceViewController: UITableViewDelegate, UITableViewDa
     } // End of Cell content
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let newSourceName = paymentSources[indexPath.row]
+        let sourceName = paymentSources[indexPath.row]
         
-        ExpensePaymentSourceViewController.updatePaymentSourceDelegate?.updatePaymentSource(paymentSource: newSourceName)
+        let alert = UIAlertController(title: "Payment Source Selected", message: "You can edit the name of this payment source here...", preferredStyle: .alert)
         
-        self.dismiss(animated: true)
+        alert.addTextField { textField in
+            textField.text = sourceName
+            textField.autocapitalizationType = .words
+            textField.autocorrectionType = .default
+        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { action in
+            guard let newSourceName = alert.textFields![0].text else { return }
+            
+            ExpensePaymentSourceViewController.updatePaymentSourceDelegate?.updatePaymentSource(paymentSource: newSourceName)
+            ExpenseController.sharedInstance.editPaymentSourceForAllExpenses(oldPaymentSourceName: sourceName, newPaymentSourceName: newSourceName)
+            
+            self.dismiss(animated: true)
+        } // End of Save action
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
     } // End of Did select row
     
 } // End of Tableview extension

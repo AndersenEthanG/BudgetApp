@@ -173,14 +173,12 @@ class ExpenseDetailViewController: UIViewController, UIPickerViewDelegate, UIPic
 // MARK: - Payment source selected protocol
 extension ExpenseDetailViewController: PaymentSourceSelectedProtocol {
     func updatePaymentSource(paymentSource: String) {
-        
         if paymentSource == "None" {
             self.paymentSourceName = ""
-            self.expense?.paymentSource = ""
         } else {
             self.paymentSourceName = paymentSource
         }
         
-        updateView()
+        self.paymentSourceButton.setTitle("Payment Source: \(self.paymentSourceName)", for: .normal)
     } // End of update payment source
 } // End of payment source selected protocol

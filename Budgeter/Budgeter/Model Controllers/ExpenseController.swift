@@ -47,4 +47,13 @@ class ExpenseController {
         CoreDataStack.saveContext()
     } // End of Delete expense
     
+    
+    func editPaymentSourceForAllExpenses(oldPaymentSourceName: String, newPaymentSourceName: String) {
+        for expense in expenses {
+            if expense.paymentSource == oldPaymentSourceName {
+                expense.paymentSource = newPaymentSourceName
+            } // End of If statement
+        } // End of Loop
+        updateExpense()
+    } // End of Function
 } // End of Class

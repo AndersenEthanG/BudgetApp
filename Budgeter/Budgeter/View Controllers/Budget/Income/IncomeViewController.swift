@@ -129,11 +129,13 @@ extension IncomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     // Cell Data
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "incomeCell", for: indexPath) as? IncomeTableViewCell else { return IncomeTableViewCell() }
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "incomeCell", for: indexPath)
         let income = incomes[indexPath.row]
         
-        cell.income = income
+        let amountText = ( income.amount.formatDoubleToMoneyString() + " per " + income.frequency! )
+        
+        cell.textLabel?.text = income.name
+        cell.detailTextLabel?.text = amountText
         
         return cell
     } // End of Cell data

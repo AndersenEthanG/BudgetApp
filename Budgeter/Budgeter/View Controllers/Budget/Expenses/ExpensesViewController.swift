@@ -8,13 +8,14 @@
 import UIKit
 
 class ExpenseViewController: UIViewController {
-
+    
     // MARK: - Outlets
     @IBOutlet weak var expensesLabel: UILabel!
     @IBOutlet weak var segmentedController: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var sortByButton: UIButton!
     @IBOutlet weak var filterByButton: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     
     // MARK: - Properties
@@ -28,13 +29,17 @@ class ExpenseViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
         
+        searchBar.delegate = self
+        
+        setupKeyboard()
+        
         fetchExpenses()
     } // End of View did load
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -67,7 +72,7 @@ class ExpenseViewController: UIViewController {
             let desiredRate = filterBy
             
             let result = convertRate(rate: rate, currentRate: currentRate, desiredRate: desiredRate)
-                
+            
             finalNumber += result
         } // End of Loop
         
@@ -134,7 +139,7 @@ class ExpenseViewController: UIViewController {
         
         for expense in expenses {
             if expense.paymentSource == paymentSource || paymentSource == "All" {
-                    selectedExpenses.append(expense)
+                selectedExpenses.append(expense)
             }
         } // End of Loop
         
@@ -181,7 +186,7 @@ class ExpenseViewController: UIViewController {
     
     @IBAction func filterByBtn(_ sender: Any) {
         let alert = UIAlertController(title: "Filter By", message: "Select which payment source you want to see ", preferredStyle: .actionSheet)
-                
+        
         // Normal actions
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
@@ -233,6 +238,53 @@ class ExpenseViewController: UIViewController {
         }
     } // End of Segue
     
+    
+    // MARK: - Keyboard things
+    func setupKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(ExpenseViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ExpenseViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.sizeToFit()
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(image: UIImage(systemName: "keyboard.chevron.compact.down"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.keyboardWillHide(notification:)))
+        toolBar.setItems([spaceButton, doneButton], animated: false)
+        
+        searchBar.inputAccessoryView = toolBar
+    } // End of Setup keyboard
+    
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        segmentedController.isEnabled = false
+        sortByButton.isEnabled = false
+        filterByButton.isEnabled = false
+        tableView.isUserInteractionEnabled = false
+    } // End of keyboard will show
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        self.view.endEditing(true)
+        
+        segmentedController.isEnabled = true
+        sortByButton.isEnabled = true
+        filterByButton.isEnabled = true
+        tableView.isUserInteractionEnabled = true
+        
+        if searchBar.text == "" {
+            self.filteredExpenses = expenses
+            updateView()
+        }
+    } // End of Keyboard will hide
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+        
+        if searchBar.text == "" {
+            self.filteredExpenses = expenses
+            updateView()
+        }
+    } // End of Touches began
+    
 } // End of Expense View Controller
 
 
@@ -263,5 +315,40 @@ extension ExpenseViewController: UITableViewDelegate, UITableViewDataSource {
             fetchExpenses()
         }
     } // End of Delete
-
+    
 } // End of table view Extension
+
+
+// MARK: - Search Bar extension
+extension ExpenseViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let searchText = searchText.lowercased()
+        
+        // Filter set to all
+        let selectedPaymentSource = "All"
+        filterExpensesBySource(paymentSource: selectedPaymentSource)
+        
+        if searchText == "" {
+            self.filteredExpenses = expenses
+        } else {
+            
+            var selectedExpenses: [Expense] = []
+            
+            // Go through all of the text of all of the expenses to check for a match
+            for expense in self.expenses {
+                if String(expense.amount).lowercased().contains(searchText) == true ||
+                    expense.paymentSource?.lowercased().contains(searchText) == true ||
+                    expense.frequency?.lowercased().contains(searchText) == true ||
+                    expense.name?.lowercased().contains(searchText) == true ||
+                    expense.paymentDate?.lowercased().contains(searchText) == true {
+                    
+                    // Append to the new array
+                    selectedExpenses.append(expense)
+                } // End of Big if statement
+            } // End of Loop
+            self.filteredExpenses = selectedExpenses
+        } // End of if the search text is blank
+        
+        updateView()
+    } // End of text did change
+} // End of Search bar extension

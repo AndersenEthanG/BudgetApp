@@ -123,13 +123,14 @@ extension SavingsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = saving.name
         
         var detail1 = saving.amount.formatDoubleToMoneyString()
-        let detail2 = saving.frequency!
+        var detail2 = (" per " + saving.frequency!)
         
         if saving.isPercent == true {
             detail1 = saving.amount.formatToPercent()
+            detail2 = " of income"
         }
         
-        cell.detailTextLabel?.text = ( detail1 + " per " + detail2 )
+        cell.detailTextLabel?.text = ( detail1 + detail2 )
         
         return cell
     } // End of Cell data
@@ -144,9 +145,5 @@ extension SavingsViewController: UITableViewDelegate, UITableViewDataSource {
             fetchSavings()
         }
     } // End of Delete
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
-    }
     
 } // End of table view Extension

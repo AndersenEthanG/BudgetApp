@@ -11,16 +11,17 @@ class SavingsDetailViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var savingNameField: UITextField!
-    @IBOutlet weak var amountField: UITextField!
-    @IBOutlet weak var percentOrFixedLabel: UILabel!
-    @IBOutlet weak var segmentedController: UISegmentedControl!
     @IBOutlet weak var percentOrFixedSwitch: UISwitch!
+    @IBOutlet weak var percentOrFixedLabel: UILabel!
+    @IBOutlet weak var amountField: UITextField!
+    @IBOutlet weak var perLabel: UILabel!
+    @IBOutlet weak var segmentedController: UISegmentedControl!
     
     
     // MARK: - Properties
     var saving: Saving?
-    var isPercent: Bool = true
-    var frequency: FilterBy = .week
+    var isPercent: Bool = false
+    var frequency: FilterBy = .month
     
     
     // MARK: - lifecylce
@@ -56,10 +57,18 @@ class SavingsDetailViewController: UIViewController {
         var finalText = ""
         
         if isPercent == true {
-            finalText = "Percent"
+            finalText = "Percent of Income"
+            
+            perLabel.isHidden = true
+            segmentedController.isHidden = true
+            
             togglePercentOrFixed()
         } else {
-            finalText = "Fixed"
+            finalText = "Fixed Amount"
+            
+            perLabel.isHidden = false
+            segmentedController.isHidden = false
+            
             togglePercentOrFixed()
         }
         

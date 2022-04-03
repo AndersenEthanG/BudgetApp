@@ -66,7 +66,7 @@ class BudgetController {
                 switch saving.isPercent {
                 case true:
                     let incomeTotal = self.incomeTotal
-                    let monthlySavingPercent = ( monthlySaving / 100 )
+                    let monthlySavingPercent = ( rate / 100 )
                     
                     // This will return how many $$$ we save each month based on our income
                     let monthlySavingValue = ( incomeTotal * monthlySavingPercent )

@@ -31,6 +31,7 @@ class BudgetViewController: UIViewController {
     
     var filteredBy: FilterBy = .month
     
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -186,6 +187,8 @@ class BudgetViewController: UIViewController {
     } // End of Update filter switch
     
     func calculatePurchasesAmount() -> Double {
+        filterPurchasesData()
+        
         let filteredPurchases: [Purchase] = purchasesData
         var purchaseTotal: Double = 0
         
@@ -282,8 +285,7 @@ extension BudgetViewController: UITableViewDelegate, UITableViewDataSource {
             let purchaseToDelete = purchasesData[indexPath.row]
             PurchaseController.sharedInstance.deletePurchase(purchaseToDelete: purchaseToDelete)
             
-            tableView.reloadData()
-//            fetchPurchases()
+            fetchPurchases()
         }
     } // End of Delete
     
