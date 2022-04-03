@@ -16,6 +16,7 @@ class SavingsDetailViewController: UIViewController {
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var perLabel: UILabel!
     @IBOutlet weak var segmentedController: UISegmentedControl!
+    @IBOutlet weak var percentAmountLabel: UILabel!
     
     
     // MARK: - Properties
@@ -45,6 +46,7 @@ class SavingsDetailViewController: UIViewController {
             amountField.text = saving.amount.formatDoubleToMoneyString()
             isPercent = saving.isPercent
             frequency = (saving.frequency?.formatToFilterBy())!
+            updatePercentAmountLabel()
         } else {
             savingNameField.becomeFirstResponder()
         } // End of if we are editing
@@ -60,17 +62,17 @@ class SavingsDetailViewController: UIViewController {
             finalText = "Percent of Income"
             
             perLabel.isHidden = true
-            segmentedController.isHidden = true
+            percentAmountLabel.isHidden = false
             
             togglePercentOrFixed()
         } else {
             finalText = "Fixed Amount"
             
             perLabel.isHidden = false
-            segmentedController.isHidden = false
+            percentAmountLabel.isHidden = true
             
             togglePercentOrFixed()
-        }
+        } // End of If else Is percent
         
         percentOrFixedLabel.text = finalText
     } // End of Update percent label
@@ -107,6 +109,15 @@ class SavingsDetailViewController: UIViewController {
         }
     } // End of Toggle percent or Fixed
     
+    func updatePercentAmountLabel() {
+        if isPercent == true {
+            guard let percentAmount = saving?.amount else { return }
+            let totalIncome = IncomeController.sharedInstance.getTotalIncome(frequency: self.frequency)
+            
+            let percentToSave = (totalIncome * (percentAmount / 100)).formatDoubleToMoneyString()
+            percentAmountLabel.text = ("Total Percent of Income: " + percentToSave)
+        }
+    } // End of Update percent amount label
     
     // MARK: - Actions
     @IBAction func saveBtn(_ sender: Any) {
@@ -152,6 +163,7 @@ class SavingsDetailViewController: UIViewController {
         default:
             print("Is line \(#line) working?")
         } // End of Switch
+        updatePercentAmountLabel()
     } // End of Segment did Change
     
     

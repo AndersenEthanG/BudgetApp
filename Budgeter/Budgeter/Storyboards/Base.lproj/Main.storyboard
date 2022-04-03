@@ -103,7 +103,7 @@
                                     <constraint firstAttribute="height" constant="34" id="uKi-4b-bSg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDi-De-yhx">
                                 <rect key="frame" x="169.5" y="126" width="75" height="34"/>
@@ -223,7 +223,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Ovb-69-Muy">
-                                <rect key="frame" x="32" y="120" width="350" height="218"/>
+                                <rect key="frame" x="32" y="120" width="350" height="254.5"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dqI-gg-KD6">
                                         <rect key="frame" x="0.0" y="0.0" width="350" height="34"/>
@@ -269,6 +269,12 @@
                                             <action selector="segmentDidChange:" destination="J3u-x4-hRk" eventType="valueChanged" id="mTq-lU-8On"/>
                                         </connections>
                                     </segmentedControl>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Percent of Income: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3g-5d-ao5">
+                                        <rect key="frame" x="0.0" y="234" width="350" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -295,6 +301,7 @@
                     <connections>
                         <outlet property="amountField" destination="gIR-tj-8RP" id="FgJ-7k-Es3"/>
                         <outlet property="perLabel" destination="q2I-NY-8bP" id="FbK-nZ-brq"/>
+                        <outlet property="percentAmountLabel" destination="j3g-5d-ao5" id="Act-FE-6i9"/>
                         <outlet property="percentOrFixedLabel" destination="dVV-wV-eUj" id="Ebg-yR-Mcn"/>
                         <outlet property="percentOrFixedSwitch" destination="9OH-Ot-7Jn" id="ZeF-2c-7Bk"/>
                         <outlet property="savingNameField" destination="dqI-gg-KD6" id="aU8-ur-ZWA"/>

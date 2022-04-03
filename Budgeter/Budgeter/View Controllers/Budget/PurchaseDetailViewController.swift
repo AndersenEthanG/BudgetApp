@@ -32,6 +32,7 @@ class PurchaseDetailViewController: UIViewController {
         self.view.endEditing(true)
     } // End of Function
     
+    
     // MARK: - Functions
     func updateView() {
         if let purchase = purchase {
@@ -39,10 +40,7 @@ class PurchaseDetailViewController: UIViewController {
             purchaseNameLabel.text = purchase.name
             purchaseAmountLabel.text = purchase.amount.formatDoubleToMoneyString()
             purchaseDatePicker.date = purchase.purchaseDate!
-        } else {
-            purchaseNameLabel.becomeFirstResponder()
-        } // End of If Purchase exists
-        
+        }
     } // End of Update View
 
     
@@ -71,7 +69,9 @@ class PurchaseDetailViewController: UIViewController {
     
 } // End of Class
 
-// Custom keyboard thing
+
+// MARK: - Custom keyboard thing
+// I didn't write this
 extension UITextField {
     
     func addNumericAccessory(addPlusMinus: Bool) {
@@ -116,5 +116,4 @@ extension UITextField {
             self.text = "-" + currentText
         }
     }
-    
 } // End of Extension
