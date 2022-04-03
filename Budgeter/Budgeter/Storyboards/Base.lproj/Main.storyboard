@@ -105,11 +105,18 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDi-De-yhx">
-                                <rect key="frame" x="169.5" y="126" width="75" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="ji3-PU-C24"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXe-Jn-WR1" userLabel="Pick From Incomes">
+                                <rect key="frame" x="32" y="126" width="191" height="35.5"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Pick From Incomes...">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="18"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="pickFromIncomesBtn:" destination="wbP-IU-rfN" eventType="touchUpInside" id="sq9-vj-XrP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDi-De-yhx">
+                                <rect key="frame" x="307" y="126" width="75" height="35.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Calculate"/>
                                 <connections>
@@ -117,7 +124,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9k0-o4-uYi">
-                                <rect key="frame" x="20" y="176" width="374" height="632"/>
+                                <rect key="frame" x="20" y="177.5" width="374" height="630.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="gotPaidCell" id="RET-eV-Igb" customClass="GotPaidTableViewCell" customModule="Budgeter" customModuleProvider="target">
@@ -199,14 +206,18 @@
                             <constraint firstItem="5yf-sS-C3H" firstAttribute="leading" secondItem="hsl-gY-WFd" secondAttribute="leading" constant="32" id="H3m-Xj-Rtf"/>
                             <constraint firstItem="hsl-gY-WFd" firstAttribute="bottom" secondItem="9k0-o4-uYi" secondAttribute="bottom" constant="34" id="T0x-6z-aRM"/>
                             <constraint firstItem="EDi-De-yhx" firstAttribute="top" secondItem="5yf-sS-C3H" secondAttribute="bottom" constant="16" id="YJe-HW-FPr"/>
+                            <constraint firstItem="gXe-Jn-WR1" firstAttribute="leading" secondItem="5yf-sS-C3H" secondAttribute="leading" id="crm-0V-pxm"/>
                             <constraint firstItem="9k0-o4-uYi" firstAttribute="top" secondItem="EDi-De-yhx" secondAttribute="bottom" constant="16" id="eU6-7q-t3Y"/>
-                            <constraint firstItem="EDi-De-yhx" firstAttribute="centerX" secondItem="hsl-gY-WFd" secondAttribute="centerX" id="hcZ-cy-AYm"/>
+                            <constraint firstItem="gXe-Jn-WR1" firstAttribute="bottom" secondItem="EDi-De-yhx" secondAttribute="bottom" id="hLc-Jy-8GT"/>
+                            <constraint firstItem="gXe-Jn-WR1" firstAttribute="top" secondItem="EDi-De-yhx" secondAttribute="top" id="nPK-m0-Mud"/>
                             <constraint firstItem="9k0-o4-uYi" firstAttribute="leading" secondItem="hsl-gY-WFd" secondAttribute="leading" constant="20" id="tEI-Pm-3f4"/>
                             <constraint firstItem="hsl-gY-WFd" firstAttribute="trailing" secondItem="9k0-o4-uYi" secondAttribute="trailing" constant="20" id="tYT-is-LjG"/>
+                            <constraint firstItem="EDi-De-yhx" firstAttribute="trailing" secondItem="5yf-sS-C3H" secondAttribute="trailing" id="waK-gd-11v"/>
+                            <constraint firstItem="EDi-De-yhx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gXe-Jn-WR1" secondAttribute="trailing" constant="8" symbolic="YES" id="xn6-lX-ZEh"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="amountPaidBtn" destination="5yf-sS-C3H" id="H1n-Ub-iet"/>
+                        <outlet property="amountPaidField" destination="5yf-sS-C3H" id="H1n-Ub-iet"/>
                         <outlet property="tableView" destination="9k0-o4-uYi" id="kl2-rF-tEK"/>
                     </connections>
                 </viewController>
@@ -223,7 +234,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Ovb-69-Muy">
-                                <rect key="frame" x="32" y="120" width="350" height="254.5"/>
+                                <rect key="frame" x="32" y="120" width="350" height="218"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dqI-gg-KD6">
                                         <rect key="frame" x="0.0" y="0.0" width="350" height="34"/>
@@ -269,12 +280,6 @@
                                             <action selector="segmentDidChange:" destination="J3u-x4-hRk" eventType="valueChanged" id="mTq-lU-8On"/>
                                         </connections>
                                     </segmentedControl>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Percent of Income: " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3g-5d-ao5">
-                                        <rect key="frame" x="0.0" y="234" width="350" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -301,7 +306,6 @@
                     <connections>
                         <outlet property="amountField" destination="gIR-tj-8RP" id="FgJ-7k-Es3"/>
                         <outlet property="perLabel" destination="q2I-NY-8bP" id="FbK-nZ-brq"/>
-                        <outlet property="percentAmountLabel" destination="j3g-5d-ao5" id="Act-FE-6i9"/>
                         <outlet property="percentOrFixedLabel" destination="dVV-wV-eUj" id="Ebg-yR-Mcn"/>
                         <outlet property="percentOrFixedSwitch" destination="9OH-Ot-7Jn" id="ZeF-2c-7Bk"/>
                         <outlet property="savingNameField" destination="dqI-gg-KD6" id="aU8-ur-ZWA"/>

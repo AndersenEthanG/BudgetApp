@@ -20,6 +20,7 @@ class GotPaidTableViewCell: UITableViewCell {
     // MARK: - Properties
     var saving: Saving? {
         didSet {
+            isDone = false
             updateView()
         }
     } // End of Property
@@ -35,6 +36,7 @@ class GotPaidTableViewCell: UITableViewCell {
         
         nameLabel.text = saving.name
         percentAmountLabel.text = saving.amount.formatToPercent()
+        updateDoneButtonPressed()
     } // End of Update view
     
     func updateAmountToPay() {
@@ -48,10 +50,7 @@ class GotPaidTableViewCell: UITableViewCell {
         amountToPayLabel.text = finalText
     } // End of Update amount to pay
     
-    
-    // MARK: - Actions
-    @IBAction func isDoneToggleBtn(_ sender: Any) {
-        isDone.toggle()
+    func updateDoneButtonPressed() {
         var imageName = ""
         
         switch isDone {
@@ -64,6 +63,14 @@ class GotPaidTableViewCell: UITableViewCell {
         } // End of Switch
         
         doneButton.setImage(UIImage(systemName: imageName), for: .normal)
+    } // End of update button pressed
+    
+    
+    // MARK: - Actions
+    @IBAction func isDoneToggleBtn(_ sender: Any) {
+        isDone.toggle()
+        
+        updateDoneButtonPressed()
     } // End of Is done
     
 } // End of Cell

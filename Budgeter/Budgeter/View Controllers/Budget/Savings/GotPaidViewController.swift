@@ -8,9 +8,9 @@
 import UIKit
 
 class GotPaidViewController: UIViewController {
-
+    
     // MARK: - Outlets
-    @IBOutlet weak var amountPaidBtn: UITextField!
+    @IBOutlet weak var amountPaidField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     
     
@@ -43,22 +43,52 @@ class GotPaidViewController: UIViewController {
     } // End of Update view
     
     func updateAmountPaidLabel() {
-        if amountPaidBtn.text != "" {
-            amountPaidBtn.text = amountPaid.formatDoubleToMoneyString()
+        if amountPaidField.text != "" {
+            amountPaidField.text = amountPaid.formatDoubleToMoneyString()
         }
     } // End of Update Amount Paid Label
     
     // MARK: - Actions
     @IBAction func calculateBtn(_ sender: Any) {
-        guard let amount = amountPaidBtn.text else { return }
+        guard let amount = amountPaidField.text else { return }
         
-        calculateWasPressed = true
-        amountPaid = amount.formatToDouble()
+        if amount != "" {
+            calculateWasPressed = true
+            amountPaid = amount.formatToDouble()
+        } // End of Amount check
         
         updateView()
     } // End of Calculate Button
-
+    
+    @IBAction func pickFromIncomesBtn(_ sender: Any) {
+        let alert = UIAlertController(title: "Income Sources...", message: "Select an income to calculate savings", preferredStyle: .actionSheet)
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addAction(cancelButton)
+        
+        IncomeController.sharedInstance.fetchIncomes { fetchedincomes in
+            for fetchedincome in fetchedincomes {
+                
+                let newTitle = (fetchedincome.name ?? "Income") + ": " + fetchedincome.amount.formatDoubleToMoneyString()
+                
+                let newAction = UIAlertAction(title: newTitle, style: .default) { action in
+                    self.calculateWasPressed = true
+                    self.amountPaidField.text = fetchedincome.amount.formatDoubleToMoneyString()
+                    self.amountPaid = fetchedincome.amount
+                    
+                    self.updateView()
+                }
+                
+                alert.addAction(newAction)
+            } // End of Loop
+        } // End of Fetched incomes
+        
+        present(alert, animated: true)
+    } // End of Pick from savings button pressed
+    
 } // End of Got Paid View Controller
+
 
 // MARK: - Extensions
 extension GotPaidViewController: UITableViewDelegate, UITableViewDataSource {
@@ -83,6 +113,7 @@ extension GotPaidViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.saving = saving
+        cell.selectionStyle = .none
         
         return cell
     } // End of Cell for row at
