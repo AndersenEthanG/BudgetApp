@@ -884,8 +884,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="tLQ-pG-A69">
-                                <rect key="frame" x="32" y="104" width="350" height="206"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="tLQ-pG-A69">
+                                <rect key="frame" x="32" y="104" width="350" height="180"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expenses $$$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIc-CH-p20">
                                         <rect key="frame" x="0.0" y="0.0" width="350" height="24"/>
@@ -894,7 +894,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="Fib-eN-Q8R">
-                                        <rect key="frame" x="0.0" y="36" width="350" height="32"/>
+                                        <rect key="frame" x="0.0" y="40" width="350" height="32"/>
                                         <segments>
                                             <segment title="Week"/>
                                             <segment title="Month"/>
@@ -904,36 +904,41 @@
                                             <action selector="segmentDidChange:" destination="BSQ-nj-cZy" eventType="valueChanged" id="qex-Ak-RuL"/>
                                         </connections>
                                     </segmentedControl>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFN-td-wCy" userLabel="Sort By Button">
-                                        <rect key="frame" x="0.0" y="79" width="350" height="26"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="26" id="Gxq-xB-oMp"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Sort By: "/>
-                                        <connections>
-                                            <action selector="sortByBtn:" destination="BSQ-nj-cZy" eventType="touchUpInside" id="doS-ZW-slT"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wnT-8X-UH2" userLabel="Filter By Button">
-                                        <rect key="frame" x="0.0" y="117" width="350" height="26"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="26" id="HLl-N5-IGd"/>
-                                        </constraints>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Filter By: "/>
-                                        <connections>
-                                            <action selector="filterByBtn:" destination="BSQ-nj-cZy" eventType="touchUpInside" id="CO3-Cf-4uC"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="PIi-nE-KXt" userLabel="Filter and Sort Stack">
+                                        <rect key="frame" x="0.0" y="87" width="350" height="26"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wnT-8X-UH2" userLabel="Filter By Button">
+                                                <rect key="frame" x="0.0" y="0.0" width="169" height="26"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="26" id="HLl-N5-IGd"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Filter By:"/>
+                                                <connections>
+                                                    <action selector="filterByBtn:" destination="BSQ-nj-cZy" eventType="touchUpInside" id="CO3-Cf-4uC"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFN-td-wCy" userLabel="Sort By Button">
+                                                <rect key="frame" x="181" y="0.0" width="169" height="26"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="26" id="Gxq-xB-oMp"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Sort By: "/>
+                                                <connections>
+                                                    <action selector="sortByBtn:" destination="BSQ-nj-cZy" eventType="touchUpInside" id="doS-ZW-slT"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                     <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="qFH-2E-hTl">
-                                        <rect key="frame" x="0.0" y="155" width="350" height="51"/>
+                                        <rect key="frame" x="0.0" y="129" width="350" height="51"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </searchBar>
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pT7-De-l4C">
-                                <rect key="frame" x="0.0" y="326" width="414" height="487"/>
+                                <rect key="frame" x="0.0" y="300" width="414" height="513"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="expenseCell" id="Qhu-0g-KLh" customClass="ExpenseTableViewCell" customModule="Budgeter" customModuleProvider="target">

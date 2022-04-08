@@ -61,7 +61,7 @@ class GotPaidViewController: UIViewController {
     } // End of Calculate Button
     
     @IBAction func pickFromIncomesBtn(_ sender: Any) {
-        let alert = UIAlertController(title: "Income Sources...", message: "Select an income to calculate savings", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Income Sources", message: "Select an income to calculate savings", preferredStyle: .actionSheet)
         
         let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
         

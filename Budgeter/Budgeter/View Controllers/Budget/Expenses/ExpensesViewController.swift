@@ -185,7 +185,7 @@ class ExpenseViewController: UIViewController {
     
     
     @IBAction func filterByBtn(_ sender: Any) {
-        let alert = UIAlertController(title: "Filter By", message: "Select which payment source you want to see ", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Filter By Payment Source", message: "Select which payment source you want to see ", preferredStyle: .actionSheet)
         
         // Normal actions
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
