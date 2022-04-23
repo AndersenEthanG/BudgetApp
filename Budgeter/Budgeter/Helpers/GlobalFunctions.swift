@@ -69,7 +69,7 @@ extension String {
 
 /// This is for the sorting systems
 enum SortBy {
-    case byValueAscending, byValueDescending, alphabetically
+    case byValueAscending, byValueDescending, alphabetically, byDateAscending, byDateDescending
 } // End of Sort By
 
 
@@ -320,62 +320,64 @@ func hexStringToUIColor(hex: String) -> UIColor {
 extension String {
     func turnPaymentDateToInt() -> Int {
         switch self {
-        case "1":
+        case "none" :
             return 0
-        case "2":
+        case "1":
             return 1
-        case "3":
+        case "2":
             return 2
-        case "4":
+        case "3":
             return 3
-        case "5":
+        case "4":
             return 4
-        case "6":
+        case "5":
             return 5
-        case "7":
+        case "6":
             return 6
-        case "8":
+        case "7":
             return 7
-        case "9":
+        case "8":
             return 8
-        case "10":
+        case "9":
             return 9
-        case "11":
+        case "10":
             return 10
-        case "12":
+        case "11":
             return 11
-        case "13":
+        case "12":
             return 12
-        case "14":
+        case "13":
             return 13
-        case "15":
+        case "14":
             return 14
-        case "16":
+        case "15":
             return 15
-        case "17":
+        case "16":
             return 16
-        case "18":
+        case "17":
             return 17
-        case "19":
+        case "18":
             return 18
-        case "20":
+        case "19":
             return 19
-        case "21":
+        case "20":
             return 20
-        case "22":
+        case "21":
             return 21
-        case "23":
+        case "22":
             return 22
-        case "24":
+        case "23":
             return 23
-        case "25":
+        case "24":
             return 24
-        case "26":
+        case "25":
             return 25
-        case "27":
+        case "26":
             return 26
-        case "28":
+        case "27":
             return 27
+        case "28":
+            return 28
         default:
             return 0
         } // End of case switch

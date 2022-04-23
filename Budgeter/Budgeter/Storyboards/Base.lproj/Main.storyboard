@@ -885,7 +885,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="tLQ-pG-A69">
-                                <rect key="frame" x="32" y="104" width="350" height="180"/>
+                                <rect key="frame" x="32" y="104" width="350" height="187.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expenses $$$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIc-CH-p20">
                                         <rect key="frame" x="0.0" y="0.0" width="350" height="24"/>
@@ -904,27 +904,25 @@
                                             <action selector="segmentDidChange:" destination="BSQ-nj-cZy" eventType="valueChanged" id="qex-Ak-RuL"/>
                                         </connections>
                                     </segmentedControl>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="PIi-nE-KXt" userLabel="Filter and Sort Stack">
-                                        <rect key="frame" x="0.0" y="87" width="350" height="26"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="BWP-vI-yjw" userLabel="Filter and Sort By Stack">
+                                        <rect key="frame" x="0.0" y="87" width="350" height="33.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wnT-8X-UH2" userLabel="Filter By Button">
-                                                <rect key="frame" x="0.0" y="0.0" width="169" height="26"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="HLl-N5-IGd"/>
-                                                </constraints>
+                                                <rect key="frame" x="0.0" y="0.0" width="169" height="33.5"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Filter By:"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Filter By:">
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <action selector="filterByBtn:" destination="BSQ-nj-cZy" eventType="touchUpInside" id="CO3-Cf-4uC"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFN-td-wCy" userLabel="Sort By Button">
-                                                <rect key="frame" x="181" y="0.0" width="169" height="26"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="26" id="Gxq-xB-oMp"/>
-                                                </constraints>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFN-td-wCy" userLabel="Sort By Button">
+                                                <rect key="frame" x="181" y="0.0" width="169" height="33.5"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Sort By: "/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Sort By: ">
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <action selector="sortByBtn:" destination="BSQ-nj-cZy" eventType="touchUpInside" id="doS-ZW-slT"/>
                                                 </connections>
@@ -932,62 +930,68 @@
                                         </subviews>
                                     </stackView>
                                     <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="qFH-2E-hTl">
-                                        <rect key="frame" x="0.0" y="129" width="350" height="51"/>
+                                        <rect key="frame" x="0.0" y="136.5" width="350" height="51"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </searchBar>
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pT7-De-l4C">
-                                <rect key="frame" x="0.0" y="300" width="414" height="513"/>
+                                <rect key="frame" x="0.0" y="307.5" width="414" height="505.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="expenseCell" id="Qhu-0g-KLh" customClass="ExpenseTableViewCell" customModule="Budgeter" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="93.5"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="105.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qhu-0g-KLh" id="ofO-rW-FCr">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="93.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="105.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1La-Ae-S2e" userLabel="Cell Stack">
-                                                    <rect key="frame" x="28" y="19" width="358" height="55.5"/>
+                                                    <rect key="frame" x="28" y="19" width="358" height="67.5"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QK2-S5-vhR">
-                                                            <rect key="frame" x="0.0" y="0.0" width="137" height="55"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="DAt-8B-yv6">
+                                                            <rect key="frame" x="0.0" y="0.0" width="139" height="67"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="expenseTitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55N-uA-RY9">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="137" height="20.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="95.5" height="21"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="21" id="Fs7-IO-zyd"/>
+                                                                    </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="expensePaymentDate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1R-gd-QJw" userLabel="Expense Date">
+                                                                    <rect key="frame" x="0.0" y="27" width="139" height="17"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="17" id="IVG-h6-UPo"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="paymentSource" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvc-5S-phe">
-                                                                    <rect key="frame" x="0.0" y="38" width="101" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="50" width="101" height="17"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="17" id="BQC-7y-O9Q"/>
+                                                                    </constraints>
                                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
-                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="55" id="Sc4-jj-eaS"/>
-                                                                <constraint firstItem="55N-uA-RY9" firstAttribute="leading" secondItem="QK2-S5-vhR" secondAttribute="leading" id="Zsr-Nw-rGz"/>
-                                                                <constraint firstItem="55N-uA-RY9" firstAttribute="top" secondItem="QK2-S5-vhR" secondAttribute="top" id="qqJ-m8-WPD"/>
-                                                                <constraint firstAttribute="bottom" secondItem="qvc-5S-phe" secondAttribute="bottom" id="vJE-tQ-t5V"/>
-                                                                <constraint firstItem="qvc-5S-phe" firstAttribute="leading" secondItem="QK2-S5-vhR" secondAttribute="leading" id="vPd-en-0al"/>
-                                                                <constraint firstAttribute="trailing" secondItem="55N-uA-RY9" secondAttribute="trailing" id="x40-ew-GUd"/>
-                                                            </constraints>
-                                                        </view>
+                                                        </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="1if-0f-YCA" userLabel="Right Stack">
-                                                            <rect key="frame" x="145" y="0.0" width="213" height="54.5"/>
+                                                            <rect key="frame" x="147" y="0.0" width="211" height="67.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense Amount Per Freq" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tlt-fk-J4X">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="213" height="21.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="211" height="26.5"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expense % of income" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4lQ-mR-LJH">
-                                                                    <rect key="frame" x="0.0" y="37.5" width="213" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="42.5" width="211" height="25"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -996,7 +1000,9 @@
                                                         </stackView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="55" id="YxR-HE-Bjp"/>
+                                                        <constraint firstItem="1if-0f-YCA" firstAttribute="top" secondItem="1La-Ae-S2e" secondAttribute="top" id="S8r-EC-Hlq"/>
+                                                        <constraint firstAttribute="trailing" secondItem="1if-0f-YCA" secondAttribute="trailing" id="YyF-IE-Dd8"/>
+                                                        <constraint firstAttribute="bottom" secondItem="1if-0f-YCA" secondAttribute="bottom" id="njl-Tv-Qy3"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
@@ -1009,6 +1015,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="expenseAmountLabel" destination="Tlt-fk-J4X" id="dHk-Ey-B3R"/>
+                                            <outlet property="expensePaymentDateLabel" destination="H1R-gd-QJw" id="8ZC-6R-yAj"/>
                                             <outlet property="expensePaymentSouceLabel" destination="qvc-5S-phe" id="xTH-Hz-N4a"/>
                                             <outlet property="expensePercentLabel" destination="4lQ-mR-LJH" id="g1G-lS-jZz"/>
                                             <outlet property="expenseTitleLabel" destination="55N-uA-RY9" id="YeR-6z-fCY"/>
@@ -1048,7 +1055,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cEP-1V-tpq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4429.9065420560746" y="2010.5831533477324"/>
+            <point key="canvasLocation" x="4428.985507246377" y="2010.2678571428571"/>
         </scene>
         <!--New Expense-->
         <scene sceneID="IdK-lV-D98">

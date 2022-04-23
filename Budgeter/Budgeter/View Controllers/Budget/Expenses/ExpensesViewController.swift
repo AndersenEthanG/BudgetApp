@@ -43,6 +43,9 @@ class ExpenseViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        searchBar.text = ""
+        sortBy = .byValueDescending
+        
         fetchExpenses()
     } // End of View will appear
     
@@ -53,17 +56,19 @@ class ExpenseViewController: UIViewController {
             self.expenses = []
             self.expenses = fetchedExpenses
             
-            self.filterExpensesBySource(paymentSource: self.paymentSource)
+            self.updateView()
         }
     } // End of Fetch Expenses
     
     func updateView() {
-        updateSortBy()
-        sortExpenses(sortBy: self.sortBy)
+        filterExpensesBySource()
+        sortExpenses()
         tableView.reloadData()
     } // End of Update View
     
-    func updateExpensesLabel(filterBy: FilterBy) {
+    func updateExpensesLabel() {
+        let filterBy = self.segmentIndex
+        
         var finalNumber: Double = 0
         
         for expense in filteredExpenses {
@@ -80,7 +85,7 @@ class ExpenseViewController: UIViewController {
         expensesLabel.text = ( preText + finalNumber.formatDoubleToMoneyString() )
     } // End of Update expenses label
     
-    func updateSortBy() {
+    func updateSegmentedController() {
         var finalFilter: FilterBy = segmentIndex
         
         switch segmentIndex {
@@ -98,43 +103,81 @@ class ExpenseViewController: UIViewController {
             finalFilter = .year
         } // End of Switch
         
-        updateExpensesLabel(filterBy: finalFilter)
+        self.segmentIndex = finalFilter
+        updateExpensesLabel()
     } // End of Update filter by
     
-    func sortExpenses(sortBy: SortBy) {
+    func sortExpenses() {
+        let sortBy = self.sortBy
+        
         switch sortBy {
+            
         case .byValueAscending:
             filteredExpenses.sort {
                 convertRate(rate: $0.amount, currentRate: ($0.frequency?.formatToFilterBy())!, desiredRate: .year) < convertRate(rate: $1.amount, currentRate: ($1.frequency?.formatToFilterBy())!, desiredRate: .year)
             }
-            self.sortByButton.setTitle("Sort By: Ascending", for: .normal)
+            
         case .byValueDescending:
             filteredExpenses.sort {
                 convertRate(rate: $0.amount, currentRate: ($0.frequency?.formatToFilterBy())!, desiredRate: .year) > convertRate(rate: $1.amount, currentRate: ($1.frequency?.formatToFilterBy())!, desiredRate: .year)
             }
-            self.sortByButton.setTitle("Sort By: Descending", for: .normal)
+            
         case .alphabetically:
-            //TODO(ethan) Figure out how to sort strings
+            // This doesn't really need to do anything (You can't even select it)
             print("Is line \(#line) working?")
+            
+        case .byDateAscending:
+            var sortedExpenses: [Expense] = []
+            for expense in filteredExpenses {
+                if expense.paymentDate != "" && expense.paymentDate != "none" && expense.paymentDate != nil {
+                    sortedExpenses.append(expense)
+                }
+                
+                sortedExpenses.sort {
+                    ($0.paymentDate!.turnPaymentDateToInt()) < ($1.paymentDate!.turnPaymentDateToInt())
+                }
+                
+                self.filteredExpenses = sortedExpenses
+            }
+            
+        case .byDateDescending:
+            var sortedExpenses: [Expense] = []
+            for expense in filteredExpenses {
+                if expense.paymentDate != "" && expense.paymentDate != "none" && expense.paymentDate != nil {
+                    sortedExpenses.append(expense)
+                }
+                
+                sortedExpenses.sort {
+                    ($0.paymentDate!.turnPaymentDateToInt()) > ($1.paymentDate!.turnPaymentDateToInt())
+                }
+                
+                self.filteredExpenses = sortedExpenses
+            }
         } // End of Switch
         
         updateSortByButton()
+        updateExpensesLabel()
     } // End of Sort data
     
     func updateSortByButton() {
         var updatedTitle: String = ""
         switch sortBy {
         case .byValueAscending:
-            updatedTitle = "Sort By: Ascending"
+            updatedTitle = "Sort By: Amount Asc."
         case .byValueDescending:
-            updatedTitle = "Sort By: Descending"
+            updatedTitle = "Sort By: Amount Desc."
         case .alphabetically:
-            updatedTitle = "Sort: Alphabetically"
+            updatedTitle = "Sort By: Alphabetically"
+        case .byDateAscending:
+            updatedTitle = "Sort By: Date Asc."
+        case .byDateDescending:
+            updatedTitle = "Sort By: Date Desc."
         }
-        sortByButton.titleLabel?.text = updatedTitle
+        sortByButton.setTitle(updatedTitle, for: .normal)
     } // End of update filter by button Function
     
-    func filterExpensesBySource(paymentSource: String) {
+    func filterExpensesBySource() {
+        let paymentSource = self.paymentSource
         var selectedExpenses: [Expense] = []
         
         for expense in expenses {
@@ -143,11 +186,10 @@ class ExpenseViewController: UIViewController {
             }
         } // End of Loop
         
-        self.filteredExpenses = selectedExpenses
-        
+        filteredExpenses = selectedExpenses
         filterByButton.setTitle("Filter By: \(paymentSource)", for: .normal)
         
-        updateView()
+        updateSegmentedController()
     } // End of filter expenses
     
     
@@ -175,12 +217,37 @@ class ExpenseViewController: UIViewController {
     
     
     @IBAction func sortByBtn(_ sender: Any) {
-        if self.sortBy == .byValueAscending {
+        let alert = UIAlertController(title: "Sort By", message: "How would you like to sort your expenses?", preferredStyle: .actionSheet)
+        
+        let valueDescendingAction = UIAlertAction(title: "Amount Desc.", style: .default) { action in
             self.sortBy = .byValueDescending
-        } else if self.sortBy == .byValueDescending {
-            self.sortBy = .byValueAscending
+            self.updateView()
         }
-        updateView()
+        alert.addAction(valueDescendingAction)
+        
+        let valueAscendingAction = UIAlertAction(title: "Amount Asc.", style: .default) { action in
+            self.sortBy = .byValueAscending
+            self.updateView()
+        }
+        alert.addAction(valueAscendingAction)
+        
+        let dateDescendingAction = UIAlertAction(title: "Date Desc.", style: .default) { action in
+            self.sortBy = .byDateDescending
+            self.updateView()
+        }
+        alert.addAction(dateDescendingAction)
+        
+        let dateAscendingAction = UIAlertAction(title: "Date Asc.", style: .default) { action in
+            self.sortBy = .byDateAscending
+            self.updateView()
+        }
+        alert.addAction(dateAscendingAction)
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        navigationController?.present(alert, animated: true, completion: nil)
     } // End of Sort By Button
     
     
@@ -191,8 +258,8 @@ class ExpenseViewController: UIViewController {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         let allAction = UIAlertAction(title: "All", style: .destructive) { action in
-            let selectedPaymentSource = "All"
-            self.filterExpensesBySource(paymentSource: selectedPaymentSource)
+            self.paymentSource = "All"
+            self.updateView()
         }
         alert.addAction(allAction)
         
@@ -210,7 +277,7 @@ class ExpenseViewController: UIViewController {
                     let selectedPaymentSource = paymentSource!
                     
                     self.paymentSource = selectedPaymentSource
-                    self.filterExpensesBySource(paymentSource: selectedPaymentSource)
+                    self.updateView()
                 } // End of New action
                 
                 alert.addAction(newAction)
@@ -259,7 +326,6 @@ class ExpenseViewController: UIViewController {
         segmentedController.isEnabled = false
         sortByButton.isEnabled = false
         filterByButton.isEnabled = false
-        tableView.isUserInteractionEnabled = false
     } // End of keyboard will show
     
     @objc func keyboardWillHide(notification: NSNotification) {
@@ -268,7 +334,6 @@ class ExpenseViewController: UIViewController {
         segmentedController.isEnabled = true
         sortByButton.isEnabled = true
         filterByButton.isEnabled = true
-        tableView.isUserInteractionEnabled = true
         
         if searchBar.text == "" {
             self.filteredExpenses = expenses
@@ -295,7 +360,7 @@ extension ExpenseViewController: UITableViewDelegate, UITableViewDataSource {
         return filteredExpenses.count
     } // End of Number of rows
     
-    
+    // Cell for row at
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "expenseCell", for: indexPath) as? ExpenseTableViewCell else { return ExpenseTableViewCell() }
         let expense = filteredExpenses[indexPath.row]
@@ -325,8 +390,9 @@ extension ExpenseViewController: UISearchBarDelegate {
         let searchText = searchText.lowercased()
         
         // Filter set to all
-        let selectedPaymentSource = "All"
-        filterExpensesBySource(paymentSource: selectedPaymentSource)
+        paymentSource = "All"
+        updateView()
+        sortBy = .byValueDescending
         
         if searchText == "" {
             self.filteredExpenses = expenses

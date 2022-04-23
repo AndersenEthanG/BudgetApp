@@ -112,6 +112,10 @@ class AssetsViewController: UIViewController {
         case .alphabetically:
             //TODO(ethan) Figure out how to sort strings
             print("Is line \(#line) working?")
+        case .byDateAscending:
+            print("Is line \(#line) working?")
+        case .byDateDescending:
+            print("Is line \(#line) working?")
         } // End of Switch
     } // End of Sort data
 

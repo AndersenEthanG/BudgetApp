@@ -13,6 +13,7 @@ class ExpenseTableViewCell: UITableViewCell {
     @IBOutlet weak var expenseTitleLabel: UILabel!
     @IBOutlet weak var expenseAmountLabel: UILabel!
     @IBOutlet weak var expensePercentLabel: UILabel!
+    @IBOutlet weak var expensePaymentDateLabel: UILabel!
     @IBOutlet weak var expensePaymentSouceLabel: UILabel!
     
     
@@ -31,7 +32,8 @@ class ExpenseTableViewCell: UITableViewCell {
         expenseTitleLabel.text = expense.name
         updateExpenseAmountLabel()
         updateExpensePercentLabel()
-        expensePaymentSouceLabel.text = expense.paymentSource ?? ""
+        updateExpensePaymentDateLabel()
+        updateExpensePaymentSourceLabel()
     } // End of Function
     
     func updateExpenseAmountLabel() {
@@ -59,4 +61,27 @@ class ExpenseTableViewCell: UITableViewCell {
         expensePercentLabel.text = finalText
     } // End of Function
     
+    func updateExpensePaymentDateLabel() {
+        guard let expense = expense else { return }
+
+        if expense.paymentDate == "" || expense.paymentDate == nil || expense.paymentDate == "none" {
+            expensePaymentDateLabel.text = ""
+            expensePaymentDateLabel.isHidden = true
+        } else {
+            expensePaymentDateLabel.text = ("Due Date: " + expense.paymentDate!)
+            expensePaymentDateLabel.isHidden = false
+        }
+    } // End of Update payment date label
+    
+    func updateExpensePaymentSourceLabel() {
+        guard let expense = expense else { return }
+
+        if expense.paymentSource == "" || expense.paymentSource == nil {
+            expensePaymentSouceLabel.text = ""
+            expensePaymentSouceLabel.isHidden = true
+        } else {
+            expensePaymentSouceLabel.text = expense.paymentSource!
+            expensePaymentSouceLabel.isHidden = false
+        }
+    } // End of Update expense source label
 } // End of Expense table view cell
