@@ -56,6 +56,8 @@ class BudgetViewController: UIViewController {
         cleanDataAndView()
         fetchPurchases()
         fetchBudget()
+        
+        delayedUpdate()
     } // End of View will appear
     
     

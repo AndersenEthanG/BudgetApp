@@ -11,8 +11,7 @@ class SavingsDetailViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var savingNameField: UITextField!
-    @IBOutlet weak var percentOrFixedSwitch: UISwitch!
-    @IBOutlet weak var percentOrFixedLabel: UILabel!
+    @IBOutlet weak var percentSegmenetedController: UISegmentedControl!
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var perLabel: UILabel!
     @IBOutlet weak var segmentedController: UISegmentedControl!
@@ -28,14 +27,24 @@ class SavingsDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(ExpenseViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         updateView()
     } // End of View did load
     
-    // This function makes the keyboard go away
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if amountField.text != "" {
+            if isPercent == true {
+                amountField.text = amountField.text?.formatToDouble().formatToPercent()
+            } else {
+                amountField.text = amountField.text?.formatToDouble().formatDoubleToMoneyString()
+            }
+        }
+    } // End of keyboard will hide
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     } // End of Function
-    
     
     // MARK: - Functions
     func updateView() {
@@ -45,34 +54,28 @@ class SavingsDetailViewController: UIViewController {
             amountField.text = saving.amount.formatDoubleToMoneyString()
             isPercent = saving.isPercent
             frequency = (saving.frequency?.formatToFilterBy())!
-        } else {
-            savingNameField.becomeFirstResponder()
-        } // End of if we are editing
+        } // End of edit or new check
         
         updateIsPercentLabel()
         updateFrequencyLabel()
     } // End of Update View
     
     func updateIsPercentLabel() {
-        var finalText = ""
-        
         if isPercent == true {
-            finalText = "Percent of Income"
-            
             perLabel.isHidden = true
             segmentedController.isHidden = true
             
+            percentSegmenetedController.selectedSegmentIndex = 0
+            
             togglePercentOrFixed()
         } else {
-            finalText = "Fixed Amount"
-            
             perLabel.isHidden = false
             segmentedController.isHidden = false
             
+            percentSegmenetedController.selectedSegmentIndex = 1
+            
             togglePercentOrFixed()
         } // End of If else Is percent
-        
-        percentOrFixedLabel.text = finalText
     } // End of Update percent label
     
     
@@ -132,11 +135,20 @@ class SavingsDetailViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     } // End of Save Button
     
-    @IBAction func percentOrFixedSwitchTap(_ sender: Any) {
-        isPercent.toggle()
+    @IBAction func percentOrFixedSegmentDidChange(_ sender: Any) {
+        switch percentSegmenetedController.selectedSegmentIndex {
+        case 0:
+            // Percent
+            self.isPercent = true
+        case 1:
+            // Fixed
+            self.isPercent = false
+        default:
+            print("Is line \(#line) working?")
+        }
         
         updateIsPercentLabel()
-    } // End of Percent or fixed switch tapped
+    } // End of action
     
     @IBAction func segmentDidChange(_ sender: Any) {
         switch segmentedController.selectedSegmentIndex {

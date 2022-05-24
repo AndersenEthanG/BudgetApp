@@ -12,9 +12,10 @@ class ExpenseDetailViewController: UIViewController, UIPickerViewDelegate, UIPic
     // MARK: - Outlets
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var amountField: UITextField!
-    @IBOutlet weak var segmentedController: UISegmentedControl!
-    @IBOutlet weak var dayPickerView: UIPickerView!
     @IBOutlet weak var paymentSourceButton: UIButton!
+    @IBOutlet weak var segmentedController: UISegmentedControl!
+    @IBOutlet weak var dayOfPaymentLabel: UILabel!
+    @IBOutlet weak var dayPickerView: UIPickerView!
     
     
     // MARK: - Properties
@@ -65,6 +66,7 @@ class ExpenseDetailViewController: UIViewController, UIPickerViewDelegate, UIPic
     
     func updateSegmentedController() {
         var result: Int = 0
+        var hidePaymentPicker: Bool = false
         
         switch frequency {
         case .sorted:
@@ -75,11 +77,20 @@ class ExpenseDetailViewController: UIViewController, UIPickerViewDelegate, UIPic
             print("Is line \(#line) working?")
         case .week:
             result = 0
+            hidePaymentPicker = true
         case .month:
             result = 1
+            hidePaymentPicker = false
         case .year:
             result = 2
+            hidePaymentPicker = true
         } // End of Switch
+        
+        dayPickerView.isHidden = hidePaymentPicker
+        dayOfPaymentLabel.isHidden = hidePaymentPicker
+        if hidePaymentPicker == true {
+            paymentDaySelected = "none"
+        }
         
         segmentedController.selectedSegmentIndex = result
     } // End of Update segmented controller
@@ -131,6 +142,7 @@ class ExpenseDetailViewController: UIViewController, UIPickerViewDelegate, UIPic
         }
         
         frequency = newFrequency
+        updateSegmentedController()
     } // End of Segment did change
     
     // MARK: - Date Picker View

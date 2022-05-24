@@ -244,18 +244,16 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="cUg-8N-9Kw">
                                         <rect key="frame" x="0.0" y="50" width="350" height="31"/>
                                         <subviews>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9OH-Ot-7Jn">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="dDa-nE-UAY">
+                                                <rect key="frame" x="0.0" y="0.0" width="350" height="32"/>
+                                                <segments>
+                                                    <segment title="Percent"/>
+                                                    <segment title="Fixed"/>
+                                                </segments>
                                                 <connections>
-                                                    <action selector="percentOrFixedSwitchTap:" destination="J3u-x4-hRk" eventType="valueChanged" id="KZU-5w-wsX"/>
+                                                    <action selector="percentOrFixedSegmentDidChange:" destination="J3u-x4-hRk" eventType="valueChanged" id="FnL-X1-4QK"/>
                                                 </connections>
-                                            </switch>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Percent or Fixed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dVV-wV-eUj">
-                                                <rect key="frame" x="65" y="0.0" width="285" height="31"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            </segmentedControl>
                                         </subviews>
                                     </stackView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gIR-tj-8RP">
@@ -306,8 +304,7 @@
                     <connections>
                         <outlet property="amountField" destination="gIR-tj-8RP" id="FgJ-7k-Es3"/>
                         <outlet property="perLabel" destination="q2I-NY-8bP" id="FbK-nZ-brq"/>
-                        <outlet property="percentOrFixedLabel" destination="dVV-wV-eUj" id="Ebg-yR-Mcn"/>
-                        <outlet property="percentOrFixedSwitch" destination="9OH-Ot-7Jn" id="ZeF-2c-7Bk"/>
+                        <outlet property="percentSegmenetedController" destination="dDa-nE-UAY" id="yZ6-iz-ubv"/>
                         <outlet property="savingNameField" destination="dqI-gg-KD6" id="aU8-ur-ZWA"/>
                         <outlet property="segmentedController" destination="WvB-jb-Os2" id="eYl-lh-Fdi"/>
                     </connections>
@@ -1171,6 +1168,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="amountField" destination="2HJ-eZ-FZI" id="pbV-Hr-Jga"/>
+                        <outlet property="dayOfPaymentLabel" destination="D9o-FX-DR4" id="gAf-v9-Fk4"/>
                         <outlet property="dayPickerView" destination="Oqk-c4-MK2" id="o2d-AJ-UkR"/>
                         <outlet property="nameField" destination="1kv-3O-u3a" id="WXL-IA-svS"/>
                         <outlet property="paymentSourceButton" destination="ZhC-wf-gor" id="fEX-bm-2Om"/>
