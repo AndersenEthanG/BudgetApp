@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AA1009A326E2CD9900D6F23B /* AssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1009A226E2CD9900D6F23B /* AssetsViewController.swift */; };
+		AA1203DB283E7077009E68A8 /* NewExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1203DA283E7077009E68A8 /* NewExpensesViewController.swift */; };
 		AA61739726E411F200F6737F /* CoreData+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA61739626E411F200F6737F /* CoreData+Convenience.swift */; };
 		AA61739926E411FC00F6737F /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA61739826E411FC00F6737F /* CoreDataStack.swift */; };
 		AA61739B26E4165300F6737F /* AssetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA61739A26E4165300F6737F /* AssetController.swift */; };
@@ -46,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		AA1009A226E2CD9900D6F23B /* AssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsViewController.swift; sourceTree = "<group>"; };
+		AA1203DA283E7077009E68A8 /* NewExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExpensesViewController.swift; sourceTree = "<group>"; };
 		AA61739626E411F200F6737F /* CoreData+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreData+Convenience.swift"; sourceTree = "<group>"; };
 		AA61739826E411FC00F6737F /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		AA61739A26E4165300F6737F /* AssetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetController.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				AAB5388F26E2C58400081A28 /* ExpensesViewController.swift */,
+				AA1203DA283E7077009E68A8 /* NewExpensesViewController.swift */,
 				AAABFA7126F1365700DDF6B3 /* ExpenseTableViewCell.swift */,
 				AAB5389526E2C5BC00081A28 /* ExpenseDetailViewController.swift */,
 				AA9E803027F26CB600BF6A33 /* ExpensePaymentSourceViewController.swift */,
@@ -345,6 +348,7 @@
 				AAB5388E26E2C57B00081A28 /* SavingsViewController.swift in Sources */,
 				AAB5385926E2989600081A28 /* AppDelegate.swift in Sources */,
 				AA990CD426EAD67A0044F1C7 /* GotPaidViewController.swift in Sources */,
+				AA1203DB283E7077009E68A8 /* NewExpensesViewController.swift in Sources */,
 				AAB5389426E2C5B600081A28 /* SavingsDetailViewController.swift in Sources */,
 				AA6173A726E41A9E00F6737F /* Budget.swift in Sources */,
 				AA899D0D26E7CFED00A93FCB /* DebtDetailViewController.swift in Sources */,
@@ -521,7 +525,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Andersen.Budgeter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -543,7 +547,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Andersen.Budgeter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -27,7 +27,7 @@ class SavingsDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ExpenseViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SavingsDetailViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         updateView()
     } // End of View did load

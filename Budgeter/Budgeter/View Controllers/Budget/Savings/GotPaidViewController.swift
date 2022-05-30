@@ -12,6 +12,7 @@ class GotPaidViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet weak var amountPaidField: UITextField!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var pickFromIncomesButton: UIButton!
     
     
     // MARK: - Properties
@@ -83,6 +84,9 @@ class GotPaidViewController: UIViewController {
                 alert.addAction(newAction)
             } // End of Loop
         } // End of Fetched incomes
+        
+        // This makes the iPad work
+        alert.popoverPresentationController?.sourceView = pickFromIncomesButton
         
         present(alert, animated: true)
     } // End of Pick from savings button pressed

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExpenseViewController: UIViewController {
+class OldExpenseViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var expensesLabel: UILabel!
@@ -21,6 +21,7 @@ class ExpenseViewController: UIViewController {
     // MARK: - Properties
     var expenses: [Expense] = []
     var filteredExpenses: [Expense] = []
+    var expensesToShow: [Expense] = []
     var segmentIndex: FilterBy = .month
     var sortBy: SortBy = .byValueDescending
     var paymentSource: String = "All"
@@ -308,8 +309,8 @@ class ExpenseViewController: UIViewController {
     
     // MARK: - Keyboard things
     func setupKeyboard() {
-        NotificationCenter.default.addObserver(self, selector: #selector(ExpenseViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ExpenseViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(OldExpenseViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(OldExpenseViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
@@ -354,7 +355,7 @@ class ExpenseViewController: UIViewController {
 
 
 // MARK: - Table View Extension
-extension ExpenseViewController: UITableViewDelegate, UITableViewDataSource {
+extension OldExpenseViewController: UITableViewDelegate, UITableViewDataSource {
     // Number of rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredExpenses.count
@@ -385,7 +386,7 @@ extension ExpenseViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 // MARK: - Search Bar extension
-extension ExpenseViewController: UISearchBarDelegate {
+extension OldExpenseViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let searchText = searchText.lowercased()
         
