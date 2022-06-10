@@ -1066,6 +1066,7 @@
                         <outlet property="searchBar" destination="qFH-2E-hTl" id="nKU-al-ulr"/>
                         <outlet property="sortByButton" destination="rFN-td-wCy" id="x3r-ws-fUE"/>
                         <outlet property="tableView" destination="pT7-De-l4C" id="EO1-84-3Td"/>
+                        <outlet property="topHalfStack" destination="tLQ-pG-A69" id="xk9-BO-dgr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cEP-1V-tpq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

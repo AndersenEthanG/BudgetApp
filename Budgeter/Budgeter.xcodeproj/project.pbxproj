@@ -3,12 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		AA1009A326E2CD9900D6F23B /* AssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1009A226E2CD9900D6F23B /* AssetsViewController.swift */; };
-		AA1203DB283E7077009E68A8 /* NewExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1203DA283E7077009E68A8 /* NewExpensesViewController.swift */; };
+		AA1203DB283E7077009E68A8 /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1203DA283E7077009E68A8 /* ExpensesViewController.swift */; };
 		AA61739726E411F200F6737F /* CoreData+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA61739626E411F200F6737F /* CoreData+Convenience.swift */; };
 		AA61739926E411FC00F6737F /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA61739826E411FC00F6737F /* CoreDataStack.swift */; };
 		AA61739B26E4165300F6737F /* AssetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA61739A26E4165300F6737F /* AssetController.swift */; };
@@ -38,16 +38,17 @@
 		AAB5388426E2AE1C00081A28 /* PurchaseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388326E2AE1C00081A28 /* PurchaseDetailViewController.swift */; };
 		AAB5388C26E2C56800081A28 /* IncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388B26E2C56800081A28 /* IncomeViewController.swift */; };
 		AAB5388E26E2C57B00081A28 /* SavingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388D26E2C57B00081A28 /* SavingsViewController.swift */; };
-		AAB5389026E2C58400081A28 /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5388F26E2C58400081A28 /* ExpensesViewController.swift */; };
 		AAB5389226E2C5AF00081A28 /* IncomeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5389126E2C5AF00081A28 /* IncomeDetailViewController.swift */; };
 		AAB5389426E2C5B600081A28 /* SavingsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5389326E2C5B600081A28 /* SavingsDetailViewController.swift */; };
 		AAB5389626E2C5BC00081A28 /* ExpenseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5389526E2C5BC00081A28 /* ExpenseDetailViewController.swift */; };
 		AAB9FE2226EFBC6100AF51B9 /* BudgetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB9FE2126EFBC6100AF51B9 /* BudgetController.swift */; };
+		BBF48E36B2055DC360754415 /* Pods_Budgeter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8BC734346FD20C96A1623A9 /* Pods_Budgeter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8879B591E51AF771107AA7FA /* Pods-Budgeter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Budgeter.release.xcconfig"; path = "Target Support Files/Pods-Budgeter/Pods-Budgeter.release.xcconfig"; sourceTree = "<group>"; };
 		AA1009A226E2CD9900D6F23B /* AssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsViewController.swift; sourceTree = "<group>"; };
-		AA1203DA283E7077009E68A8 /* NewExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExpensesViewController.swift; sourceTree = "<group>"; };
+		AA1203DA283E7077009E68A8 /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
 		AA61739626E411F200F6737F /* CoreData+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreData+Convenience.swift"; sourceTree = "<group>"; };
 		AA61739826E411FC00F6737F /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		AA61739A26E4165300F6737F /* AssetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetController.swift; sourceTree = "<group>"; };
@@ -80,11 +81,12 @@
 		AAB5388326E2AE1C00081A28 /* PurchaseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseDetailViewController.swift; sourceTree = "<group>"; };
 		AAB5388B26E2C56800081A28 /* IncomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeViewController.swift; sourceTree = "<group>"; };
 		AAB5388D26E2C57B00081A28 /* SavingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsViewController.swift; sourceTree = "<group>"; };
-		AAB5388F26E2C58400081A28 /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
 		AAB5389126E2C5AF00081A28 /* IncomeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeDetailViewController.swift; sourceTree = "<group>"; };
 		AAB5389326E2C5B600081A28 /* SavingsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsDetailViewController.swift; sourceTree = "<group>"; };
 		AAB5389526E2C5BC00081A28 /* ExpenseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDetailViewController.swift; sourceTree = "<group>"; };
 		AAB9FE2126EFBC6100AF51B9 /* BudgetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetController.swift; sourceTree = "<group>"; };
+		B266C9E7CCB5B6DF16863788 /* Pods-Budgeter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Budgeter.debug.xcconfig"; path = "Target Support Files/Pods-Budgeter/Pods-Budgeter.debug.xcconfig"; sourceTree = "<group>"; };
+		C8BC734346FD20C96A1623A9 /* Pods_Budgeter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Budgeter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,12 +95,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA899D1126E7EC3400A93FCB /* CloudKit.framework in Frameworks */,
+				BBF48E36B2055DC360754415 /* Pods_Budgeter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A4AF362613A7075D212795D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B266C9E7CCB5B6DF16863788 /* Pods-Budgeter.debug.xcconfig */,
+				8879B591E51AF771107AA7FA /* Pods-Budgeter.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		AA1009A126E2CD8C00D6F23B /* Portfolio */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				AA899D1026E7EC3400A93FCB /* CloudKit.framework */,
+				C8BC734346FD20C96A1623A9 /* Pods_Budgeter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -132,6 +145,7 @@
 				AAB5385726E2989600081A28 /* Budgeter */,
 				AAB5385626E2989600081A28 /* Products */,
 				AA899D0F26E7EC3400A93FCB /* Frameworks */,
+				0A4AF362613A7075D212795D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -255,8 +269,7 @@
 		AAB5388A26E2C53900081A28 /* Expenses */ = {
 			isa = PBXGroup;
 			children = (
-				AAB5388F26E2C58400081A28 /* ExpensesViewController.swift */,
-				AA1203DA283E7077009E68A8 /* NewExpensesViewController.swift */,
+				AA1203DA283E7077009E68A8 /* ExpensesViewController.swift */,
 				AAABFA7126F1365700DDF6B3 /* ExpenseTableViewCell.swift */,
 				AAB5389526E2C5BC00081A28 /* ExpenseDetailViewController.swift */,
 				AA9E803027F26CB600BF6A33 /* ExpensePaymentSourceViewController.swift */,
@@ -271,9 +284,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AAB5386C26E2989700081A28 /* Build configuration list for PBXNativeTarget "Budgeter" */;
 			buildPhases = (
+				CB81F933F2B042C767B72299 /* [CP] Check Pods Manifest.lock */,
 				AAB5385126E2989600081A28 /* Sources */,
 				AAB5385226E2989600081A28 /* Frameworks */,
 				AAB5385326E2989600081A28 /* Resources */,
+				460DC869262CBCB3028BCEE0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -329,6 +344,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		460DC869262CBCB3028BCEE0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Budgeter/Pods-Budgeter-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Budgeter/Pods-Budgeter-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Budgeter/Pods-Budgeter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CB81F933F2B042C767B72299 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Budgeter-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AAB5385126E2989600081A28 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -348,7 +405,7 @@
 				AAB5388E26E2C57B00081A28 /* SavingsViewController.swift in Sources */,
 				AAB5385926E2989600081A28 /* AppDelegate.swift in Sources */,
 				AA990CD426EAD67A0044F1C7 /* GotPaidViewController.swift in Sources */,
-				AA1203DB283E7077009E68A8 /* NewExpensesViewController.swift in Sources */,
+				AA1203DB283E7077009E68A8 /* ExpensesViewController.swift in Sources */,
 				AAB5389426E2C5B600081A28 /* SavingsDetailViewController.swift in Sources */,
 				AA6173A726E41A9E00F6737F /* Budget.swift in Sources */,
 				AA899D0D26E7CFED00A93FCB /* DebtDetailViewController.swift in Sources */,
@@ -362,7 +419,6 @@
 				AAB5385B26E2989600081A28 /* SceneDelegate.swift in Sources */,
 				AAB5388226E2ACDE00081A28 /* BudgetTableViewCell.swift in Sources */,
 				AAB5388C26E2C56800081A28 /* IncomeViewController.swift in Sources */,
-				AAB5389026E2C58400081A28 /* ExpensesViewController.swift in Sources */,
 				AA61739F26E4167A00F6737F /* ExpenseController.swift in Sources */,
 				AA61739D26E4166E00F6737F /* DebtController.swift in Sources */,
 				AAB5386326E2989700081A28 /* Budgeter.xcdatamodeld in Sources */,
@@ -509,19 +565,20 @@
 		};
 		AAB5386D26E2989700081A28 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B266C9E7CCB5B6DF16863788 /* Pods-Budgeter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Budgeter/Budgeter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 3.0;
 				DEVELOPMENT_TEAM = XA96DJZ7VH;
 				INFOPLIST_FILE = Budgeter/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Andersen.Budgeter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -531,19 +588,20 @@
 		};
 		AAB5386E26E2989700081A28 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8879B591E51AF771107AA7FA /* Pods-Budgeter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Budgeter/Budgeter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 3.0;
 				DEVELOPMENT_TEAM = XA96DJZ7VH;
 				INFOPLIST_FILE = Budgeter/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Andersen.Budgeter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -6,7 +6,7 @@ target 'Budgeter' do
   use_frameworks!
 
   # Pods for Budgeter
-  pod 'Charts'
-  pod 'ViewAnimator'
+pod 'ViewAnimator'
+pod 'Charts'
 
 end

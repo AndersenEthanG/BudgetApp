@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ViewAnimator
 
 class BudgetViewController: UIViewController {
     
@@ -52,6 +53,13 @@ class BudgetViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // View Animator stuff
+        topHalfStack.animate(animations: [AnimationType.from(direction: .top, offset: 300)], duration: 0.7)
+        
+        let animation = AnimationType.from(direction: .bottom, offset: 300)
+        UIView.animate(views: tableView.visibleCells, animations: [animation], duration: 1)
+        
         
         cleanDataAndView()
         fetchPurchases()

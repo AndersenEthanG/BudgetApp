@@ -1,8 +1,10 @@
 PODS:
-  - Charts (3.6.0):
-    - Charts/Core (= 3.6.0)
-  - Charts/Core (3.6.0)
-  - ViewAnimator (3.0.2)
+  - Charts (4.0.3):
+    - Charts/Core (= 4.0.3)
+  - Charts/Core (4.0.3):
+    - SwiftAlgorithms (~> 1.0)
+  - SwiftAlgorithms (1.0.0)
+  - ViewAnimator (3.1.0)
 
 DEPENDENCIES:
   - Charts
@@ -11,12 +13,14 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Charts
+    - SwiftAlgorithms
     - ViewAnimator
 
 SPEC CHECKSUMS:
-  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
-  ViewAnimator: 16435576cd44fca0b0d63147d5031fd3e91d295a
+  Charts: d959d6723c8eedfdd0735dfc28cb0a71762ac4d9
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
+  ViewAnimator: a9ceed80266e00fd435ec4fb99b2df64d580d0e4
 
-PODFILE CHECKSUM: 5104a97b5f02f956b216f64ce16a9c9b80979540
+PODFILE CHECKSUM: ae2016a1309451ba5711a5d6bd1e73b995c5a1a5
 
 COCOAPODS: 1.11.3

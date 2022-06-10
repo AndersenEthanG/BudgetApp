@@ -6,26 +6,27 @@
 //
 
 import UIKit
+import ViewAnimator
 
-class OldExpenseViewController: UIViewController {
+class ExpenseViewController: UIViewController {
     
     // MARK: - Outlets
-    @IBOutlet weak var expensesLabel: UILabel!
-    @IBOutlet weak var segmentedController: UISegmentedControl!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var sortByButton: UIButton!
+    @IBOutlet weak var topHalfStack: UIStackView!
+    @IBOutlet weak var expenseTotalLabel: UILabel!
+    @IBOutlet weak var expenseTotalSegmentedContoller: UISegmentedControl!
     @IBOutlet weak var filterByButton: UIButton!
+    @IBOutlet weak var sortByButton: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
-    
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Properties
-    var expenses: [Expense] = []
-    var filteredExpenses: [Expense] = []
-    var expensesToShow: [Expense] = []
-    var segmentIndex: FilterBy = .month
-    var sortBy: SortBy = .byValueDescending
-    var paymentSource: String = "All"
-    
+    var expensesOriginal: [Expense] = []
+    var expensesToDisplay: [Expense] = []
+    var expenseTotalSegmentIndex = 1
+    var expenseTotalSegmentFilterByType: FilterBy = .month
+    var filterByPaymentSourceText: String = "All"
+    var sortByValue: SortBy = .byValueDescending
+    var searchText: String = ""
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -33,103 +34,86 @@ class OldExpenseViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        
         searchBar.delegate = self
         
-        setupKeyboard()
-        
         fetchExpenses()
+        loadDataAndView()
     } // End of View did load
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        searchBar.text = ""
-        sortBy = .byValueDescending
+        // View Animator stuff
+        topHalfStack.animate(animations: [AnimationType.from(direction: .right, offset: 300)], duration: 0.7)
+        
+        let animation = AnimationType.from(direction: .right, offset: 300)
+        UIView.animate(views: tableView.visibleCells, animations: [animation], duration: 1)
         
         fetchExpenses()
-    } // End of View will appear
+        loadDataAndView()
+    } // End of view will appear
     
     
     // MARK: - Functions
+    func loadDataAndView() {
+        self.expensesToDisplay = self.expensesOriginal
+        
+        updateExpenses()
+        updateView()
+    } // End of reload data and view
+    
     func fetchExpenses() {
         ExpenseController.sharedInstance.fetchExpenses { fetchedExpenses in
-            self.expenses = []
-            self.expenses = fetchedExpenses
+            self.expensesOriginal = []
+            self.expensesOriginal = fetchedExpenses
             
-            self.updateView()
+            self.expensesToDisplay = self.expensesOriginal
         }
-    } // End of Fetch Expenses
+    } // End of fetch expenses
     
-    func updateView() {
-        filterExpensesBySource()
-        sortExpenses()
-        tableView.reloadData()
-    } // End of Update View
+    func updateExpenses() {
+        filterByPaymentSource()
+        filterBySortBy()
+        filterBySearchTerms()
+    } // End of update expenses
     
-    func updateExpensesLabel() {
-        let filterBy = self.segmentIndex
+    func filterByPaymentSource() {
+        let paymentSource = self.filterByPaymentSourceText
+        var selectedExpenses: [Expense] = []
         
-        var finalNumber: Double = 0
-        
-        for expense in filteredExpenses {
-            let rate = expense.amount
-            let currentRate: FilterBy = (expense.frequency?.formatToFilterBy())!
-            let desiredRate = filterBy
-            
-            let result = convertRate(rate: rate, currentRate: currentRate, desiredRate: desiredRate)
-            
-            finalNumber += result
+        for expense in self.expensesToDisplay {
+            if expense.paymentSource == paymentSource || paymentSource == "All" {
+                selectedExpenses.append(expense)
+            }
         } // End of Loop
         
-        let preText = "Total Expenses: "
-        expensesLabel.text = ( preText + finalNumber.formatDoubleToMoneyString() )
-    } // End of Update expenses label
+        expensesToDisplay = selectedExpenses
+    } // End of filter by payment source
     
-    func updateSegmentedController() {
-        var finalFilter: FilterBy = segmentIndex
-        
-        switch segmentIndex {
-        case .sorted:
-            print("Is line \(#line) working?")
-        case .hour:
-            print("Is line \(#line) working?")
-        case .day:
-            print("Is line \(#line) working?")
-        case .week:
-            finalFilter = .week
-        case .month:
-            finalFilter = .month
-        case .year:
-            finalFilter = .year
-        } // End of Switch
-        
-        self.segmentIndex = finalFilter
-        updateExpensesLabel()
-    } // End of Update filter by
-    
-    func sortExpenses() {
-        let sortBy = self.sortBy
+    func filterBySortBy() {
+        let sortBy = self.sortByValue
         
         switch sortBy {
-            
         case .byValueAscending:
-            filteredExpenses.sort {
+            expensesToDisplay.sort {
                 convertRate(rate: $0.amount, currentRate: ($0.frequency?.formatToFilterBy())!, desiredRate: .year) < convertRate(rate: $1.amount, currentRate: ($1.frequency?.formatToFilterBy())!, desiredRate: .year)
             }
+            // End of by value ascending
             
         case .byValueDescending:
-            filteredExpenses.sort {
+            expensesToDisplay.sort {
                 convertRate(rate: $0.amount, currentRate: ($0.frequency?.formatToFilterBy())!, desiredRate: .year) > convertRate(rate: $1.amount, currentRate: ($1.frequency?.formatToFilterBy())!, desiredRate: .year)
             }
+            // End of By value descending
             
         case .alphabetically:
-            // This doesn't really need to do anything (You can't even select it)
+            // This isn't an option
             print("Is line \(#line) working?")
+            // End of Alphabetically
             
         case .byDateAscending:
             var sortedExpenses: [Expense] = []
-            for expense in filteredExpenses {
+            for expense in expensesToDisplay {
                 if expense.paymentDate != "" && expense.paymentDate != "none" && expense.paymentDate != nil {
                     sortedExpenses.append(expense)
                 }
@@ -138,12 +122,13 @@ class OldExpenseViewController: UIViewController {
                     ($0.paymentDate!.turnPaymentDateToInt()) < ($1.paymentDate!.turnPaymentDateToInt())
                 }
                 
-                self.filteredExpenses = sortedExpenses
+                self.expensesToDisplay = sortedExpenses
             }
+            // End of By Date Ascending
             
         case .byDateDescending:
             var sortedExpenses: [Expense] = []
-            for expense in filteredExpenses {
+            for expense in expensesToDisplay {
                 if expense.paymentDate != "" && expense.paymentDate != "none" && expense.paymentDate != nil {
                     sortedExpenses.append(expense)
                 }
@@ -152,17 +137,65 @@ class OldExpenseViewController: UIViewController {
                     ($0.paymentDate!.turnPaymentDateToInt()) > ($1.paymentDate!.turnPaymentDateToInt())
                 }
                 
-                self.filteredExpenses = sortedExpenses
+                self.expensesToDisplay = sortedExpenses
             }
-        } // End of Switch
+            // End of by Date descending
+        } // End of Sort by
+    } // End of filter by sort by
+    
+    func filterBySearchTerms() {
+        let searchText = self.searchText
+        var searchedExpenses: [Expense] = []
         
+        if searchText == "" {
+            searchedExpenses = self.expensesToDisplay
+            self.expensesToDisplay = searchedExpenses
+        } else {
+            for expense in expensesToDisplay {
+                if String(expense.amount).lowercased().contains(searchText) == true ||
+                    expense.paymentSource?.lowercased().contains(searchText) == true ||
+                    expense.frequency?.lowercased().contains(searchText) == true ||
+                    expense.name?.lowercased().contains(searchText) == true ||
+                    expense.paymentDate?.lowercased().contains(searchText) == true {
+                    
+                    searchedExpenses.append(expense)
+                } // End of object search If Conditions
+            } // End of Loop
+            
+            self.expensesToDisplay = searchedExpenses
+        } // End of Else search has text
+    } // End of filter by search terms
+    
+    func updateView() {
+        updateTotalExpenseLabel()
+        expenseTotalSegmentedContoller.selectedSegmentIndex = expenseTotalSegmentIndex
+        filterByButton.setTitle("Filter By: \(self.filterByPaymentSourceText)", for: .normal)
         updateSortByButton()
-        updateExpensesLabel()
-    } // End of Sort data
+        tableView.reloadData()
+    } // End of update view
+    
+    func updateTotalExpenseLabel() {
+        let filterBy = self.expenseTotalSegmentFilterByType
+        var finalNumber: Double = 0
+        
+        for expense in expensesToDisplay {
+            let rate = expense.amount
+            let currentRate: FilterBy = (expense.frequency?.formatToFilterBy())!
+            let desiredRate = filterBy
+            
+            let result = convertRate(rate: rate, currentRate: currentRate, desiredRate: desiredRate)
+            
+            finalNumber += result
+        } // End of loop
+        
+        let preText = "Total Expenses: "
+        expenseTotalLabel.text = (preText + finalNumber.formatDoubleToMoneyString())
+        
+    } // End of update total expense label
     
     func updateSortByButton() {
         var updatedTitle: String = ""
-        switch sortBy {
+        switch sortByValue {
         case .byValueAscending:
             updatedTitle = "Sort By: Amount Asc."
         case .byValueDescending:
@@ -175,99 +208,45 @@ class OldExpenseViewController: UIViewController {
             updatedTitle = "Sort By: Date Desc."
         }
         sortByButton.setTitle(updatedTitle, for: .normal)
-    } // End of update filter by button Function
-    
-    func filterExpensesBySource() {
-        let paymentSource = self.paymentSource
-        var selectedExpenses: [Expense] = []
-        
-        for expense in expenses {
-            if expense.paymentSource == paymentSource || paymentSource == "All" {
-                selectedExpenses.append(expense)
-            }
-        } // End of Loop
-        
-        filteredExpenses = selectedExpenses
-        filterByButton.setTitle("Filter By: \(paymentSource)", for: .normal)
-        
-        updateSegmentedController()
-    } // End of filter expenses
+    } // End of update sort by button
     
     
     // MARK: - Actions
-    @IBAction func segmentDidChange(_ sender: Any) {
-        var finalIndex: FilterBy = segmentIndex
+    @IBAction func expenseTotalSegmentedControllerDidChange(_ sender: Any) {
+        var returnIndexValue: FilterBy = expenseTotalSegmentFilterByType
         
-        switch segmentedController.selectedSegmentIndex {
+        switch expenseTotalSegmentedContoller.selectedSegmentIndex {
         case 0:
-            // Week
-            finalIndex = .week
+            returnIndexValue = .week
         case 1:
-            // Month
-            finalIndex = .month
+            returnIndexValue = .month
         case 2:
-            // Year
-            finalIndex = .year
+            returnIndexValue = .year
         default:
             print("Is line \(#line) working?")
         } // End of Switch
         
-        segmentIndex = finalIndex
-        updateView()
-    } // End of Segment did change
+        self.expenseTotalSegmentFilterByType = returnIndexValue
+        updateTotalExpenseLabel()
+    } // End of seg controller did change
     
-    
-    @IBAction func sortByBtn(_ sender: Any) {
-        let alert = UIAlertController(title: "Sort By", message: "How would you like to sort your expenses?", preferredStyle: .actionSheet)
-        
-        let valueDescendingAction = UIAlertAction(title: "Amount Desc.", style: .default) { action in
-            self.sortBy = .byValueDescending
-            self.updateView()
-        }
-        alert.addAction(valueDescendingAction)
-        
-        let valueAscendingAction = UIAlertAction(title: "Amount Asc.", style: .default) { action in
-            self.sortBy = .byValueAscending
-            self.updateView()
-        }
-        alert.addAction(valueAscendingAction)
-        
-        let dateDescendingAction = UIAlertAction(title: "Date Desc.", style: .default) { action in
-            self.sortBy = .byDateDescending
-            self.updateView()
-        }
-        alert.addAction(dateDescendingAction)
-        
-        let dateAscendingAction = UIAlertAction(title: "Date Asc.", style: .default) { action in
-            self.sortBy = .byDateAscending
-            self.updateView()
-        }
-        alert.addAction(dateAscendingAction)
-        
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
-        
-        navigationController?.present(alert, animated: true, completion: nil)
-    } // End of Sort By Button
-    
-    
-    @IBAction func filterByBtn(_ sender: Any) {
+    @IBAction func filterByBtnTap(_ sender: Any) {
         let alert = UIAlertController(title: "Filter By Payment Source", message: "Select which payment source you want to see ", preferredStyle: .actionSheet)
         
         // Normal actions
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         let allAction = UIAlertAction(title: "All", style: .destructive) { action in
-            self.paymentSource = "All"
-            self.updateView()
+            self.filterByPaymentSourceText = "All"
+            self.loadDataAndView()
         }
         alert.addAction(allAction)
         
         
         var duplicationCheck: [String] = []
+        
         // Get all the payment source options
-        for expense in self.expenses {
+        for expense in self.expensesOriginal {
             let paymentSource = expense.paymentSource
             
             if !duplicationCheck.contains(paymentSource!) && paymentSource != "" && paymentSource != nil {
@@ -277,8 +256,10 @@ class OldExpenseViewController: UIViewController {
                 let newAction = UIAlertAction(title: paymentSource, style: .default) { action in
                     let selectedPaymentSource = paymentSource!
                     
-                    self.paymentSource = selectedPaymentSource
-                    self.updateView()
+                    self.filterByPaymentSourceText = selectedPaymentSource
+                    
+                    // Update everything
+                    self.loadDataAndView()
                 } // End of New action
                 
                 alert.addAction(newAction)
@@ -289,8 +270,47 @@ class OldExpenseViewController: UIViewController {
         alert.addAction(cancelAction)
         
         present(alert, animated: true, completion: nil)
-    } // End of Filter by Button
+    } // End of Filter by button tapped
     
+    @IBAction func sortByBtnTap(_ sender: Any) {
+        let alert = UIAlertController(title: "Sort By", message: "How would you like to sort your expenses?", preferredStyle: .actionSheet)
+        
+        let valueDescendingAction = UIAlertAction(title: "Amount Desc.", style: .default) { action in
+            self.sortByValue = .byValueDescending
+            self.loadDataAndView()
+        }
+        alert.addAction(valueDescendingAction)
+        
+        let valueAscendingAction = UIAlertAction(title: "Amount Asc.", style: .default) { action in
+            self.sortByValue = .byValueAscending
+            self.loadDataAndView()
+        }
+        alert.addAction(valueAscendingAction)
+        
+        let dateDescendingAction = UIAlertAction(title: "Date Desc.", style: .default) { action in
+            self.sortByValue = .byDateDescending
+            self.loadDataAndView()
+        }
+        alert.addAction(dateDescendingAction)
+        
+        let dateAscendingAction = UIAlertAction(title: "Date Asc.", style: .default) { action in
+            self.sortByValue = .byDateAscending
+            self.loadDataAndView()
+        }
+        alert.addAction(dateAscendingAction)
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        navigationController?.present(alert, animated: true, completion: nil)
+    } // End of Sort by button tapped
+    
+    
+    // MARK: - Keyboard things
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    } // End of Touches began
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -299,123 +319,53 @@ class OldExpenseViewController: UIViewController {
                   let indexPath = tableView.indexPathForSelectedRow else { return }
             
             // Data
-            let expense = filteredExpenses[indexPath.row]
+            let expense = expensesToDisplay[indexPath.row]
             
             // Set data
             destinationVC.expense = expense
         }
     } // End of Segue
     
-    
-    // MARK: - Keyboard things
-    func setupKeyboard() {
-        NotificationCenter.default.addObserver(self, selector: #selector(OldExpenseViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(OldExpenseViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+} // End of View Controller
+
+// MARK: - Search bar extension
+extension ExpenseViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let searchText = searchText.lowercased()
         
-        let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.default
-        toolBar.sizeToFit()
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(image: UIImage(systemName: "keyboard.chevron.compact.down"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.keyboardWillHide(notification:)))
-        toolBar.setItems([spaceButton, doneButton], animated: false)
+        self.searchText = searchText
         
-        searchBar.inputAccessoryView = toolBar
-    } // End of Setup keyboard
-    
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        segmentedController.isEnabled = false
-        sortByButton.isEnabled = false
-        filterByButton.isEnabled = false
-    } // End of keyboard will show
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        self.view.endEditing(true)
-        
-        segmentedController.isEnabled = true
-        sortByButton.isEnabled = true
-        filterByButton.isEnabled = true
-        
-        if searchBar.text == "" {
-            self.filteredExpenses = expenses
-            updateView()
-        }
-    } // End of Keyboard will hide
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-        
-        if searchBar.text == "" {
-            self.filteredExpenses = expenses
-            updateView()
-        }
-    } // End of Touches began
-    
-} // End of Expense View Controller
+        filterBySearchTerms()
+        loadDataAndView()
+    } // End of Text did change
+
+} // End of Search Bar Delegate Extension
 
 
 // MARK: - Table View Extension
-extension OldExpenseViewController: UITableViewDelegate, UITableViewDataSource {
-    // Number of rows
+extension ExpenseViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredExpenses.count
-    } // End of Number of rows
+        return expensesToDisplay.count
+    }
     
-    // Cell for row at
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "expenseCell", for: indexPath) as? ExpenseTableViewCell else { return ExpenseTableViewCell() }
-        let expense = filteredExpenses[indexPath.row]
+        
+        let expense = expensesToDisplay[indexPath.row]
         
         cell.expense = expense
         
         return cell
-    } // End of Cell data
+    } // End of Cell for row at
     
-    // Delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let expenseToDelete = filteredExpenses[indexPath.row]
+            let expenseToDelete = expensesToDisplay[indexPath.row]
             
             ExpenseController.sharedInstance.deleteExpense(expenseToDelete: expenseToDelete)
             
+            tableView.reloadData()
             fetchExpenses()
         }
-    } // End of Delete
-    
-} // End of table view Extension
-
-
-// MARK: - Search Bar extension
-extension OldExpenseViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        let searchText = searchText.lowercased()
-        
-        // Filter set to all
-        paymentSource = "All"
-        updateView()
-        sortBy = .byValueDescending
-        
-        if searchText == "" {
-            self.filteredExpenses = expenses
-        } else {
-            
-            var selectedExpenses: [Expense] = []
-            
-            // Go through all of the text of all of the expenses to check for a match
-            for expense in self.expenses {
-                if String(expense.amount).lowercased().contains(searchText) == true ||
-                    expense.paymentSource?.lowercased().contains(searchText) == true ||
-                    expense.frequency?.lowercased().contains(searchText) == true ||
-                    expense.name?.lowercased().contains(searchText) == true ||
-                    expense.paymentDate?.lowercased().contains(searchText) == true {
-                    
-                    // Append to the new array
-                    selectedExpenses.append(expense)
-                } // End of Big if statement
-            } // End of Loop
-            self.filteredExpenses = selectedExpenses
-        } // End of if the search text is blank
-        
-        updateView()
-    } // End of text did change
-} // End of Search bar extension
+    } // End of Delete row
+} // End of Extension
