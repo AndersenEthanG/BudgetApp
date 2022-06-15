@@ -368,4 +368,8 @@ extension ExpenseViewController: UITableViewDelegate, UITableViewDataSource {
             loadDataAndView()
         }
     } // End of Delete row
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.view.endEditing(true)
+    }
 } // End of Extension

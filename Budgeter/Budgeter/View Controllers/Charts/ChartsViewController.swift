@@ -34,7 +34,6 @@ class ChartsViewController: UIViewController, ChartViewDelegate {
     }() // End of Line chart view
     
     
-    
     // MARK: - Lifecycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -46,6 +45,7 @@ class ChartsViewController: UIViewController, ChartViewDelegate {
         
         lineChartView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.width)
         lineChartView.center = view.center
+        lineChartView.isUserInteractionEnabled = false
         
         updateChartDataSource()
     } // End of View will appear
