@@ -318,7 +318,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Izz-Hs-lGK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6522.8971962616815" y="847.51619870410377"/>
+            <point key="canvasLocation" x="7422.8971962616815" y="847.51619870410377"/>
         </scene>
         <!--New Income-->
         <scene sceneID="qPa-VW-hD5">
@@ -396,7 +396,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oSb-Ff-VI1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5438" y="317"/>
+            <point key="canvasLocation" x="6337.8504672897188" y="316.84665226781857"/>
         </scene>
         <!--Assets-->
         <scene sceneID="Zjv-00-B4E">
@@ -774,6 +774,44 @@
             </objects>
             <point key="canvasLocation" x="3417.7570093457944" y="-426.34989200863936"/>
         </scene>
+        <!--Charts-->
+        <scene sceneID="dj3-TR-KOT">
+            <objects>
+                <viewController id="auJ-xH-GYH" customClass="ChartsViewController" customModule="Budgeter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Usn-Nu-Iq8">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="IDa-dM-LVO">
+                                <rect key="frame" x="124" y="108" width="180" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="Pn1-mp-4fZ"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Purchases"/>
+                                    <segment title="Expenses"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentDidChange:" destination="auJ-xH-GYH" eventType="valueChanged" id="Jx5-Kz-GLm"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="3ze-ge-tw9"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="IDa-dM-LVO" firstAttribute="top" secondItem="3ze-ge-tw9" secondAttribute="top" constant="20" id="l21-Xg-JcA"/>
+                            <constraint firstItem="IDa-dM-LVO" firstAttribute="centerX" secondItem="3ze-ge-tw9" secondAttribute="centerX" id="lYw-GG-FzL"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Charts" id="24u-Xk-wLx"/>
+                    <connections>
+                        <outlet property="segmentedController" destination="IDa-dM-LVO" id="G8Q-fT-Qzd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fqf-bU-1VO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="771.02803738317755" y="399.78401727861774"/>
+        </scene>
         <!--mainVC-->
         <scene sceneID="4ol-KN-3dy">
             <objects>
@@ -788,11 +826,12 @@
                         <segue destination="cB8-Qc-T8i" kind="relationship" relationship="viewControllers" id="IvW-Sx-S88"/>
                         <segue destination="mSK-HX-XeA" kind="relationship" relationship="viewControllers" id="7h6-Da-cVW"/>
                         <segue destination="gVA-h2-fvP" kind="relationship" relationship="viewControllers" id="1pY-3A-Ijb"/>
+                        <segue destination="Q5G-aW-GaS" kind="relationship" relationship="viewControllers" id="cSt-am-OB1"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JaG-MF-fk0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2136" y="400"/>
+            <point key="canvasLocation" x="3035.0467289719622" y="399.78401727861774"/>
         </scene>
         <!--Incomes-->
         <scene sceneID="vWS-tr-QGT">
@@ -889,7 +928,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mXa-aZ-0PI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4428.5046728971956" y="316.84665226781857"/>
+            <point key="canvasLocation" x="5327.1028037383176" y="316.19870410367173"/>
         </scene>
         <!--Expenses-->
         <scene sceneID="3IB-Bf-cP2">
@@ -1575,6 +1614,25 @@
             </objects>
             <point key="canvasLocation" x="1638.7850467289718" y="-426.34989200863936"/>
         </scene>
+        <!--Charts-->
+        <scene sceneID="hLu-al-9gi">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Q5G-aW-GaS" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Charts" image="chart.xyaxis.line" catalog="system" landscapeImage="chart.xyaxis.line" selectedImage="chart.xyaxis.line" id="wZP-Gm-Xbq"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SgC-rZ-nRG">
+                        <rect key="frame" x="0.0" y="44" width="428" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="auJ-xH-GYH" kind="relationship" relationship="rootViewController" id="lYc-HR-X7W"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IW9-Od-mYz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1639" y="400"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="YUx-VM-4cP"/>
@@ -1585,6 +1643,7 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="books.vertical.fill" catalog="system" width="128" height="109"/>
+        <image name="chart.xyaxis.line" catalog="system" width="128" height="101"/>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="creditcard.fill" catalog="system" width="128" height="88"/>
         <image name="dollarsign.circle.fill" catalog="system" width="128" height="121"/>

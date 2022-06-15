@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA03F7E32853CDCB0023CF37 /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA03F7E22853CDCB0023CF37 /* ChartsViewController.swift */; };
 		AA1009A326E2CD9900D6F23B /* AssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1009A226E2CD9900D6F23B /* AssetsViewController.swift */; };
 		AA1203DB283E7077009E68A8 /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1203DA283E7077009E68A8 /* ExpensesViewController.swift */; };
 		AA61739726E411F200F6737F /* CoreData+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA61739626E411F200F6737F /* CoreData+Convenience.swift */; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		8879B591E51AF771107AA7FA /* Pods-Budgeter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Budgeter.release.xcconfig"; path = "Target Support Files/Pods-Budgeter/Pods-Budgeter.release.xcconfig"; sourceTree = "<group>"; };
+		AA03F7E22853CDCB0023CF37 /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
 		AA1009A226E2CD9900D6F23B /* AssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsViewController.swift; sourceTree = "<group>"; };
 		AA1203DA283E7077009E68A8 /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
 		AA61739626E411F200F6737F /* CoreData+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreData+Convenience.swift"; sourceTree = "<group>"; };
@@ -109,6 +111,14 @@
 				8879B591E51AF771107AA7FA /* Pods-Budgeter.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		AA03F7E42853CDD60023CF37 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				AA03F7E22853CDCB0023CF37 /* ChartsViewController.swift */,
+			);
+			path = Charts;
 			sourceTree = "<group>";
 		};
 		AA1009A126E2CD8C00D6F23B /* Portfolio */ = {
@@ -207,6 +217,7 @@
 			children = (
 				AAB5388026E2AC8B00081A28 /* Budget */,
 				AA1009A126E2CD8C00D6F23B /* Portfolio */,
+				AA03F7E42853CDD60023CF37 /* Charts */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -416,6 +427,7 @@
 				AA6173A126E4168200F6737F /* IncomeController.swift in Sources */,
 				AA6173A326E4168900F6737F /* PurchaseController.swift in Sources */,
 				AA899D0B26E7CD3700A93FCB /* DebtTableViewCell.swift in Sources */,
+				AA03F7E32853CDCB0023CF37 /* ChartsViewController.swift in Sources */,
 				AAB5385B26E2989600081A28 /* SceneDelegate.swift in Sources */,
 				AAB5388226E2ACDE00081A28 /* BudgetTableViewCell.swift in Sources */,
 				AAB5388C26E2C56800081A28 /* IncomeViewController.swift in Sources */,

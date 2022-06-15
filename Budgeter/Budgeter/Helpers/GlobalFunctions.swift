@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Charts
 
 // This is a refresh thing
 var UserDidLogInForFirstTime: Bool = false
@@ -401,3 +402,141 @@ func getAllPaymentSourceStrings(🐶: @escaping ([String]) -> Void) {
         🐶(allStrings)
     } // End of Fetch expenses
 } // End of Get all payment strings
+
+
+// MARK: - Chart Helper Struct
+struct UnsortedChartStruct {
+    var dayNumber: Double
+    var amount: Double
+} // End of unsorted chart struct
+
+struct ChartViewHelper {
+    func getPurchasesChartData() -> LineChartData {
+        var finalLineChartDataEntries = [ChartDataEntry]()
+        var purchases: [Purchase] = []
+        
+        // Get all of the data
+        PurchaseController.sharedInstance.fetchPurchases { fetchedPurchases in
+            purchases = fetchedPurchases
+        } // End of fetch purchases
+        
+        // Only get this month
+        purchases = sortPurchasesByTimeArray(arrayToFilter: purchases, filterBy: .month)
+        
+        // Sort to days
+        var unSortedPurchases: [UnsortedChartStruct] = []
+        
+        for purchase in purchases {
+            
+            // Get just the day
+            let date = purchase.purchaseDate ?? Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "d"
+            let dayOfTheWeekString = dateFormatter.string(from: date)
+
+            let dayNumber = Double(dayOfTheWeekString) ?? 0
+            let amount = purchase.amount
+            
+            let newItem = UnsortedChartStruct(dayNumber: dayNumber, amount: amount)
+            
+            unSortedPurchases.append(newItem)
+        } // End of Loop
+        
+        let sortedPurchases = unSortedPurchases.sorted(by: {
+            $0.dayNumber < $1.dayNumber
+        })
+        
+        var countingNumber: Double = 0
+        
+        for purchase in sortedPurchases {
+            
+            countingNumber += purchase.amount
+            
+            finalLineChartDataEntries.append(ChartDataEntry(x: purchase.dayNumber, y: countingNumber))
+        }
+        
+        // Return data
+        let chartDataSet = LineChartDataSet(entries: finalLineChartDataEntries)
+        
+        chartDataSet.drawCirclesEnabled = false
+        chartDataSet.lineWidth = 2
+        chartDataSet.mode = .horizontalBezier
+        chartDataSet.valueTextColor = .black
+        chartDataSet.setColor(hexStringToUIColor(hex: CustomColors.green ))
+        chartDataSet.label = "Purchases"
+        
+        return LineChartData(dataSet: chartDataSet)
+    } // End of get purchases chart data
+    
+    
+    func getExpensesChartData() -> LineChartData {
+        var finalLineChartDataEntries = [ChartDataEntry]()
+        var expenses: [Expense] = []
+        
+        // Get all of the data
+        ExpenseController.sharedInstance.fetchExpenses(🐶: { fetchedExpenses in
+            expenses = fetchedExpenses
+        })
+
+        // Make into an usable object
+        var newExpenses: [UnsortedChartStruct] = []
+        
+        for expense in expenses {
+    
+            // Decided to make it random if the expense doesn't have a payment date
+            if expense.paymentDate == "" {
+                let randomDates = ["2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27"]
+                expense.paymentDate = randomDates.randomElement()
+            } // End of if the expense doesn't have a payment date
+            
+            let dayNumber: Double = Double(expense.paymentDate ?? "0") ?? 0
+            let amount: Double = expense.amount
+            
+            let newExpense = UnsortedChartStruct(dayNumber: dayNumber, amount: amount)
+            
+            newExpenses.append(newExpense)
+        }
+        
+        // Sort new expenses by date
+        newExpenses = newExpenses.sorted(by: {
+            $0.dayNumber < $1.dayNumber
+        })
+        
+        // Make one expense higher after another for graph
+        var finalExpenses: [UnsortedChartStruct] = []
+        finalExpenses.append(UnsortedChartStruct(dayNumber: 0, amount: 0))
+        
+        var countingNumber: Double = 0
+        
+        for expense in newExpenses {
+            
+            countingNumber += expense.amount
+            
+            let newAmount = countingNumber
+            
+            let newElement = UnsortedChartStruct(dayNumber: expense.dayNumber, amount: newAmount)
+            finalExpenses.append(newElement)
+        }
+        
+        finalExpenses.append(UnsortedChartStruct(dayNumber: 29, amount: countingNumber + 1))
+        
+        
+        // Put the data into usable chart stuff
+        for expense in finalExpenses {
+            finalLineChartDataEntries.append(ChartDataEntry(x: expense.dayNumber, y: expense.amount))
+        }
+        
+        // Return the Data
+        // Return data
+        let chartDataSet = LineChartDataSet(entries: finalLineChartDataEntries)
+        
+        chartDataSet.drawCirclesEnabled = false
+        chartDataSet.lineWidth = 2
+        chartDataSet.mode = .horizontalBezier
+        chartDataSet.valueTextColor = .black
+        chartDataSet.setColor(hexStringToUIColor(hex: CustomColors.red ))
+        chartDataSet.label = "Expenses"
+        
+        return LineChartData(dataSet: chartDataSet)
+    } // End of get expensese chart data
+} // End of chart view helper struct

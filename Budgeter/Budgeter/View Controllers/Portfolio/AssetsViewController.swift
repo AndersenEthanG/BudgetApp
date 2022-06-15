@@ -103,12 +103,12 @@ class AssetsViewController: UIViewController {
             dataAssets.sort {
                 $0.value < $1.value
             }
-            self.sortByBtn.setTitle("Sort By: Ascending", for: .normal)
+            self.sortByBtn.setTitle("Sort By Value Asc.", for: .normal)
         case .byValueDescending:
             dataAssets.sort {
                 $0.value > $1.value
             }
-            self.sortByBtn.setTitle("Sort By: Descending", for: .normal)
+            self.sortByBtn.setTitle("Sort By Value Desc.", for: .normal)
         case .alphabetically:
             //TODO(ethan) Figure out how to sort strings
             print("Is line \(#line) working?")

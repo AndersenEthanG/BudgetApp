@@ -36,18 +36,18 @@ class ExpenseViewController: UIViewController {
         tableView.dataSource = self
         searchBar.delegate = self
         
+        // View Animator stuff
+        topHalfStack.animate(animations: [AnimationType.from(direction: .right, offset: 300)], duration: 0.7)
+        
+        let animation = AnimationType.from(direction: .right, offset: 300)
+        UIView.animate(views: tableView.visibleCells, animations: [animation], duration: 1)
+        
         fetchExpenses()
         loadDataAndView()
     } // End of View did load
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // View Animator stuff
-        topHalfStack.animate(animations: [AnimationType.from(direction: .right, offset: 300)], duration: 0.7)
-        
-        let animation = AnimationType.from(direction: .right, offset: 300)
-        UIView.animate(views: tableView.visibleCells, animations: [animation], duration: 1)
         
         fetchExpenses()
         loadDataAndView()
@@ -364,8 +364,8 @@ extension ExpenseViewController: UITableViewDelegate, UITableViewDataSource {
             
             ExpenseController.sharedInstance.deleteExpense(expenseToDelete: expenseToDelete)
             
-            tableView.reloadData()
             fetchExpenses()
+            loadDataAndView()
         }
     } // End of Delete row
 } // End of Extension
